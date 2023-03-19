@@ -58,7 +58,7 @@ const animeSchema = mongoose.Schema({
     type: {
         type: String,
         enum: ['TV Series', 'OVA', 'Movie', 'ONA', 'Special', 'N/A'],
-        default: 'TV Series',
+        required: [true, 'Anime must have a type!']
     },
     status: {
         type: String,
@@ -72,12 +72,11 @@ const animeSchema = mongoose.Schema({
     season: {
         type: String,
         enum: ['Xuân', 'Hạ', 'Thu', 'Đông', 'N/A'],
-        default: 'N/A'
+        required: [true, 'Anime must have a season!'],
     },
     quality: {
         type: String,
-        enum: ['SD', 'HD', 'FullHD', 'N/A'],
-        default: 'SD'
+        enum: ['SD', 'HD', 'FullHD', 'N/A']
     },
     relatedAnimeList: [{
         type: mongoose.Types.ObjectId,

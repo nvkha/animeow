@@ -1,6 +1,7 @@
 const swiper = new Swiper('.swiper', {
     // Optional parameters
     loop: true,
+    allowTouchMove: false,
     effect: 'fade',
     fadeEffect: {
         crossFade: true

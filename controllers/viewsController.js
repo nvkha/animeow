@@ -229,11 +229,18 @@ const getGenres = async () => {
 
 const getVideoSource = async (videoUrl) => {
     const videoId = videoUrl.split('/').pop();
-    logger.info(`Start get video source with id: ${videoId}`);
+    const pageId = videoUrl.split('/')[3];
+
+    let fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_MEOW_MEOW;
+    if(pageId != process.env.FB_PAGE_ID_MEOW_MEOW) {
+        fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_UPLOAD_PRO;
+    }
+
+    logger.info(`Start get video source with id: ${videoId}, page id: ${pageId}`);
     const response = await axios.get(`${process.env.FB_API_HOST}/${videoId}`, {
         params: {
             fields: 'source',
-            access_token: process.env.FB_PAGE_ACCESS_TOKEN
+            access_token: fbAcessToken
         }
     });
     return response.data.source;
