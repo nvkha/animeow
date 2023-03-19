@@ -1,0 +1,190 @@
+<div id="main-sidebar">
+    <!--sidebar block-->
+    <section class="block_area block_area_sidebar block_area-realtime">
+        <div class="block_area-header">
+            <div class="float-left bah-heading mr-2">
+                <h2 class="cat-heading">Top Anime</h2>
+            </div>
+            <div class="float-right bah-tab-min">
+                <ul class="nav nav-pills nav-fill nav-tabs anw-tabs">
+                    <li class="nav-item"><a data-toggle="tab" href="#top-viewed-day"
+                                            class="nav-link active">Ngày</a>
+                    </li>
+                    <li class="nav-item"><a data-toggle="tab" href="#top-viewed-week"
+                                            class="nav-link">Tuần</a></li>
+                    <li class="nav-item"><a data-toggle="tab" href="#top-viewed-month" class="nav-link">Tháng</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="block_area-content">
+            <div class="cbox cbox-list cbox-realtime">
+                <div class="cbox-content">
+                    <div class="tab-content">
+
+                        <div id="top-viewed-day" class="anime-block-ul anif-block-chart tab-pane active">
+                            <ul class="ulclear">
+                                <% if(topMostViewsDay) { %>
+                                    <% for(let i = 0; i < topMostViewsDay.length; i++) { %>
+                                        <% if(i === 0) { %>
+                                            <li class="item-top">
+                                                <div class="film-number"><span><%= i + 1 %></span></div>
+                                                <div class="film-poster item-qtip">
+                                                    <img src="/img/anime/<%= topMostViewsDay[i].image %>"
+                                                         class="film-poster-img"
+                                                         loading="lazy">
+                                                </div>
+                                                <div class="film-detail">
+                                                    <h3 class="film-name">
+                                                        <a href="#"
+                                                           class="dynamic-name"><%= topMostViewsDay[i].title %></a>
+                                                    </h3>
+                                                    <div class="fd-infor">
+                                                    <span class="fdi-item mr-2">
+                                                        <i class="fas fa-eye mr-1"></i>
+                                                        <%= topMostViewsDay[i].views %>
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        <% } else { %>
+                                            <li class="">
+                                                <div class="film-number"><span><%= i + 1 %></span></div>
+                                                <div class="film-poster item-qtip">
+                                                    <img src="/img/anime/<%= topMostViewsDay[i].image %>"
+                                                         class="film-poster-img"
+                                                         loading="lazy">
+                                                </div>
+                                                <div class="film-detail">
+                                                    <h3 class="film-name">
+                                                        <a href="#"
+                                                           class="dynamic-name"><%= topMostViewsDay[i].title %></a>
+                                                    </h3>
+                                                    <div class="fd-infor">
+                                                    <span class="fdi-item mr-2"><i
+                                                                class="fas fa-eye mr-1"></i><%= topMostViewsDay[i].views %></span>
+                                                        <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        <% } %>
+                                    <% } %>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <div id="top-viewed-week" class="anime-block-ul anif-block-chart tab-pane">
+                            <ul class="ulclear">
+                                <% if(topMostViewsWeek) { %>
+                                    <% for(let i = 0; i < topMostViewsWeek.length; i++) { %>
+                                        <% if(i === 0) { %>
+                                            <li class="item-top">
+                                                <div class="film-number"><span><%= i + 1 %></span></div>
+                                                <div class="film-poster item-qtip">
+                                                    <img src="/img/anime/<%= topMostViewsWeek[i].image %>"
+                                                         class="film-poster-img"
+                                                         loading="lazy">
+                                                </div>
+                                                <div class="film-detail">
+                                                    <h3 class="film-name">
+                                                        <a href="#"
+                                                           class="dynamic-name"><%= topMostViewsWeek[i].title %></a>
+                                                    </h3>
+                                                    <div class="fd-infor">
+                                                    <span class="fdi-item mr-2">
+                                                        <i class="fas fa-eye mr-1"></i>
+                                                        <%= topMostViewsWeek[i].views %>
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        <% } else { %>
+                                            <li class="">
+                                                <div class="film-number"><span><%= i + 1 %></span></div>
+                                                <div class="film-poster item-qtip">
+                                                    <img src="/img/anime/<%= topMostViewsWeek[i].image %>"
+                                                         class="film-poster-img"
+                                                         loading="lazy">
+                                                </div>
+                                                <div class="film-detail">
+                                                    <h3 class="film-name">
+                                                        <a href="#"
+                                                           class="dynamic-name"><%= topMostViewsWeek[i].title %></a>
+                                                    </h3>
+                                                    <div class="fd-infor">
+                                                    <span class="fdi-item mr-2"><i
+                                                                class="fas fa-eye mr-1"></i><%= topMostViewsWeek[i].views %></span>
+                                                        <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        <% } %>
+                                    <% } %>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <div id="top-viewed-month" class="anime-block-ul anif-block-chart tab-pane">
+                            <ul class="ulclear">
+                                <% if(topMostViewsMonth) { %>
+                                    <% for(let i = 0; i < topMostViewsMonth.length; i++) { %>
+                                        <% if(i === 0) { %>
+                                            <li class="item-top">
+                                                <div class="film-number"><span><%= i + 1 %></span></div>
+                                                <div class="film-poster item-qtip">
+                                                    <img src="/img/anime/<%= topMostViewsMonth[i].image %>"
+                                                         class="film-poster-img"
+                                                         loading="lazy">
+                                                </div>
+                                                <div class="film-detail">
+                                                    <h3 class="film-name">
+                                                        <a href="#"
+                                                           class="dynamic-name"><%= topMostViewsMonth[i].title %></a>
+                                                    </h3>
+                                                    <div class="fd-infor">
+                                                    <span class="fdi-item mr-2">
+                                                        <i class="fas fa-eye mr-1"></i>
+                                                        <%= topMostViewsMonth[i].views %>
+                                                    </span>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        <% } else { %>
+                                            <li class="">
+                                                <div class="film-number"><span><%= i + 1 %></span></div>
+                                                <div class="film-poster item-qtip">
+                                                    <img src="/img/anime/<%= topMostViewsMonth[i].image %>"
+                                                         class="film-poster-img"
+                                                         loading="lazy">
+                                                </div>
+                                                <div class="film-detail">
+                                                    <h3 class="film-name">
+                                                        <a href="#"
+                                                           class="dynamic-name"><%= topMostViewsMonth[i].title %></a>
+                                                    </h3>
+                                                    <div class="fd-infor">
+                                                    <span class="fdi-item mr-2"><i
+                                                                class="fas fa-eye mr-1"></i><%= topMostViewsMonth[i].views %></span>
+                                                        <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </li>
+                                        <% } %>
+                                    <% } %>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/sidebar block-->
+</div>

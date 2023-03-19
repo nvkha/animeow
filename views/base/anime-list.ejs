@@ -1,0 +1,36 @@
+<section class="block_area block_area-anime none-bg">
+    <div class="block_area-content block_area-list film_list film_list-grid">
+        <div class="film_list-wrap">
+            <% animeList.forEach(function (anime) { %>
+                <div class="flw-item item-qtip">
+                    <div class="film-poster">
+                        <div class="tick-item tick-quality"><%= anime.quality %></div>
+                        <div class="tick ltr">
+                            <div class="tick-item tick-sub">SUB</div>
+                        </div>
+
+                        <div class="tick rtl">
+                            <div class="tick-item tick-eps"><%= anime.runningTime %></div>
+                        </div>
+
+                        <img loading="lazy"
+                             src="/img/anime/<%= anime.image %>"
+                             class="film-poster-img"
+                             alt="<%= anime.title %>">
+                        <a href="/watch/<%= anime.slug %>" class="film-poster-ahref"><i class="fas fa-play"></i></a>
+                    </div>
+                    <div class="film-detail">
+                        <h3 class="film-name">
+                            <a title="<%= anime.title.replace(/(?:^|\s|[-"'([{.])+\S/g, (c) => c.toUpperCase()) %>"
+                               href="/<%= anime.slug %>">
+                                <%= anime.title %>
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            <% }) %>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</section>

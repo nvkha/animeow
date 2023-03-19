@@ -1,0 +1,37 @@
+<% if(slideList) { %>
+    <div class="deslide-wrap">
+        <div id="slider" class="swiper">
+            <div class="swiper-wrapper">
+                <% slideList.value.forEach(function(slide) { %>
+                    <div class="swiper-slide">
+                        <div class="deslide-item">
+                            <div class="deslide-cover">
+                                <div class="deslide-cover-img">
+                                    <img class="film-poster-img"
+                                         src="/img/slide/<%= slide.image %>"
+                                         alt="<%= slide.title %>"
+                                         loading="lazy">
+                                </div>
+                            </div>
+                            <div class="deslide-item-content">
+                                <div class="desi-head-title"><a href="watch.html"><%= slide.title %></a></div>
+                                <div class="desi-description"><%= slide.description %></div>
+                                <div class="desi-buttons">
+                                    <a href="/watch/dont-toy-with-me-miss-nagatoro-2nd-season-18035" class="btn">Xem
+                                        Ngay</a>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-navigation">
+                <div class="swiper-button swiper-button-next"><i class="fas fa-chevron-right"></i></div>
+                <div class="swiper-button swiper-button-prev"><i class="fas fa-chevron-left"></i></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+<% } %>
