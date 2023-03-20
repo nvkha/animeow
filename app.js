@@ -1,12 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
-const compression = require('compression');
-const responseTime = require('response-time');
 const cors = require('cors');
 
 const globalErrorHandler = require('./controllers/errorController');
@@ -37,18 +34,6 @@ app.use(express.json({limit: '1mb'}));
 app.use(mongoSanitize());
 app.use(xss());
 
-if (process.env.NODE_ENV === 'dev') {
-    app.use(responseTime());
-}
-
-// const limiter = rateLimit({
-//     max: 100,
-//     windowMs: 60 * 60 * 100,
-//     message: 'Too many request from this IP!'
-// });
-//
-// app.use(limiter);
-
 // Development logging
 if (process.env.NODE_ENV === 'dev') {
     app.use(morgan('dev'));
@@ -56,14 +41,17 @@ if (process.env.NODE_ENV === 'dev') {
     app.use(morgan('common'));
 }
 
-//app.use(compression());
-
 app.use('/', viewRouter);
 app.use('/api/v1/animes', animeRouter);
 app.use('/api/v1/genres', genreRouter);
 app.use('/api/v1/episodes', episodeRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/parameters', parameterRouter);
+
+app.use('/robots.txt', function (req, res) {
+    res.type('text/plain')
+    res.send("User-agent: *\nAllow: /");
+});
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Oops, sorry we can't find that page!`, 404));
