@@ -10,7 +10,13 @@
                         </div>
 
                         <div class="tick rtl">
-                            <div class="tick-item tick-eps"><%= anime.runningTime %></div>
+                            <div class="tick-item tick-eps">
+                                <% if(anime.status === 'Ongoing') { %>
+                                    <%= anime.episodeCount %>/??
+                                <% } else if(anime.status === 'Finished') { %>
+                                    <%= anime.episodeCount %>/<%= anime.episodeCount %>
+                                <% } %>
+                            </div>
                         </div>
 
                         <img loading="lazy"

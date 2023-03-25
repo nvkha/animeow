@@ -17,7 +17,7 @@ exports.getIndex = async (req, res, next) => {
         const genresPromise = getGenres();
         const animeListPromise = Anime
             .find()
-            .select('title slug image runningTime updatedAt quality releaseYear')
+            .select('title slug image episodeCount status updatedAt quality releaseYear')
             .sort({releaseYear: -1, updatedAt: -1})
             .limit(15)
             .lean();
@@ -150,7 +150,7 @@ exports.getGenre = async (req, res, next) => {
         const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
         const query = Anime
             .find({genres: genre._id})
-            .select('title slug image runningTime updatedAt quality releaseYear')
+            .select('title slug image episodeCount status updatedAt quality releaseYear')
             .sort({releaseYear: -1, updatedAt: -1})
             .lean();
 
@@ -189,7 +189,7 @@ exports.search = async (req, res, next) => {
         const genresPromise = getGenres();
         const animeListPromise = Anime
             .find({title: {$regex: `^${keyword}.*`}})
-            .select('title quality slug image runningTime releaseYear updatedAt')
+            .select('title quality slug image episodeCount status releaseYear updatedAt')
             .sort({releaseYear: -1, updatedAt: -1})
             .limit(20)
             .lean();

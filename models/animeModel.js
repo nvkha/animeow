@@ -34,10 +34,6 @@ const animeSchema = mongoose.Schema({
         type: Number,
         required: [true, 'Anime must have a release year!'],
     },
-    runningTime: {
-        type: String,
-        default: '???'
-    },
     transTeam: String,
     createdAt: {
         type: Date,
