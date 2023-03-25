@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const cors = require('cors');
+const favicon = require('serve-favicon');
 
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
@@ -16,6 +17,7 @@ const parameterRouter = require('./routes/parameterRouters');
 const viewRouter = require('./routes/viewRouter');
 
 const app = express();
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -37,8 +39,6 @@ app.use(xss());
 // Development logging
 if (process.env.NODE_ENV === 'dev') {
     app.use(morgan('dev'));
-} else {
-    app.use(morgan('common'));
 }
 
 app.use('/', viewRouter);

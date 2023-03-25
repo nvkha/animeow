@@ -30,6 +30,7 @@
     "pino": "^8.11.0",
     "pino-pretty": "^9.4.0",
     "redis": "^4.6.5",
+    "serve-favicon": "^2.5.0",
     "slugify": "^1.6.5",
     "supertest": "^6.3.3",
     "xss-clean": "^0.1.1"
