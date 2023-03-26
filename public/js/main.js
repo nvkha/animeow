@@ -40,6 +40,11 @@
             window.location = '/tim-kiem/' + this.value;
         }
     });
+
+    $('#m-search').on('click', function () {
+        $('#search').toggleClass('active');
+    });
+
     /*------------------
        Pagination
    --------------------*/
