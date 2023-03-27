@@ -4,6 +4,7 @@ const schedule = require('node-schedule');
 const logger = require('./utils/logger');
 
 const googleAnalyticsUtils = require('./utils/googleAnalyticsUtils');
+const sitemapGenerator = require('./utils/sitemapGenerator');
 
 process.on('uncaughtException', err => {
     console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
@@ -20,10 +21,20 @@ mongoose.connect(process.env.DATABASE_URL, {
     useFindAndModify: false
 }).then(() => console.log('MongoDB connected...'));
 
-schedule.scheduleJob('0 * * * *', async function(){
+schedule.scheduleJob('0 * * * *', async function () {
     try {
         logger.info(`Start schedule job`);
         await googleAnalyticsUtils.getTopMostViews();
+    } catch (err) {
+        logger.error(err);
+    }
+});
+
+schedule.scheduleJob('0 0 * * *', async function () {
+    try {
+        logger.info(`Start update sitemap job`);
+        await sitemapGenerator.createGenreSitemap();
+        await sitemapGenerator.createAnimeSitemap();
     } catch (err) {
         logger.error(err);
     }

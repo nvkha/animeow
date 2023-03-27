@@ -1,0 +1,11 @@
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <sitemap>
+        <loc>https://animeow.pro/sitemap-page.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://animeow.pro/sitemap-genre.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://animeow.pro/sitemap-movie.xml</loc>
+    </sitemap>
+</sitemapindex>
