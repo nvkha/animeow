@@ -4,9 +4,10 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router();
 router.use(authController.protect);
+router.use(authController.restrictTo('admin'));
 
 
 router.route('/').get(animeController.getAllAnime).post(animeController.createAnime);
-router.route('/:id').get(animeController.getAnime).patch(animeController.updateAnime).delete(auanimeController.deleteAnime);
+router.route('/:id').get(animeController.getAnime).patch(animeController.updateAnime).delete(animeController.deleteAnime);
 
 module.exports = router;
