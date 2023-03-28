@@ -42,10 +42,10 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 app.use('/', viewRouter);
+app.use('/api/v1/users', userRouter);
 app.use('/api/v1/animes', animeRouter);
 app.use('/api/v1/genres', genreRouter);
 app.use('/api/v1/episodes', episodeRouter);
-app.use('/api/v1/users', userRouter);
 app.use('/api/v1/parameters', parameterRouter);
 
 app.use('/robots.txt', function (req, res) {
