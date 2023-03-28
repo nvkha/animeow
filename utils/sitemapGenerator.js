@@ -7,7 +7,6 @@ module.exports.createGenreSitemap = async function() {
     const writeStream = fs.createWriteStream(`${__dirname}/../public/sitemap-genre.xml`, {flags: 'w'});
     writeStream.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">')
     for await (const genre of Genre.find().select('slug').cursor()) {
-        console.log(genre.slug)
         writeStream.write('<url>\n' +
             '<loc>https://animeow.pro/the-loai/' + genre.slug + '</loc>\n' +
             '<changefreq>monthly</changefreq>\n' +
@@ -19,7 +18,7 @@ module.exports.createGenreSitemap = async function() {
 }
 
 module.exports.createAnimeSitemap = async function() {
-    const writeStream = fs.createWriteStream('${__dirname}/../public/sitemap-movie.xml', {flags: 'w'});
+    const writeStream = fs.createWriteStream(`${__dirname}/../public/sitemap-movie.xml`, {flags: 'w'});
     writeStream.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">')
     for await (const anime of Anime.find().select('slug releaseYear updatedAt').sort({
         releaseYear: -1,

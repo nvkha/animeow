@@ -18,7 +18,7 @@ const genreSchema = mongoose.Schema({
 
 genreSchema.pre('save', function (next) {
     logger.info(`[Pre save] [Genre] Create slug with name: ${this.name}`);
-    this.slug = slugify(this.name, {
+    this.slug = slugify(this.name.replace(/[^\p{L}0-9\- ]/gu, ''), {
         lower: true,
         trim: true,
         locale: 'vi',
@@ -40,7 +40,7 @@ genreSchema.post('save', async function (doc, next) {
 genreSchema.pre('findOneAndUpdate', function (next) {
     if (this._update.name) {
         logger.info(`[Pre update] [Genre] Update slug with new name: ${this._update.name}`);
-        this._update.slug = slugify(this._update.name, {
+        this._update.slug = slugify(this._update.name.replace(/[^\p{L}0-9\- ]/gu, ''), {
             lower: true,
             trim: true,
             locale: 'vi',

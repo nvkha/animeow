@@ -86,7 +86,7 @@ const animeSchema = mongoose.Schema({
 
 animeSchema.pre('save', function (next) {
     logger.info(`[Pre save] [Anime] Create slug with title: ${this.title}`);
-    this.slug = slugify(this.title, {
+    this.slug = slugify(this.title.replace(/[^\p{L}0-9\- ]/gu, ''), {
         lower: true,
         trim: true,
         locale: 'vi',
@@ -97,7 +97,7 @@ animeSchema.pre('save', function (next) {
 animeSchema.pre('findOneAndUpdate', function (next) {
     if (this._update.title) {
         logger.info(`[Pre update] [Anime] Update slug with new title: ${this._update.title}`);
-        this._update.slug = slugify(this._update.title, {
+        this._update.slug = slugify(this._update.title.replace(/[^\p{L}0-9\- ]/gu, ''), {
             lower: true,
             trim: true,
             locale: 'vi',

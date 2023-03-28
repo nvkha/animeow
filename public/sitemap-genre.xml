@@ -1,99 +1,77 @@
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-    <url>
-        <loc>https://animeow.pro/the-loai/harem</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/hoc-duong</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/the-thao</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/trinh-tham</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/kinh-di</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/phap-thuat</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/phieu-luu</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/ecchi</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/hai-huoc</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/hanh-dong</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/lang-mang</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/lich-su</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/am-nhac</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/chuyen-sinh</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/gia-tuong</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/game</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/sieu-nhien</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/super-power</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/the-loai/hoat-hinh-trung-quoc</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-</urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"><url>
+<loc>https://animeow.pro/the-loai/harem</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/hoc-duong</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/the-thao</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/trinh-tham</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/kinh-di</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/phap-thuat</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/phieu-luu</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/ecchi</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/hai-huoc</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/hanh-dong</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/lang-mang</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/lich-su</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/am-nhac</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/chuyen-sinh</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/gia-tuong</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/game</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/sieu-nhien</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/super-power</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url><url>
+<loc>https://animeow.pro/the-loai/hoat-hinh-trung-quoc</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url></urlset>

@@ -1,275 +1,213 @@
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-    <url>
-        <loc>https://animeow.pro/watch/ars-no-kyojuu</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/benriya-saitou-san-isekai-ni-iku</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/bungou-stray-dogs-4th-season</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>
-            https://animeow.pro/watch/eiyuuou-bu-wo-kiwameru-tame-tenseisu-soshite-sekai-saikyou-no-minarai-kishiatmeuro
-        </loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/hyouken-no-majutsushi-ga-sekai-wo-suberu</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/isekai-nonbiri-nouka</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/itai-no-wa-iya-nano-de-bougyoryoku-ni-kyokufuri-shitai-to-omoimasu-ii</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/kaiko-sareta-ankoku-heishi-(30-dai)-no-slow-na-second-life</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/kami-tachi-ni-hirowareta-otoko-2nd-season</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/koori-zokusei-danshi-to-cool-na-douryou-joshi</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/kubo-san-wa-mob-wo-yurusanai</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/kyokou-suiri-season-2</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>
-            https://animeow.pro/watch/maou-gakuin-no-futekigousha:-shijou-saikyou-no-maou-no-shiso-tensei-shite-shison-tachi-no-gakkou-e-kayou-ii
-        </loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/mononogatari</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/nier:automata-ver1.1a</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/ningen-fushin-no-boukensha-tachi-ga-sekai-wo-sukuu-you-desu</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/oniichan-wa-oshimai!</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/otonari-no-tenshi-sama-ni-itsunomanika-dame-ningen-ni-sareteita-ken</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/rougo-ni-sonaete-isekai-de-8-manmai-no-kinka-wo-tamemasu</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/dai-su-huynh-nha-ta-co-chut-dang-tin</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/inu-ni-nattara-suki-na-hito-ni-hirowareta.</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/saikyou-onmyouji-no-isekai-tenseiki</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/shin-shinka-no-mi:-shiranai-uchi-ni-kachigumi-jinsei</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/spy-kyoushitsu</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/sugar-apple-fairy-tale</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/tensei-oujo-to-tensai-reijou-no-mahou-kakumei</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/tondemo-skill-de-isekai-hourou-meshi</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>
-            https://animeow.pro/watch/tsundere-akuyaku-reijou-liselotte-to-jikkyou-no-endou-kun-to-kaisetsu-no-kobayashi-san
-        </loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/akatsuki-no-yona-(yona-cua-binh-minh)</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/aldnoah.zero</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/black-bullet</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/date-a-live-season-2</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/inou-batoru-wa-nichijou-kei-no-naka-de</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/madan-no-ou-to-vanadis:-ma-dan-de-vuong-biet-chien-co</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/mahouka-koukou-no-rettousei</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/nanatsu-no-taizai:-that-hinh-dai-toi</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/no-game-no-life-bd</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/seirei-tsukai-no-blade-dance</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/shigatsu-wa-kimi-no-uso-(thang-tu-la-loi-noi-doi-cua-em)-bd</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/sword-art-online:-dao-kiem-than-vuc-phan-2</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/trinity-seven-that-tinh-bd</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/blood-lad</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/chuunibyou-demo-koi-ga-shitai!-ren-ss2-bd</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/date-a-live-bd</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/freezing-ss2-bd</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/golden-time-bd</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/gundam-build-fighters</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/high-school-dxd-new-bd</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/is:-infinite-stratos-2-bd</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/machine-doll-wa-kizutsukanai-bd</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/mahou-sensou-magical-warface</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/strike-the-blood</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://animeow.pro/watch/tokyo-ravens-bd</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-</urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"><url>
+<loc>https://animeow.pro/watch/ars-no-kyojuu</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/benriya-saitou-san-isekai-ni-iku</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/bungou-stray-dogs-4th-season</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/eiyuuou-bu-wo-kiwameru-tame-tenseisu-soshite-sekai-saikyou-no-minarai-kishi</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/hyouken-no-majutsushi-ga-sekai-wo-suberu</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/isekai-nonbiri-nouka</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/itai-no-wa-iya-nano-de-bougyoryoku-ni-kyokufuri-shitai-to-omoimasu-ii</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/kaiko-sareta-ankoku-heishi-30-dai-no-slow-na-second-life</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/kami-tachi-ni-hirowareta-otoko-2nd-season</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/koori-zokusei-danshi-to-cool-na-douryou-joshi</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/kubo-san-wa-mob-wo-yurusanai</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/kyokou-suiri-season-2</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/maou-gakuin-no-futekigousha-shijou-saikyou-no-maou-no-shiso-tensei-shite-shison-tachi-no-gakkou-e-kayou-ii</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/mononogatari</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/nierautomata-ver11a</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/ningen-fushin-no-boukensha-tachi-ga-sekai-wo-sukuu-you-desu</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/oniichan-wa-oshimai</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/otonari-no-tenshi-sama-ni-itsunomanika-dame-ningen-ni-sareteita-ken</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/rougo-ni-sonaete-isekai-de-8-manmai-no-kinka-wo-tamemasu</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/dai-su-huynh-nha-ta-co-chut-dang-tin</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/inu-ni-nattara-suki-na-hito-ni-hirowareta</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/saikyou-onmyouji-no-isekai-tenseiki</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/shin-shinka-no-mi-shiranai-uchi-ni-kachigumi-jinsei</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/spy-kyoushitsu</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/sugar-apple-fairy-tale</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/tensei-oujo-to-tensai-reijou-no-mahou-kakumei</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/tondemo-skill-de-isekai-hourou-meshi</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/tsundere-akuyaku-reijou-liselotte-to-jikkyou-no-endou-kun-to-kaisetsu-no-kobayashi-san</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/akatsuki-no-yona-yona-cua-binh-minh</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/aldnoah-zero</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/black-bullet</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/date-a-live-season-2</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/inou-batoru-wa-nichijou-kei-no-naka-de</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/madan-no-ou-to-vanadis-ma-dan-de-vuong-biet-chien-co</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/mahouka-koukou-no-rettousei</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/nanatsu-no-taizai-that-hinh-dai-toi</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/no-game-no-life-bd</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/seirei-tsukai-no-blade-dance</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/shigatsu-wa-kimi-no-uso-thang-tu-la-loi-noi-doi-cua-em-bd</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/sword-art-online-dao-kiem-than-vuc-phan-2</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/trinity-seven-that-tinh-bd</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/blood-lad</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/chuunibyou-demo-koi-ga-shitai-ren-ss2-bd</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/date-a-live-bd</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/freezing-ss2-bd</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/golden-time-bd</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/gundam-build-fighters</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/high-school-dxd-new-bd</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/is-infinite-stratos-2-bd</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/machine-doll-wa-kizutsukanai-bd</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/mahou-sensou-magical-warface</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/strike-the-blood</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url><url>
+<loc>https://animeow.pro/watch/tokyo-ravens-bd</loc>
+<changefreq>daily</changefreq>
+<priority>0.7</priority>
+</url></urlset>

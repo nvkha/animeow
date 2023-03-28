@@ -49,7 +49,7 @@ describe('Animes', function () {
             assert.equal(res._body.data.active, true);
             assert.equal(res._body.data.otherTitle, 'Diabolik lovers');
             assert.equal(res._body.data.description, 'Test');
-            assert.equal(res._body.data.runningTime, '12/12');
+            assert.equal(res._body.data.episodeCount, 0);
             assert.equal(res._body.data.releaseYear, 2013);
             assert.equal(res._body.data.image, 'dbUtIKc.jpg');
             assert.equal(res._body.data.transTeam, 'Yamisora');
@@ -77,7 +77,7 @@ describe('Animes', function () {
             assert.equal(res._body.data.active, true);
             assert.equal(res._body.data.otherTitle, 'Diabolik lovers');
             assert.equal(res._body.data.description, 'Test');
-            assert.equal(res._body.data.runningTime, '12/12');
+            assert.equal(res._body.data.episodeCount, 0);
             assert.equal(res._body.data.releaseYear, 2013);
             assert.equal(res._body.data.image, 'dbUtIKc.jpg');
             assert.equal(res._body.data.transTeam, 'Yamisora');
@@ -100,7 +100,7 @@ describe('Animes', function () {
             assert.equal(res._body.data.active, true);
             assert.equal(res._body.data.otherTitle, 'Diabolik lovers');
             assert.equal(res._body.data.description, 'Test');
-            assert.equal(res._body.data.runningTime, '12/12');
+            assert.equal(res._body.data.episodeCount, 0);
             assert.equal(res._body.data.releaseYear, 2013);
             assert.equal(res._body.data.image, 'dbUtIKc.jpg');
             assert.equal(res._body.data.transTeam, 'Yamisora');
