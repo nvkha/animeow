@@ -1207,7 +1207,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .preform .prelabel {
-    font-size: 11px;
+    font-size: 12px;
     text-transform: uppercase;
     opacity: .5;
     font-weight: 400;
@@ -3019,7 +3019,7 @@ ul.az-list li a:hover, ul.az-list li.active a {
 }
 
 .player-duo .pd-absolute .block .badge {
-    font-size: 11px;
+    font-size: 12px;
     margin: 0 3px
 }
 
@@ -3029,7 +3029,7 @@ ul.az-list li a:hover, ul.az-list li.active a {
 }
 
 .player-duo .pd-absolute .block .btn-xs {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     padding: 2px 6px;
     border-radius: 4px;
@@ -3084,7 +3084,7 @@ ul.az-list li a:hover, ul.az-list li.active a {
     border-radius: 12px;
     color: #111;
     font-weight: 600;
-    font-size: 11px;
+    font-size: 12px;
     text-align: center;
     position: absolute;
     top: 5px;
@@ -3206,7 +3206,7 @@ ul.az-list li a:hover, ul.az-list li.active a {
 
 .dropdown-menu-native .dropdown-item i {
     color: #444;
-    font-size: 11px
+    font-size: 12px
 }
 
 .dropdown-menu-native .dropdown-item:hover {
@@ -3387,7 +3387,7 @@ ul.az-list li a:hover, ul.az-list li.active a {
 .shorting .more {
     background: #343434;
     color: #ababab;
-    font-size: 11px;
+    font-size: 12px;
     border-radius: 3px;
     padding: 0 8px;
     line-height: 18px;
@@ -3586,7 +3586,7 @@ ul.az-list li a:hover, ul.az-list li.active a {
 }
 
 .premodal.premodal-report .form-group small {
-    font-size: 11px
+    font-size: 12px
 }
 
 .anime-pagination {
