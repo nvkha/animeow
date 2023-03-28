@@ -3,6 +3,7 @@ const genreController = require('./../controllers/genreController');
 const authController = require('./../controllers/authController');
 
 const router = express.Router();
+router.use(authController.protect);
 
 router.route('/').get(genreController.getAllGenre).post(genreController.createGenre);
 
