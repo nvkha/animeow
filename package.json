@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "nodemon-dev": "NODE_ENV=dev nodemon server.js | pino-pretty",
+    "nodemon-prod": "NODE_ENV=production nodemon server.js | pino-pretty",
     "debug": "ndb server.js",
     "test": "NODE_ENV=dev mocha",
     "start": "node server.js"

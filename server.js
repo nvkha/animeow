@@ -23,7 +23,7 @@ mongoose.connect(process.env.DATABASE_URL, {
 
 schedule.scheduleJob('0 * * * *', async function () {
     try {
-        logger.info(`Start schedule job`);
+        console.log(`Start update top most views job`);
         await googleAnalyticsUtils.getTopMostViews();
     } catch (err) {
         logger.error(err);
@@ -32,8 +32,7 @@ schedule.scheduleJob('0 * * * *', async function () {
 
 schedule.scheduleJob('0 0 * * *', async function () {
     try {
-        logger.info(`Start update sitemap job`);
-        await sitemapGenerator.createGenreSitemap();
+        console.log(`Start update sitemap job`);
         await sitemapGenerator.createAnimeSitemap();
     } catch (err) {
         logger.error(err);
