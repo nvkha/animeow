@@ -36,10 +36,7 @@ app.use(express.json({limit: '1mb'}));
 app.use(mongoSanitize());
 app.use(xss());
 
-// Development logging
-if (process.env.NODE_ENV === 'dev') {
-    app.use(morgan('dev'));
-}
+app.use(morgan('dev'));
 
 app.use('/', viewRouter);
 app.use('/api/v1/users', userRouter);
