@@ -3,8 +3,10 @@ const genreController = require('./../controllers/genreController');
 const authController = require('./../controllers/authController');
 
 const router = express.Router();
-router.use(authController.protect);
-router.use(authController.restrictTo('admin'));
+if (process.env.NODE_ENV === 'production') {
+    router.use(authController.protect);
+    router.use(authController.restrictTo('admin'));
+}
 
 router.route('/').get(genreController.getAllGenre).post(genreController.createGenre);
 

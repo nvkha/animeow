@@ -32,7 +32,7 @@ episodeSchema.post('save', async function (doc, next) {
         logger.info('[Post save] [Episode] Increment episode count by 1');
         await mongoose.model('Anime').findOneAndUpdate(
             {_id: doc.anime},
-            {$inc: {episodeCount: 1}},
+            {$inc: {episodeCount: 1}, $set: {updatedAt: Date.now()}},
             {new: true, runValidators: true});
     }
     next();
