@@ -221,6 +221,7 @@
         {
             scriptUrl: '//animeow.disqus.com/embed.js',
             disqusConfig: function () {
+                this.page.title = "<%= anime.title %>"
                 this.page.url = window.location.href;
                 this.page.identifier = "<%= anime.slug %>";
             }
