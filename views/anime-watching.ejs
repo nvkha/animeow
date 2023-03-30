@@ -182,10 +182,23 @@
                     </div>
                 </section>
                 <!--/End: Section detail-->
+
+                <!--Begin: Section comment-->
+                <section class="block_area block_area-comment">
+                    <div class="block_area-header block_area-header-tabs">
+                        <div class="float-left bah-heading mr-4">
+                            <h2 class="cat-heading">Bình Luận</h2>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="block_area-content">
+                        <div class="disqus"></div>
+                    </div>
+                </section>
+                <!--/End: Section comment-->
+
                 <div class="clearfix"></div>
             </div>
-
-            <!--Begin: main-sidebar-->
 
             <!--Start: main-sidebar-->
             <%- include('./base/top-views-sidebar') %>
@@ -202,5 +215,17 @@
 
 <script src="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video.min.js"></script>
 <%- include('./base/js-plugin') %>
+<script type="text/javascript" src="/js/disqusloader.js"></script>
+<script>
+    const options =
+        {
+            scriptUrl: '//animeow.disqus.com/embed.js',
+            disqusConfig: function () {
+                this.page.url = window.location.href;
+                this.page.identifier = "<%= anime.slug %>";
+            }
+        };
+    $.disqusLoader('.disqus', options);
+</script>
 </body>
 </html>
