@@ -126,7 +126,7 @@ exports.getAnime = async (req, res, next) => {
         const title = `${anime.title.replace(/(?:^|\s|[-"'([{.])+\S/g, (c) => c.toUpperCase())} - Tập ${episodeNum}`;
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
-            description: title,
+            description: anime.otherTitle,
             keywords: `${anime.title},${anime.title} tap ${episodeNum}`,
             image: 'https://ik.imagekit.io/3q7pewvsl/imgur/' + anime.image
         }
