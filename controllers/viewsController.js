@@ -24,8 +24,15 @@ exports.getIndex = async (req, res, next) => {
 
         const [alert, slideList, genres, animeList] = await Promise.all([alertPromise, slideListPromise, genresPromise, animeListPromise]);
 
+        const meta = {
+            url: req.protocol + '://' + req.hostname + req.originalUrl,
+            description: 'Xem phim anime vietsub online xem trên điện thoại di động và máy tính. Là một website xem phim anime vietsub miễn phí.',
+            keywords: 'animeow, ani meow, animeowpro, anime, anime vietsub, anime viet sub, xem anime, xem anime online, anime miễn phí, anime hay, online anime, xem anime',
+            image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
+        }
+
         res.status(200).render('index', {
-            title: 'Anime Vietsub Online', alert, slideList, genres, animeList,
+            title: 'AniMeow - Anime Vietsub Online', meta, alert, slideList, genres, animeList,
             topMostViewsDay, topMostViewsWeek, topMostViewsMonth
         });
     } catch (err) {
@@ -115,9 +122,18 @@ exports.getAnime = async (req, res, next) => {
             }
         }
         const genreList = anime.genres;
+
+        const title = `${anime.title.replace(/(?:^|\s|[-"'([{.])+\S/g, (c) => c.toUpperCase())} - Tập ${episodeNum}`;
+        const meta = {
+            url: req.protocol + '://' + req.hostname + req.originalUrl,
+            description: title,
+            keywords: `${anime.title},${anime.title} tap ${episodeNum}`,
+            image: 'https://ik.imagekit.io/3q7pewvsl/imgur/' + anime.image
+        }
+
         res.status(200).render('anime-watching', {
-            title: `${anime.title.replace(/(?:^|\s|[-"'([{.])+\S/g, (c) => c.toUpperCase())} - Tập ${episodeNum}`,
-            genres, episode, anime, genreList, topMostViewsDay, topMostViewsWeek, topMostViewsMonth
+            title: title, meta, genres, episode, anime, genreList,
+            topMostViewsDay, topMostViewsWeek, topMostViewsMonth
         });
     } catch (err) {
         next(err);
@@ -138,34 +154,26 @@ exports.getGenre = async (req, res, next) => {
             return next(new AppError("Oops, sorry we can't find that page!", 404))
         }
 
-        let page;
-        if (!req.params.page) {
-            page = 1
-        } else if (!/^trang-[1-9]+/.test(req.params.page)) {
+        const page = getPage(req.params.page);
+        if (!page) {
             return next(new AppError("Oops, sorry we can't find that page!", 404));
-        } else {
-            page = req.params.page.split('-')[1];
         }
+
 
         const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
-        const query = Anime
-            .find({genres: genre._id})
-            .select('title slug image episodeCount status updatedAt quality releaseYear')
-            .sort({releaseYear: -1, updatedAt: -1})
-            .lean();
-
-        const options = {
-            page: page,
-            limit: 20,
-            collation: {
-                locale: 'en',
-            },
-        }
-        const result = await Anime.paginate(query, options);
+        const result = await getAnimePagination({genres: genre._id}, {releaseYear: -1, updatedAt: -1}, page, 15);
         const animeList = result.docs;
+
+        const meta = {
+            url: req.protocol + '://' + req.hostname + req.originalUrl,
+            description: 'Tổng hợp danh sách Anime theo từng thể loại.',
+            keywords: 'anime, danh sach anime, danh sach anime, anime vietsub, animevietsub',
+            image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
+        }
 
         res.status(200).render('categories', {
             title: 'Danh sách Anime',
+            meta,
             genres,
             genre,
             animeList,
@@ -197,11 +205,95 @@ exports.search = async (req, res, next) => {
         const [genres, animeList] = await Promise.all([genresPromise, animeListPromise]);
         const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
 
+        const meta = {
+            url: req.protocol + '://' + req.hostname + req.originalUrl,
+            description: 'Kết quả tìm kiếm cho: ' + keyword,
+            keywords: 'anime, anime vietsub, ' + keyword,
+            image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
+        }
+
         res.status(200).render('search', {
-            title: 'Anime Vietsub Online',
+            title: 'Kết quả tìm kiếm',
+            meta,
             genres,
             animeList,
             keyword,
+            topMostViewsDay,
+            topMostViewsWeek,
+            topMostViewsMonth
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.getAllAnime = async (req, res, next) => {
+    try {
+        const genres = await getGenres();
+
+        const page = getPage(req.params.page);
+        if (!page) {
+            return next(new AppError("Oops, sorry we can't find that page!", 404));
+        }
+
+        const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
+        const result = await getAnimePagination({}, {releaseYear: -1, updatedAt: -1}, page, 15);
+        const animeList = result.docs;
+
+        const meta = {
+            url: req.protocol + '://' + req.hostname + req.originalUrl,
+            description: 'Tổng hợp danh sách Anime theo từng thể loại.',
+            keywords: 'anime, danh sach anime, danh sach anime, anime vietsub, animevietsub',
+            image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
+        }
+
+        res.status(200).render('anime', {
+            title: 'Danh sách Anime',
+            meta,
+            genres,
+            animeList,
+            prevPage: result.prevPage,
+            nextPage: result.nextPage,
+            totalPages: result.totalPages,
+            currentPage: page,
+            topMostViewsDay,
+            topMostViewsWeek,
+            topMostViewsMonth
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.getMovie = async (req, res, next) => {
+    try {
+        const genres = await getGenres();
+
+        const page = getPage(req.params.page);
+        if (!page) {
+            return next(new AppError("Oops, sorry we can't find that page!", 404));
+        }
+
+        const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
+        const result = await getAnimePagination({type: 'Movie'}, {releaseYear: -1, updatedAt: -1}, page, 15);
+        const animeList = result.docs;
+
+        const meta = {
+            url: req.protocol + '://' + req.hostname + req.originalUrl,
+            description: 'Danh sách movie Anime',
+            keywords: 'anime, danh sach movie anime, anime vietsub, animevietsub, movie anime',
+            image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
+        }
+
+        res.status(200).render('movie', {
+            title: 'Danh sách movie Anime',
+            meta,
+            genres,
+            animeList,
+            prevPage: result.prevPage,
+            nextPage: result.nextPage,
+            totalPages: result.totalPages,
+            currentPage: page,
             topMostViewsDay,
             topMostViewsWeek,
             topMostViewsMonth
@@ -232,7 +324,7 @@ const getVideoSource = async (videoUrl) => {
     const pageId = videoUrl.split('/')[3];
 
     let fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_MEOW_MEOW;
-    if(pageId != process.env.FB_PAGE_ID_MEOW_MEOW) {
+    if (pageId != process.env.FB_PAGE_ID_MEOW_MEOW) {
         fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_UPLOAD_PRO;
     }
 
@@ -244,6 +336,25 @@ const getVideoSource = async (videoUrl) => {
         }
     });
     return response.data.source;
+}
+
+const getAnimePagination = async (filterOptions, sortOptions, page, limit) => {
+    const query = Anime
+        .find(filterOptions)
+        .select('title slug image episodeCount status updatedAt quality releaseYear')
+        .sort(sortOptions)
+        .lean();
+
+    const options = {
+        page: page,
+        limit: limit,
+        collation: {
+            locale: 'en',
+        },
+    }
+    const result = await Anime.paginate(query, options);
+
+    return result;
 }
 
 const getTopMostViews = async () => {
@@ -264,4 +375,13 @@ const getTopMostViews = async () => {
     if (cachetTopMostViewsMonth) topMostViewsMonth = JSON.parse(cachetTopMostViewsMonth);
 
     return [topMostViewsDay, topMostViewsWeek, topMostViewsMonth];
+}
+
+const getPage = function (page) {
+    if (!page) {
+        return 1;
+    } else if (!/^trang-[1-9]+/.test(page)) {
+        return null;
+    }
+    return page.split('-')[1];
 }

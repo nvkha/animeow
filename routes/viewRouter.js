@@ -5,6 +5,12 @@ const router = express.Router();
 
 router.route('/').get(viewsController.getIndex);
 
+router.route('/movie/:page').get(viewsController.getMovie);
+router.route('/movie').get(viewsController.getMovie);
+
+router.route('/anime/:page').get(viewsController.getAllAnime);
+router.route('/anime').get(viewsController.getAllAnime);
+
 router.route('/tim-kiem/:keyword').get(viewsController.search);
 
 router.route('/the-loai/:genre/:page').get(viewsController.getGenre);

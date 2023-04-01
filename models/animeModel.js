@@ -143,6 +143,7 @@ animeSchema.plugin(mongoosePaginate);
 animeSchema.index({active: 1});
 animeSchema.index({genres: 1});
 animeSchema.index({slug: 1});
+animeSchema.index({type: 1});
 animeSchema.index({updatedAt: -1});
 animeSchema.index({releaseYear: -1});
 animeSchema.index({releaseYear: -1, updatedAt: -1});

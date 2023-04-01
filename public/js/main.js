@@ -51,10 +51,10 @@
     $('.btn-go-page').click(function () {
         const val = $('.input-page').val()
         if (val) {
-            if (window.location.pathname.split('/').length <= 3) {
-                window.location = window.location.pathname + '/trang-' + val;
-            } else {
+            if (/trang-\d+/.test(window.location.pathname)) {
                 window.location = window.location.pathname.replace(/trang-\S+/, 'trang-' + val);
+            } else {
+                window.location = window.location.pathname + '/trang-' + val;
             }
         }
     });
