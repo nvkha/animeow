@@ -6,21 +6,21 @@
 
 <link rel="shortcut icon" href="https://animeow.pro/favicon.ico" type="image/x-icon"/>
 
-<meta name="description" content="<% if(meta) { %><%= meta.description %><% } %>"/>
-<meta name="keywords" content="<% if(meta) { %><%= meta.keywords %><% } %>"/>
+<meta name="description" content="<% if(meta === null) { %><%= meta.description %><% } %>"/>
+<meta name="keywords" content="<% if(meta === null) { %><%= meta.keywords %><% } %>"/>
 
 <!-- Facebook Metadata /-->
-<meta property="og:image" content="<% if(meta) { %><%= meta.image %><% } %>"/>
-<meta property="og:url" content="<% if(meta) { %><%= meta.url %><% } %>"/>
-<meta property="og:description" content="<% if(meta) { %><%= meta.description %><% } %>"/>
+<meta property="og:image" content="<% if(meta === null) { %><%= meta.image %><% } %>"/>
+<meta property="og:url" content="<% if(meta === null) { %><%= meta.url %><% } %>"/>
+<meta property="og:description" content="<% if(meta === null) { %><%= meta.description %><% } %>"/>
 <meta property="og:title" content="<%= title %>"/>
 <meta property="og:site_name" content="AniMeow"/>
 <meta property="og:type" content="video.movie"/>
 
 <!-- Google+ Metadata /-->
 <meta itemprop="name" content="<%= title %>"/>
-<meta itemprop="description" content="<% if(meta) { %><%= meta.description %><% } %>"/>
-<meta itemprop="image" content="<% if(meta) { %><%= meta.image %><% } %>"/>
+<meta itemprop="description" content="<% if(meta === null) { %><%= meta.description %><% } %>"/>
+<meta itemprop="image" content="<% if(meta === null) { %><%= meta.image %><% } %>"/>
 
 <!-- Css Styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
