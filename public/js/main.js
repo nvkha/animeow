@@ -58,4 +58,38 @@
             }
         }
     });
+    /*------------------
+        Player-controls
+    --------------------*/
+    $('#prevEp').click(function () {
+        const currentEpisode = $('#prevEp').attr('data-current-episode');
+        const episodes = $('#prevEp').attr('data-episodes');
+        const prevEpVal = Number(currentEpisode) - 1;
+        if (prevEpVal > 0 && prevEpVal <= episodes) {
+            if (/tap-\d+/.test(window.location.pathname)) {
+                window.location = window.location.pathname.replace(/tap-\S+/, 'tap-' + prevEpVal);
+            } else {
+                window.location = window.location.pathname + '/tap-' + prevEpVal;
+            }
+        }
+    });
+
+    $('#nextEp').click(function () {
+        const currentEpisode = $('#nextEp').attr('data-current-episode');
+        const episodes = $('#nextEp').attr('data-episodes');
+        const nextEpVal = Number(currentEpisode) + 1;
+        if (nextEpVal > 0 && nextEpVal <= episodes) {
+            if (/tap-\d+/.test(window.location.pathname)) {
+                window.location = window.location.pathname.replace(/tap-\S+/, 'tap-' + nextEpVal);
+            } else {
+                window.location = window.location.pathname + '/tap-' + nextEpVal;
+            }
+        }
+    });
+
+    $('#comment').click(function () {
+        $('html, body').animate({
+            scrollTop: $('.block_area-comment').offset().top
+        }, 2000);
+    });
 })(jQuery);

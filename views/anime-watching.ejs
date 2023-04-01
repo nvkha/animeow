@@ -36,6 +36,26 @@
                             data-setup='{"fluid": true, "notSupportedMessage": "Tập phim này đã bị lỗi! Bạn vui lòng thông báo cho Admin nhé! Thank you <3"}'>
                         <source src="<%= episode.tempVideoUrl %>" type="video/mp4"/>
                     </video>
+                    <div class="player-controls">
+                        <div id="prevEp" class="pc-item" data-current-episode="<%= episode.episodeNum %>"
+                             data-episodes="<%= anime.episodeCount %>">
+                            <div class="toggle-basic">
+                                <span class="tb-name"><i class="fas fa-backward"></i> Tập trước</span>
+                            </div>
+                        </div>
+                        <div id="nextEp" class="pc-item" data-current-episode="<%= episode.episodeNum %>"
+                             data-episodes="<%= anime.episodeCount %>">
+                            <div class="toggle-basic">
+                                <span class="tb-name"><i class="fas fa-forward"></i> Tập tiếp</span>
+                            </div>
+                        </div>
+                        <div id="comment" class="pc-item">
+                            <div class="toggle-basic">
+                                <span class="tb-name"><i class="fas fa-comment"></i> Bình luận</span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
 
                 <div class="player-servers">
@@ -214,6 +234,9 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <%- include('./base/js-plugin') %>
 <script type="text/javascript" src="/js/disqusloader.js"></script>
 <script>
