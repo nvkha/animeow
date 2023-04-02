@@ -92,4 +92,23 @@
             scrollTop: $('.block_area-comment').offset().top
         }, 2000);
     });
+
+    $('#capture').click(function () {
+        const canvas = document.createElement('canvas');
+        const video = document.getElementById('player_html5_api');
+        const modalContent = $('.modal-content')[0];
+        const modal = $('#modal');
+
+        canvas.width = 720;
+        canvas.height = 480;
+
+        let ctx = canvas.getContext('2d');
+        ctx.drawImage( video, 0, 0, canvas.width, canvas.height );
+        modalContent.appendChild(canvas);
+        modal.modal('show');
+    });
+
+    $('#modal').on('hide.bs.modal', function (event) {
+        $('.modal-content').empty();
+    })
 })(jQuery);

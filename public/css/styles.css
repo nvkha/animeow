@@ -24,6 +24,20 @@ body {
     -webkit-text-size-adjust: none
 }
 
+.modal {
+    text-align: center;
+}
+
+.modal-dialog {
+    max-width: 100%;
+    width: auto !important;
+    display: inline-block;
+}
+
+.modal-body {
+    padding: 0;
+}
+
 a {
     color: #525252;
     text-decoration: none !important;
@@ -4772,6 +4786,10 @@ ul.az-list li a {
 }
 
 @media screen and (max-width: 639px) {
+    #capture {
+        display: none;
+    }
+
     #search, .anime-detail .anime-poster, .deslide-item .desi-buttons, .flw-item .film-poster .film-poster-ahref i, .flw-item .film-poster .film-poster-ahref:after, .flw-item .film-poster .film-poster-ahref:before, .player-duo:before {
         display: none
     }

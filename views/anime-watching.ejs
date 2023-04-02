@@ -25,15 +25,22 @@
     <!--Begin: Main-->
     <div id="main-wrapper" class="layout-page layout-page-watch">
         <div class="container">
+
+            <!-- Modal -->
+            <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="player-extend-display"></div>
             <div id="main-content">
                 <!--Begin: watch-block-->
                 <div id="watch-block" class="">
-                    <video
-                            id="my-video"
-                            class="video-js vjs-theme-fantasy"
-                            controls
-                            data-setup='{"fluid": true, "notSupportedMessage": "Tập phim này đã bị lỗi! Bạn vui lòng thông báo cho Admin nhé! Thank you <3"}'>
+                    <video id="player" class="video-js vjs-theme-fantasy">
                         <source src="<%= episode.tempVideoUrl %>" type="video/mp4"/>
                     </video>
                     <div class="player-controls">
@@ -52,6 +59,11 @@
                         <div id="comment" class="pc-item">
                             <div class="toggle-basic">
                                 <span class="tb-name"><i class="fas fa-comment"></i> Bình luận</span>
+                            </div>
+                        </div>
+                        <div id="capture" class="pc-item">
+                            <div class="toggle-basic">
+                                <span class="tb-name"><i class="fas fa-camera"></i> Chụp ảnh</span>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -227,16 +239,13 @@
         </div>
     </div>
     <!--End: Main-->
-
     <!--Start: Footer-->
     <%- include('./base/footer') %>
     <!--End: Footer-->
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="/js/player.js"></script>
 <%- include('./base/js-plugin') %>
 <script type="text/javascript" src="/js/disqusloader.js"></script>
 <script>
