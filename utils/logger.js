@@ -23,5 +23,5 @@ if (process.env.NODE_ENV === 'dev') {
 
 
 module.exports = pino({
-    level: process.env.PINO_LOG_LEVEL || 'info',
+    level: process.env.NODE_ENV === 'dev' ? 'info' : 'error',
 }, pino.multistream(streams));
