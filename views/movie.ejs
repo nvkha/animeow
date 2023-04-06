@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="vi-VN">
 <head>
-    <%- include('./base/head') %>
+    <title><%= title %></title>
+    <%- include('./base/meta-data') %>
+    <%- include('./base/common-css') %>
+    <%- include('./base/google-tag') %>
 </head>
 <body>
 <div id="wrapper">
@@ -74,6 +77,6 @@
     <!--End: Footer-->
 </div>
 
-<%- include('./base/js-plugin') %>
+<%- include('./base/common-js') %>
 </body>
 </html>
