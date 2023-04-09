@@ -167,7 +167,7 @@ exports.getGenre = async (req, res, next) => {
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
             description: 'Tổng hợp danh sách Anime theo từng thể loại.',
-            keywords: 'anime, danh sach anime, danh sach anime, anime vietsub, animevietsub',
+            keywords: 'anime, danh sach anime, anime vietsub, animevietsub',
             image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
         }
 
@@ -199,7 +199,7 @@ exports.search = async (req, res, next) => {
             .find({title: {$regex: `^${keyword}.*`}})
             .select('title quality slug image episodeCount status releaseYear updatedAt')
             .sort({releaseYear: -1, updatedAt: -1})
-            .limit(20)
+            .limit(15)
             .lean();
 
         const [genres, animeList] = await Promise.all([genresPromise, animeListPromise]);
@@ -218,6 +218,104 @@ exports.search = async (req, res, next) => {
             genres,
             animeList,
             keyword,
+            topMostViewsDay,
+            topMostViewsWeek,
+            topMostViewsMonth
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.filter = async (req, res, next) => {
+    try {
+        const genres = await getGenres();
+        let filterOptions = {};
+        let sortOptions = {releaseYear: -1, updatedAt: -1};
+        let page = 1;
+
+        if (req.query.keyword) {
+            filterOptions.title = {$regex: `^${req.query.keyword}.*`}
+        }
+
+        if (req.query.genre) {
+            const genreList = req.query.genre.split(',').map(idx => {
+                if (genres.length > idx) {
+                    return genres[idx - 1]._id;
+                }
+            });
+            filterOptions.genres = {$all: genreList}
+        }
+
+        if (req.query.season) {
+            const seasonList = req.query.season.split(',').map(season => {
+                if (season === 'spring') return 'Xuân';
+                else if (season === 'summer') return 'Hạ';
+                else if (season === 'fall') return 'Thu';
+                else if (season === 'winter') return 'Đông';
+            });
+            filterOptions.season = {$in: seasonList}
+        }
+
+        if (req.query.year) {
+            const yearList = req.query.year.split(',');
+            filterOptions.releaseYear = {$in: yearList}
+        }
+
+        if (req.query.type) {
+            const typeList = req.query.type.split(',').map(type => {
+                if (type === 'movie') return 'Movie';
+                else if (type === 'tv') return 'TV Series';
+            });
+            filterOptions.type = {$in: typeList}
+        }
+
+        if (req.query.status) {
+            if (req.query.status === 'finished') filterOptions.status = 'Finished';
+            else if (req.query.status === 'ongoing') filterOptions.status = 'Ongoing';
+            else if (req.query.status === 'upcoming') filterOptions.status = 'Upcoming';
+        }
+
+        if (req.query.episodes) {
+            if (req.query.episodes === '0-12') filterOptions.episodeCount = {'$lte': 12};
+            else if (req.query.episodes === '12') filterOptions.episodeCount = {'$gt': 12};
+        }
+
+        if (req.query.sort) {
+            if (req.query.sort === 'a-z') sortOptions = {title: 1};
+        }
+
+        if (req.query.page) {
+            page = req.query.page
+        }
+
+        console.log(filterOptions)
+        console.log(sortOptions);
+
+        const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
+        const result = await getAnimePagination(filterOptions, sortOptions, page, 15);
+        const animeList = result.docs;
+
+        const meta = {
+            url: req.protocol + '://' + req.hostname + req.originalUrl,
+            description: 'Tổng hợp danh sách Anime theo từng thể loại.',
+            keywords: 'anime, danh sach anime, anime vietsub, animevietsub',
+            image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
+        }
+
+        const path = req.originalUrl;
+
+        res.status(200).render('filter', {
+            title: 'Danh sách Anime',
+            meta,
+            path,
+            genres,
+            genre: {},
+            animeList,
+            prevPage: result.prevPage,
+            nextPage: result.nextPage,
+            totalPages: result.totalPages,
+            currentPage: page,
             topMostViewsDay,
             topMostViewsWeek,
             topMostViewsMonth
@@ -303,6 +401,7 @@ exports.getMovie = async (req, res, next) => {
     }
 }
 
+
 const getGenres = async () => {
     const cacheResults = await cache.get('genres');
     if (cacheResults) {
@@ -339,18 +438,14 @@ const getVideoSource = async (videoUrl) => {
 }
 
 const getAnimePagination = async (filterOptions, sortOptions, page, limit) => {
-    const query = Anime
-        .find(filterOptions)
-        .select('title slug image episodeCount status updatedAt quality releaseYear')
-        .sort(sortOptions)
-        .lean();
+    const query = Anime.find(filterOptions)
 
     const options = {
         page: page,
-        limit: limit,
-        collation: {
-            locale: 'en',
-        },
+        select: 'title slug image type episodeCount status updatedAt quality releaseYear',
+        sort: sortOptions,
+        lean: true,
+        limit: limit
     }
     const result = await Anime.paginate(query, options);
 

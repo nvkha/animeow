@@ -28,6 +28,10 @@
         <div class="container">
             <!--Begin: main-content-->
             <div id="main-content">
+                <!--Begin: Section filter-->
+                <%- include('./base/filter') %>
+                <!--End: Section filter-->
+
                 <!--Begin: Section film list-->
                 <%- include('./base/anime-list') %>
                 <!--End: Section film list-->
@@ -37,7 +41,7 @@
                     <div class="anime-pagination">
                         <div class="ap_-nav">
                             <div class="ap__-btn ap__-btn-prev">
-                                <a href="/anime/trang-<%= prevPage %>"
+                                <a href="/movie/trang-<%= prevPage %>"
                                    class="btn btn-sm btn-focus more-padding <% if(!prevPage) { %>disabled<% } %>">
                                     <i class="fas fa-angle-left"></i>
                                     Previous
@@ -51,7 +55,7 @@
                                 <div class="btn btn-sm btn-blank">of <%= totalPages %></div>
                             </div>
                             <div class="ap__-btn ap__-btn-next">
-                                <a href="/anime/trang-<%= nextPage %>"
+                                <a href="/movie/trang-<%= nextPage %>"
                                    class="btn btn-sm btn-focus more-padding <% if(!nextPage) { %>disabled<% } %>">
                                     Next<i class="fas fa-angle-right"></i>
                                 </a>

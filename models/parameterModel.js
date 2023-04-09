@@ -13,6 +13,8 @@ const parameterSchema = mongoose.Schema({
     }
 });
 
+parameterSchema.index({name: 1});
+
 const Parameter = mongoose.model('Parameter', parameterSchema);
 
 module.exports = Parameter;
