@@ -289,9 +289,6 @@ exports.filter = async (req, res, next) => {
             page = req.query.page
         }
 
-        console.log(filterOptions)
-        console.log(sortOptions);
-
         const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
         const result = await getAnimePagination(filterOptions, sortOptions, page, 15);
         const animeList = result.docs;

@@ -28,18 +28,18 @@
                                             <div class="deslide-cover">
                                                 <div class="deslide-cover-img">
                                                     <img class="film-poster-img"
-                                                         src="https://ik.imagekit.io/3q7pewvsl/banner/<%= slide.image %>"
-                                                         alt="<%= slide.title %>">
+                                                         src="https://ik.imagekit.io/3q7pewvsl/banner/tr:w-1000,h-400/<%= slide.image %>"
+                                                         alt="<%= slide.title %>"
+                                                         loading="lazy">
                                                 </div>
                                             </div>
                                             <div class="deslide-item-content">
-                                                <div class="desi-head-title"><a
-                                                            href="/watch/<%= slide.slug %>"><%= slide.title %></a>
+                                                <div class="desi-head-title">
+                                                    <a href="/watch/<%= slide.slug %>"><%= slide.title %></a>
                                                 </div>
                                                 <div class="desi-description"><%= slide.description %></div>
                                                 <div class="desi-buttons">
-                                                    <a href="/watch/<%= slide.slug %>" class="btn">Xem
-                                                        Ngay</a>
+                                                    <a href="/watch/<%= slide.slug %>" class="btn">Xem Ngay</a>
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>
@@ -93,7 +93,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9.1.1/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="/js/swiper-slide.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
 <!-- Google Tag Manager (noscript) -->
