@@ -21,7 +21,7 @@ mongoose.connect(process.env.DATABASE_URL, {
     useFindAndModify: false
 }).then(() => console.log('MongoDB connected...'));
 
-schedule.scheduleJob('0 * * * *', async function () {
+schedule.scheduleJob('*/30 * * * *', async function () {
     try {
         console.log(`Start update top most views job`);
         await googleAnalyticsUtils.getTopMostViews();

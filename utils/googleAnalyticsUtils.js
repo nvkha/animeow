@@ -66,18 +66,16 @@ module.exports.getTopMostViews = async function () {
 }
 
 async function resToAnimeList(res) {
-    let slugs = [];
-    let views = [];
-    res.rows.forEach(row => {
-        if (row.dimensionValues[0].value.split('/').length > 2) {
-            slugs.push(row.dimensionValues[0].value.split('/')[2]);
-            views.push(row.metricValues[0].value);
-        }
-    });
+    let topMostViewsList = [];
 
-    let topMostViewsList = await Anime.find({slug: {$in: slugs}}).select('title image slug').lean();
-    for (let i = 0; i < topMostViewsList.length; i++) {
-        topMostViewsList[i].views = views[i];
+    for (let i = 0; i < res.rows.length; i++) {
+        if (res.rows[i].dimensionValues[0].value.split('/').length > 2) {
+            let anime = await Anime.findOne({slug: res.rows[i].dimensionValues[0].value.split('/')[2]}).select('title image slug').lean();
+            if (anime) {
+                anime.views = res.rows[i].metricValues[0].value;
+                topMostViewsList.push(anime);
+            }
+        }
     }
 
     return topMostViewsList;
