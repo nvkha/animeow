@@ -27,10 +27,12 @@
                                         <div class="deslide-item">
                                             <div class="deslide-cover">
                                                 <div class="deslide-cover-img">
-                                                    <img class="film-poster-img"
-                                                         src="https://ik.imagekit.io/3q7pewvsl/banner/tr:w-1000,h-400/<%= slide.image %>"
-                                                         alt="<%= slide.title %>"
-                                                         loading="lazy">
+                                                    <a href="/watch/<%= slide.slug %>">
+                                                        <img class="film-poster-img"
+                                                             src="https://ik.imagekit.io/3q7pewvsl/banner/tr:w-1000,h-400/<%= slide.image %>"
+                                                             alt="<%= slide.title %>"
+                                                             loading="lazy">
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="deslide-item-content">
