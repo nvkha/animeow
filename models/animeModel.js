@@ -140,6 +140,7 @@ animeSchema.post('findOneAndDelete', async function (doc, next) {
 
 animeSchema.plugin(mongoosePaginate);
 
+animeSchema.index({title: 'text', otherTitle: 'text'})
 animeSchema.index({active: 1});
 animeSchema.index({genres: 1});
 animeSchema.index({slug: 1});

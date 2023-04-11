@@ -68,7 +68,6 @@ exports.getAnime = async (req, res, next) => {
                 .populate({path: 'genres', select: 'name slug'})
                 .populate({path: 'relatedAnimeList', select: 'title slug image episodeCount status releaseYear'})
                 .lean();
-            console.log(anime)
             if (!anime) {
                 return next(new AppError("Oops, sorry we can't find that page!", 404));
             }
@@ -174,11 +173,7 @@ exports.getGenre = async (req, res, next) => {
         }
 
         res.status(200).render('categories', {
-            title: 'Danh sách Anime',
-            meta,
-            genres,
-            genre,
-            animeList,
+            title: 'Danh sách Anime', meta, genres, genre, animeList,
             prevPage: result.prevPage,
             nextPage: result.nextPage,
             totalPages: result.totalPages,
@@ -197,8 +192,9 @@ exports.search = async (req, res, next) => {
         const keyword = req.params.keyword ? req.params.keyword : '';
 
         const genresPromise = getGenres();
+
         const animeListPromise = Anime
-            .find({title: {$regex: `^${keyword}.*`}})
+            .find({$or: [{$text: {$search: keyword}}, {title: {$regex: keyword}}]})
             .select('title quality slug image episodeCount status releaseYear updatedAt')
             .sort({releaseYear: -1, updatedAt: -1})
             .limit(15)
