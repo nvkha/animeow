@@ -66,7 +66,9 @@ exports.getAnime = async (req, res, next) => {
             anime = await Anime
                 .findOne({slug: req.params.slug})
                 .populate({path: 'genres', select: 'name slug'})
+                .populate({path: 'relatedAnimeList', select: 'title slug image episodeCount status releaseYear'})
                 .lean();
+            console.log(anime)
             if (!anime) {
                 return next(new AppError("Oops, sorry we can't find that page!", 404));
             }

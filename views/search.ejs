@@ -4,6 +4,7 @@
     <title><%= title %></title>
     <%- include('./base/meta-data') %>
     <%- include('./base/common-css') %>
+    <%- include('./base/google-adsense') %>
     <%- include('./base/google-tag') %>
 </head>
 <body>
@@ -42,7 +43,9 @@
             <!--/End: main-content-->
 
             <!--Start: main-sidebar-->
-            <%- include('./base/top-views-sidebar') %>
+            <div id="main-sidebar">
+                <%- include('./base/top-views-sidebar') %>
+            </div>
             <!--/End: main-sidebar-->
             <div class="clearfix"></div>
         </div>

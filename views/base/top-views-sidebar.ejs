@@ -1,473 +1,471 @@
-<div id="main-sidebar">
-    <% if(title === 'AniMeow - Anime Vietsub Online') { %>
-        <section class="block_area block_area_sidebar block_area-filter">
-            <div class="block_area-header">
-                <div class="bah-heading">
-                    <h2 class="cat-heading">Quick filter</h2>
-                </div>
-            </div>
-            <div class="block_area-content">
-                <div class="sidebar-filter">
-                    <div class="item">
-                        <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                             class="btn btn-sm btn-filter">
-                            Thể Loại <span><span id="filter-genre-selected"></span><i
-                                        class="fas fa-angle-down ml-1"></i></span>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-native dropdown-menu-large dropdown-menu-filter">
-                            <ul class="ulclear ul-filter ul-4col">
-                                <% for(let i = 0; i < genres.length; i++) { %>
-                                    <li id="genre-<%= i + 1 %>">
-                                        <div class="acustom custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input checkbox-genre"
-                                                   value="<%= i + 1 %>"
-                                                   id="input-genre-<%= i + 1 %>">
-                                            <label class="custom-control-label" for="input-genre-<%= i + 1 %>">
-                                                <%= genres[i].name %>
-                                            </label>
-                                        </div>
-                                    </li>
-                                <% } %>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                             class="btn btn-sm btn-filter">
-                            Mùa <span><span id="filter-season-selected"></span><i
-                                        class="fas fa-angle-down ml-1"></i></span>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-native dropdown-menu-filter">
-                            <ul class="ulclear ul-filter">
-
-                                <li id="season-1">
-                                    <div class="acustom custom-control custom-checkbox">
-                                        <input type="checkbox" value="spring"
-                                               class="custom-control-input checkbox-season"
-                                               id="input-season-1">
-                                        <label class="custom-control-label" for="input-season-1">Xuân</label>
-                                    </div>
-                                </li>
-
-                                <li id="season-2">
-                                    <div class="acustom custom-control custom-checkbox">
-                                        <input type="checkbox" value="summer"
-                                               class="custom-control-input checkbox-season"
-                                               id="input-season-2">
-                                        <label class="custom-control-label" for="input-season-2">Hạ</label>
-                                    </div>
-                                </li>
-
-                                <li id="season-3">
-                                    <div class="acustom custom-control custom-checkbox">
-                                        <input type="checkbox" value="fall" class="custom-control-input checkbox-season"
-                                               id="input-season-3">
-                                        <label class="custom-control-label" for="input-season-3">Thu</label>
-                                    </div>
-                                </li>
-
-                                <li id="season-4">
-                                    <div class="acustom custom-control custom-checkbox">
-                                        <input type="checkbox" value="winter"
-                                               class="custom-control-input checkbox-season"
-                                               id="input-season-4">
-                                        <label class="custom-control-label" for="input-season-4">Đông</label>
-                                    </div>
-                                </li>
-
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                             class="btn btn-sm btn-filter">
-                            Năm <span><span id="filter-year-selected"></span><i
-                                        class="fas fa-angle-down ml-1"></i></span>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-native dropdown-menu-medium dropdown-menu-filter">
-                            <ul class="ulclear ul-3col ul-filter">
-                                <% for(let i = 0; i < 12; i++) { %>
-                                    <% let year = new Date().getFullYear(); %>
-                                    <li>
-                                        <div class="acustom custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input checkbox-year"
-                                                   value="<%= year - i %>"
-                                                   id="input-year-<%= year - i %>">
-                                            <label class="custom-control-label"
-                                                   for="input-year-<%= year - i %>"><%= year - i %></label>
-                                        </div>
-                                    </li>
-                                <% } %>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                             class="btn btn-sm btn-filter">
-                            Loại Anime <span><span id="filter-type-selected"></span><i
-                                        class="fas fa-angle-down ml-1"></i></span>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-native dropdown-menu-filter">
-                            <ul class="ulclear ul-filter">
-
-                                <li id="type-1">
-                                    <div class="acustom custom-control custom-checkbox">
-                                        <input type="checkbox" value="movie" class="custom-control-input checkbox-type"
-                                               id="input-type-movie">
-                                        <label class="custom-control-label" for="input-type-movie">Movie</label>
-                                    </div>
-                                </li>
-
-                                <li id="type-2">
-                                    <div class="acustom custom-control custom-checkbox">
-                                        <input type="checkbox" value="tv" class="custom-control-input checkbox-type"
-                                               id="input-type-tv">
-                                        <label class="custom-control-label" for="input-type-tv">TV Series</label>
-                                    </div>
-                                </li>
-
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                             class="btn btn-sm btn-filter">
-                            Trạng Thái <span><span id="filter-status-selected"></span><i
-                                        class="fas fa-angle-down ml-1"></i></span>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-native dropdown-menu-filter">
-                            <ul class="ulclear ul-filter">
-                                <li id="status-all">
-                                    <div class="acustom custom-control custom-radio">
-                                        <input checked="" type="radio" value="all" class="custom-control-input"
-                                               name="radio-status" id="input-status-all">
-                                        <label class="custom-control-label" for="input-status-all">Tất Cả</label>
-                                    </div>
-                                </li>
-                                <li id="status-1">
-                                    <div class="acustom custom-control custom-radio">
-                                        <input type="radio" value="finished" class="custom-control-input"
-                                               name="radio-status"
-                                               id="input-status-1">
-                                        <label class="custom-control-label" for="input-status-1">Hoàn Thành</label>
-                                    </div>
-                                </li>
-
-                                <li id="status-2">
-                                    <div class="acustom custom-control custom-radio">
-                                        <input type="radio" value="ongoing" class="custom-control-input"
-                                               name="radio-status"
-                                               id="input-status-2">
-                                        <label class="custom-control-label" for="input-status-2">Đang Ra</label>
-                                    </div>
-                                </li>
-
-                                <li id="status-3">
-                                    <div class="acustom custom-control custom-radio">
-                                        <input type="radio" value="upcoming" class="custom-control-input"
-                                               name="radio-status"
-                                               id="input-status-3">
-                                        <label class="custom-control-label" for="input-status-3">Sắp Chiếu</label>
-                                    </div>
-                                </li>
-
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                             class="btn btn-sm btn-filter">
-                            Số Tập <span><span id="filter-episode-selected"></span><i
-                                        class="fas fa-angle-down ml-1"></i></span>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-native dropdown-menu-filter">
-                            <ul class="ulclear ul-filter">
-                                <li id="episodes-all">
-                                    <div class="acustom custom-control custom-radio">
-                                        <input checked="" type="radio" value="all" class="custom-control-input"
-                                               name="radio-episodes" id="input-episodes-all">
-                                        <label class="custom-control-label" for="input-episodes-all">Tất Cả</label>
-                                    </div>
-                                </li>
-                                <li id="episodes-1">
-                                    <div class="acustom custom-control custom-radio">
-                                        <input type="radio" value="0-12" class="custom-control-input"
-                                               name="radio-episodes"
-                                               id="input-episodes-1">
-                                        <label class="custom-control-label" for="input-episodes-1">0 ~ 12</label>
-                                    </div>
-                                </li>
-
-                                <li id="episodes-2">
-                                    <div class="acustom custom-control custom-radio">
-                                        <input type="radio" value="12" class="custom-control-input"
-                                               name="radio-episodes"
-                                               id="input-episodes-2">
-                                        <label class="custom-control-label" for="input-episodes-2"> 12+ </label>
-                                    </div>
-                                </li>
-
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                             class="btn btn-sm btn-filter">Quốc Gia <span><i class="fas fa-angle-down ml-1"></i></span>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                             class="btn btn-sm btn-filter">
-                            Sắp Xếp Theo <span><span id="filter-sort-selected"></span><i
-                                        class="fas fa-angle-down ml-1"></i></span>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-native dropdown-menu-filter">
-                            <ul class="ulclear ul-filter">
-                                <li>
-                                    <div class="acustom custom-control custom-radio">
-                                        <input checked="" type="radio" value="all" class="custom-control-input"
-                                               name="radio-sort" id="input-sort-all">
-                                        <label class="custom-control-label" for="input-sort-default">Mặc Định</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="acustom custom-control custom-radio">
-                                        <input type="radio" value="updated_at" class="custom-control-input"
-                                               name="radio-sort"
-                                               id="input-sort-recentlyUpdated">
-                                        <label class="custom-control-label" for="input-sort-recentlyUpdated">Mới Cập
-                                            Nhật</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="acustom custom-control custom-radio">
-                                        <input type="radio" value="a-z" class="custom-control-input" name="radio-sort"
-                                               id="input-sort-recentlyAdded">
-                                        <label class="custom-control-label" for="input-sort-recentlyAdded">Tên:
-                                            A-Z</label>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="filter-bottom">
-                    <div id="sidebar-search">
-                        <div class="search-content">
-                            <input type="text" class="form-control search-input" value="" name="filter-keyword"
-                                   placeholder="Từ khóa...">
-                        </div>
-                    </div>
-                    <div class="submit filter">
-                        <div class="btn btn-block btn-focus" id="btn-filter-submit"><i class="fas fa-filter mr-1"></i>Lọc
-                            Anime
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    <% } %>
-
-    <!--sidebar block-->
-    <section class="block_area block_area_sidebar block_area-realtime">
+<% if(title === 'AniMeow - Anime Vietsub Online') { %>
+    <section class="block_area block_area_sidebar block_area-filter">
         <div class="block_area-header">
-            <div class="float-left bah-heading mr-2">
-                <h2 class="cat-heading">Top Anime</h2>
+            <div class="bah-heading">
+                <h2 class="cat-heading">Quick filter</h2>
             </div>
-            <div class="float-right bah-tab-min">
-                <ul class="nav nav-pills nav-fill nav-tabs anw-tabs">
-                    <li class="nav-item"><a data-toggle="tab" href="#top-viewed-day"
-                                            class="nav-link active">Ngày</a>
-                    </li>
-                    <li class="nav-item"><a data-toggle="tab" href="#top-viewed-week"
-                                            class="nav-link">Tuần</a></li>
-                    <li class="nav-item"><a data-toggle="tab" href="#top-viewed-month" class="nav-link">Tháng</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="clearfix"></div>
         </div>
         <div class="block_area-content">
-            <div class="cbox cbox-list cbox-realtime">
-                <div class="cbox-content">
-                    <div class="tab-content">
-
-                        <div id="top-viewed-day" class="anime-block-ul anif-block-chart tab-pane active">
-                            <ul class="ulclear">
-                                <% if(topMostViewsDay) { %>
-                                    <% for(let i = 0; i < topMostViewsDay.length; i++) { %>
-                                        <% if(i === 0) { %>
-                                            <li class="item-top">
-                                                <div class="film-number"><span><%= i + 1 %></span></div>
-                                                <div class="film-poster item-qtip">
-                                                    <img src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= topMostViewsDay[i].image %>"
-                                                         class="film-poster-img"
-                                                         loading="lazy"
-                                                         alt="<%= topMostViewsDay[i].title %>">
-                                                </div>
-                                                <div class="film-detail">
-                                                    <h3 class="film-name">
-                                                        <a href="/watch/<%= topMostViewsDay[i].slug %>"
-                                                           class="dynamic-name"><%= topMostViewsDay[i].title %></a>
-                                                    </h3>
-                                                    <div class="fd-infor">
-                                                    <span class="fdi-item mr-2">
-                                                        <i class="fas fa-eye mr-1"></i>
-                                                        <%= topMostViewsDay[i].views %>
-                                                    </span>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </li>
-                                        <% } else { %>
-                                            <li class="">
-                                                <div class="film-number"><span><%= i + 1 %></span></div>
-                                                <div class="film-poster item-qtip">
-                                                    <img src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= topMostViewsDay[i].image %>"
-                                                         class="film-poster-img"
-                                                         loading="lazy"
-                                                         alt="<%= topMostViewsDay[i].title %>">
-                                                </div>
-                                                <div class="film-detail">
-                                                    <h3 class="film-name">
-                                                        <a href="/watch/<%= topMostViewsDay[i].slug %>"
-                                                           class="dynamic-name"><%= topMostViewsDay[i].title %></a>
-                                                    </h3>
-                                                    <div class="fd-infor">
-                                                    <span class="fdi-item mr-2"><i
-                                                                class="fas fa-eye mr-1"></i><%= topMostViewsDay[i].views %></span>
-                                                        <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </li>
-                                        <% } %>
-                                    <% } %>
-                                <% } %>
-                            </ul>
-                        </div>
-                        <div id="top-viewed-week" class="anime-block-ul anif-block-chart tab-pane">
-                            <ul class="ulclear">
-                                <% if(topMostViewsWeek) { %>
-                                    <% for(let i = 0; i < topMostViewsWeek.length; i++) { %>
-                                        <% if(i === 0) { %>
-                                            <li class="item-top">
-                                                <div class="film-number"><span><%= i + 1 %></span></div>
-                                                <div class="film-poster item-qtip">
-                                                    <img src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= topMostViewsWeek[i].image %>"
-                                                         class="film-poster-img"
-                                                         loading="lazy"
-                                                         alt="<%= topMostViewsWeek[i].title %>">
-                                                </div>
-                                                <div class="film-detail">
-                                                    <h3 class="film-name">
-                                                        <a href="/watch/<%= topMostViewsWeek[i].slug %>"
-                                                           class="dynamic-name"><%= topMostViewsWeek[i].title %></a>
-                                                    </h3>
-                                                    <div class="fd-infor">
-                                                    <span class="fdi-item mr-2">
-                                                        <i class="fas fa-eye mr-1"></i>
-                                                        <%= topMostViewsWeek[i].views %>
-                                                    </span>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </li>
-                                        <% } else { %>
-                                            <li class="">
-                                                <div class="film-number"><span><%= i + 1 %></span></div>
-                                                <div class="film-poster item-qtip">
-                                                    <img src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= topMostViewsWeek[i].image %>"
-                                                         class="film-poster-img"
-                                                         loading="lazy"
-                                                         alt="<%= topMostViewsWeek[i].title %>">
-                                                </div>
-                                                <div class="film-detail">
-                                                    <h3 class="film-name">
-                                                        <a href="/watch/<%= topMostViewsWeek[i].slug %>"
-                                                           class="dynamic-name"><%= topMostViewsWeek[i].title %></a>
-                                                    </h3>
-                                                    <div class="fd-infor">
-                                                    <span class="fdi-item mr-2"><i
-                                                                class="fas fa-eye mr-1"></i><%= topMostViewsWeek[i].views %></span>
-                                                        <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </li>
-                                        <% } %>
-                                    <% } %>
-                                <% } %>
-                            </ul>
-                        </div>
-                        <div id="top-viewed-month" class="anime-block-ul anif-block-chart tab-pane">
-                            <ul class="ulclear">
-                                <% if(topMostViewsMonth) { %>
-                                    <% for(let i = 0; i < topMostViewsMonth.length; i++) { %>
-                                        <% if(i === 0) { %>
-                                            <li class="item-top">
-                                                <div class="film-number"><span><%= i + 1 %></span></div>
-                                                <div class="film-poster item-qtip">
-                                                    <img src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= topMostViewsMonth[i].image %>"
-                                                         class="film-poster-img"
-                                                         loading="lazy"
-                                                         alt="<%= topMostViewsMonth[i].title %>">
-                                                </div>
-                                                <div class="film-detail">
-                                                    <h3 class="film-name">
-                                                        <a href="/watch/<%= topMostViewsMonth[i].slug %>"
-                                                           class="dynamic-name"><%= topMostViewsMonth[i].title %></a>
-                                                    </h3>
-                                                    <div class="fd-infor">
-                                                    <span class="fdi-item mr-2">
-                                                        <i class="fas fa-eye mr-1"></i>
-                                                        <%= topMostViewsMonth[i].views %>
-                                                    </span>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </li>
-                                        <% } else { %>
-                                            <li class="">
-                                                <div class="film-number"><span><%= i + 1 %></span></div>
-                                                <div class="film-poster item-qtip">
-                                                    <img src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= topMostViewsMonth[i].image %>"
-                                                         class="film-poster-img"
-                                                         loading="lazy"
-                                                         alt="<%= topMostViewsMonth[i].title %>">
-                                                </div>
-                                                <div class="film-detail">
-                                                    <h3 class="film-name">
-                                                        <a href="/watch/<%= topMostViewsMonth[i].slug %>"
-                                                           class="dynamic-name"><%= topMostViewsMonth[i].title %></a>
-                                                    </h3>
-                                                    <div class="fd-infor">
-                                                    <span class="fdi-item mr-2"><i
-                                                                class="fas fa-eye mr-1"></i><%= topMostViewsMonth[i].views %></span>
-                                                        <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </li>
-                                        <% } %>
-                                    <% } %>
-                                <% } %>
-                            </ul>
-                        </div>
+            <div class="sidebar-filter">
+                <div class="item">
+                    <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                         class="btn btn-sm btn-filter">
+                        Thể Loại <span><span id="filter-genre-selected"></span><i
+                                    class="fas fa-angle-down ml-1"></i></span>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-native dropdown-menu-large dropdown-menu-filter">
+                        <ul class="ulclear ul-filter ul-4col">
+                            <% for(let i = 0; i < genres.length; i++) { %>
+                                <li id="genre-<%= i + 1 %>">
+                                    <div class="acustom custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input checkbox-genre"
+                                               value="<%= i + 1 %>"
+                                               id="input-genre-<%= i + 1 %>">
+                                        <label class="custom-control-label" for="input-genre-<%= i + 1 %>">
+                                            <%= genres[i].name %>
+                                        </label>
+                                    </div>
+                                </li>
+                            <% } %>
+                        </ul>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
+                </div>
+                <div class="item">
+                    <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                         class="btn btn-sm btn-filter">
+                        Mùa <span><span id="filter-season-selected"></span><i
+                                    class="fas fa-angle-down ml-1"></i></span>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-native dropdown-menu-filter">
+                        <ul class="ulclear ul-filter">
+
+                            <li id="season-1">
+                                <div class="acustom custom-control custom-checkbox">
+                                    <input type="checkbox" value="spring"
+                                           class="custom-control-input checkbox-season"
+                                           id="input-season-1">
+                                    <label class="custom-control-label" for="input-season-1">Xuân</label>
+                                </div>
+                            </li>
+
+                            <li id="season-2">
+                                <div class="acustom custom-control custom-checkbox">
+                                    <input type="checkbox" value="summer"
+                                           class="custom-control-input checkbox-season"
+                                           id="input-season-2">
+                                    <label class="custom-control-label" for="input-season-2">Hạ</label>
+                                </div>
+                            </li>
+
+                            <li id="season-3">
+                                <div class="acustom custom-control custom-checkbox">
+                                    <input type="checkbox" value="fall" class="custom-control-input checkbox-season"
+                                           id="input-season-3">
+                                    <label class="custom-control-label" for="input-season-3">Thu</label>
+                                </div>
+                            </li>
+
+                            <li id="season-4">
+                                <div class="acustom custom-control custom-checkbox">
+                                    <input type="checkbox" value="winter"
+                                           class="custom-control-input checkbox-season"
+                                           id="input-season-4">
+                                    <label class="custom-control-label" for="input-season-4">Đông</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                         class="btn btn-sm btn-filter">
+                        Năm <span><span id="filter-year-selected"></span><i
+                                    class="fas fa-angle-down ml-1"></i></span>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-native dropdown-menu-medium dropdown-menu-filter">
+                        <ul class="ulclear ul-3col ul-filter">
+                            <% for(let i = 0; i < 12; i++) { %>
+                                <% let year = new Date().getFullYear(); %>
+                                <li>
+                                    <div class="acustom custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input checkbox-year"
+                                               value="<%= year - i %>"
+                                               id="input-year-<%= year - i %>">
+                                        <label class="custom-control-label"
+                                               for="input-year-<%= year - i %>"><%= year - i %></label>
+                                    </div>
+                                </li>
+                            <% } %>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                         class="btn btn-sm btn-filter">
+                        Loại Anime <span><span id="filter-type-selected"></span><i
+                                    class="fas fa-angle-down ml-1"></i></span>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-native dropdown-menu-filter">
+                        <ul class="ulclear ul-filter">
+
+                            <li id="type-1">
+                                <div class="acustom custom-control custom-checkbox">
+                                    <input type="checkbox" value="movie" class="custom-control-input checkbox-type"
+                                           id="input-type-movie">
+                                    <label class="custom-control-label" for="input-type-movie">Movie</label>
+                                </div>
+                            </li>
+
+                            <li id="type-2">
+                                <div class="acustom custom-control custom-checkbox">
+                                    <input type="checkbox" value="tv" class="custom-control-input checkbox-type"
+                                           id="input-type-tv">
+                                    <label class="custom-control-label" for="input-type-tv">TV Series</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                         class="btn btn-sm btn-filter">
+                        Trạng Thái <span><span id="filter-status-selected"></span><i
+                                    class="fas fa-angle-down ml-1"></i></span>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-native dropdown-menu-filter">
+                        <ul class="ulclear ul-filter">
+                            <li id="status-all">
+                                <div class="acustom custom-control custom-radio">
+                                    <input checked="" type="radio" value="all" class="custom-control-input"
+                                           name="radio-status" id="input-status-all">
+                                    <label class="custom-control-label" for="input-status-all">Tất Cả</label>
+                                </div>
+                            </li>
+                            <li id="status-1">
+                                <div class="acustom custom-control custom-radio">
+                                    <input type="radio" value="finished" class="custom-control-input"
+                                           name="radio-status"
+                                           id="input-status-1">
+                                    <label class="custom-control-label" for="input-status-1">Hoàn Thành</label>
+                                </div>
+                            </li>
+
+                            <li id="status-2">
+                                <div class="acustom custom-control custom-radio">
+                                    <input type="radio" value="ongoing" class="custom-control-input"
+                                           name="radio-status"
+                                           id="input-status-2">
+                                    <label class="custom-control-label" for="input-status-2">Đang Ra</label>
+                                </div>
+                            </li>
+
+                            <li id="status-3">
+                                <div class="acustom custom-control custom-radio">
+                                    <input type="radio" value="upcoming" class="custom-control-input"
+                                           name="radio-status"
+                                           id="input-status-3">
+                                    <label class="custom-control-label" for="input-status-3">Sắp Chiếu</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                         class="btn btn-sm btn-filter">
+                        Số Tập <span><span id="filter-episode-selected"></span><i
+                                    class="fas fa-angle-down ml-1"></i></span>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-native dropdown-menu-filter">
+                        <ul class="ulclear ul-filter">
+                            <li id="episodes-all">
+                                <div class="acustom custom-control custom-radio">
+                                    <input checked="" type="radio" value="all" class="custom-control-input"
+                                           name="radio-episodes" id="input-episodes-all">
+                                    <label class="custom-control-label" for="input-episodes-all">Tất Cả</label>
+                                </div>
+                            </li>
+                            <li id="episodes-1">
+                                <div class="acustom custom-control custom-radio">
+                                    <input type="radio" value="0-12" class="custom-control-input"
+                                           name="radio-episodes"
+                                           id="input-episodes-1">
+                                    <label class="custom-control-label" for="input-episodes-1">0 ~ 12</label>
+                                </div>
+                            </li>
+
+                            <li id="episodes-2">
+                                <div class="acustom custom-control custom-radio">
+                                    <input type="radio" value="12" class="custom-control-input"
+                                           name="radio-episodes"
+                                           id="input-episodes-2">
+                                    <label class="custom-control-label" for="input-episodes-2"> 12+ </label>
+                                </div>
+                            </li>
+
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                         class="btn btn-sm btn-filter">Quốc Gia <span><i class="fas fa-angle-down ml-1"></i></span>
+                    </div>
+                </div>
+                <div class="item">
+                    <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                         class="btn btn-sm btn-filter">
+                        Sắp Xếp Theo <span><span id="filter-sort-selected"></span><i
+                                    class="fas fa-angle-down ml-1"></i></span>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-native dropdown-menu-filter">
+                        <ul class="ulclear ul-filter">
+                            <li>
+                                <div class="acustom custom-control custom-radio">
+                                    <input checked="" type="radio" value="all" class="custom-control-input"
+                                           name="radio-sort" id="input-sort-all">
+                                    <label class="custom-control-label" for="input-sort-default">Mặc Định</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="acustom custom-control custom-radio">
+                                    <input type="radio" value="updated_at" class="custom-control-input"
+                                           name="radio-sort"
+                                           id="input-sort-recentlyUpdated">
+                                    <label class="custom-control-label" for="input-sort-recentlyUpdated">Mới Cập
+                                        Nhật</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="acustom custom-control custom-radio">
+                                    <input type="radio" value="a-z" class="custom-control-input" name="radio-sort"
+                                           id="input-sort-recentlyAdded">
+                                    <label class="custom-control-label" for="input-sort-recentlyAdded">Tên:
+                                        A-Z</label>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="filter-bottom">
+                <div id="sidebar-search">
+                    <div class="search-content">
+                        <input type="text" class="form-control search-input" value="" name="filter-keyword"
+                               placeholder="Từ khóa...">
+                    </div>
+                </div>
+                <div class="submit filter">
+                    <div class="btn btn-block btn-focus" id="btn-filter-submit"><i class="fas fa-filter mr-1"></i>Lọc
+                        Anime
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    <!--/sidebar block-->
-</div>
+<% } %>
+
+<!--sidebar block-->
+<section class="block_area block_area_sidebar block_area-realtime">
+    <div class="block_area-header">
+        <div class="float-left bah-heading mr-2">
+            <h2 class="cat-heading">Top Anime</h2>
+        </div>
+        <div class="float-right bah-tab-min">
+            <ul class="nav nav-pills nav-fill nav-tabs anw-tabs">
+                <li class="nav-item"><a data-toggle="tab" href="#top-viewed-day"
+                                        class="nav-link active">Ngày</a>
+                </li>
+                <li class="nav-item"><a data-toggle="tab" href="#top-viewed-week"
+                                        class="nav-link">Tuần</a></li>
+                <li class="nav-item"><a data-toggle="tab" href="#top-viewed-month" class="nav-link">Tháng</a>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="block_area-content">
+        <div class="cbox cbox-list cbox-realtime">
+            <div class="cbox-content">
+                <div class="tab-content">
+
+                    <div id="top-viewed-day" class="anime-block-ul anif-block-chart tab-pane active">
+                        <ul class="ulclear">
+                            <% if(topMostViewsDay) { %>
+                                <% for(let i = 0; i < topMostViewsDay.length; i++) { %>
+                                    <% if(i === 0) { %>
+                                        <li class="item-top">
+                                            <div class="film-number"><span><%= i + 1 %></span></div>
+                                            <div class="film-poster item-qtip">
+                                                <img src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= topMostViewsDay[i].image %>"
+                                                     class="film-poster-img"
+                                                     loading="lazy"
+                                                     alt="<%= topMostViewsDay[i].title %>">
+                                            </div>
+                                            <div class="film-detail">
+                                                <h3 class="film-name">
+                                                    <a href="/watch/<%= topMostViewsDay[i].slug %>"
+                                                       class="dynamic-name"><%= topMostViewsDay[i].title %></a>
+                                                </h3>
+                                                <div class="fd-infor">
+                                                    <span class="fdi-item mr-2">
+                                                        <i class="fas fa-eye mr-1"></i>
+                                                        <%= topMostViewsDay[i].views %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                    <% } else { %>
+                                        <li class="">
+                                            <div class="film-number"><span><%= i + 1 %></span></div>
+                                            <div class="film-poster item-qtip">
+                                                <img src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= topMostViewsDay[i].image %>"
+                                                     class="film-poster-img"
+                                                     loading="lazy"
+                                                     alt="<%= topMostViewsDay[i].title %>">
+                                            </div>
+                                            <div class="film-detail">
+                                                <h3 class="film-name">
+                                                    <a href="/watch/<%= topMostViewsDay[i].slug %>"
+                                                       class="dynamic-name"><%= topMostViewsDay[i].title %></a>
+                                                </h3>
+                                                <div class="fd-infor">
+                                                    <span class="fdi-item mr-2"><i
+                                                                class="fas fa-eye mr-1"></i><%= topMostViewsDay[i].views %></span>
+                                                    <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                    <% } %>
+                                <% } %>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div id="top-viewed-week" class="anime-block-ul anif-block-chart tab-pane">
+                        <ul class="ulclear">
+                            <% if(topMostViewsWeek) { %>
+                                <% for(let i = 0; i < topMostViewsWeek.length; i++) { %>
+                                    <% if(i === 0) { %>
+                                        <li class="item-top">
+                                            <div class="film-number"><span><%= i + 1 %></span></div>
+                                            <div class="film-poster item-qtip">
+                                                <img src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= topMostViewsWeek[i].image %>"
+                                                     class="film-poster-img"
+                                                     loading="lazy"
+                                                     alt="<%= topMostViewsWeek[i].title %>">
+                                            </div>
+                                            <div class="film-detail">
+                                                <h3 class="film-name">
+                                                    <a href="/watch/<%= topMostViewsWeek[i].slug %>"
+                                                       class="dynamic-name"><%= topMostViewsWeek[i].title %></a>
+                                                </h3>
+                                                <div class="fd-infor">
+                                                    <span class="fdi-item mr-2">
+                                                        <i class="fas fa-eye mr-1"></i>
+                                                        <%= topMostViewsWeek[i].views %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                    <% } else { %>
+                                        <li class="">
+                                            <div class="film-number"><span><%= i + 1 %></span></div>
+                                            <div class="film-poster item-qtip">
+                                                <img src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= topMostViewsWeek[i].image %>"
+                                                     class="film-poster-img"
+                                                     loading="lazy"
+                                                     alt="<%= topMostViewsWeek[i].title %>">
+                                            </div>
+                                            <div class="film-detail">
+                                                <h3 class="film-name">
+                                                    <a href="/watch/<%= topMostViewsWeek[i].slug %>"
+                                                       class="dynamic-name"><%= topMostViewsWeek[i].title %></a>
+                                                </h3>
+                                                <div class="fd-infor">
+                                                    <span class="fdi-item mr-2"><i
+                                                                class="fas fa-eye mr-1"></i><%= topMostViewsWeek[i].views %></span>
+                                                    <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                    <% } %>
+                                <% } %>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div id="top-viewed-month" class="anime-block-ul anif-block-chart tab-pane">
+                        <ul class="ulclear">
+                            <% if(topMostViewsMonth) { %>
+                                <% for(let i = 0; i < topMostViewsMonth.length; i++) { %>
+                                    <% if(i === 0) { %>
+                                        <li class="item-top">
+                                            <div class="film-number"><span><%= i + 1 %></span></div>
+                                            <div class="film-poster item-qtip">
+                                                <img src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= topMostViewsMonth[i].image %>"
+                                                     class="film-poster-img"
+                                                     loading="lazy"
+                                                     alt="<%= topMostViewsMonth[i].title %>">
+                                            </div>
+                                            <div class="film-detail">
+                                                <h3 class="film-name">
+                                                    <a href="/watch/<%= topMostViewsMonth[i].slug %>"
+                                                       class="dynamic-name"><%= topMostViewsMonth[i].title %></a>
+                                                </h3>
+                                                <div class="fd-infor">
+                                                    <span class="fdi-item mr-2">
+                                                        <i class="fas fa-eye mr-1"></i>
+                                                        <%= topMostViewsMonth[i].views %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                    <% } else { %>
+                                        <li class="">
+                                            <div class="film-number"><span><%= i + 1 %></span></div>
+                                            <div class="film-poster item-qtip">
+                                                <img src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= topMostViewsMonth[i].image %>"
+                                                     class="film-poster-img"
+                                                     loading="lazy"
+                                                     alt="<%= topMostViewsMonth[i].title %>">
+                                            </div>
+                                            <div class="film-detail">
+                                                <h3 class="film-name">
+                                                    <a href="/watch/<%= topMostViewsMonth[i].slug %>"
+                                                       class="dynamic-name"><%= topMostViewsMonth[i].title %></a>
+                                                </h3>
+                                                <div class="fd-infor">
+                                                    <span class="fdi-item mr-2"><i
+                                                                class="fas fa-eye mr-1"></i><%= topMostViewsMonth[i].views %></span>
+                                                    <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                    <% } %>
+                                <% } %>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/sidebar block-->

@@ -13,6 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video-js.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@videojs/themes@1.0.1/dist/fantasy/index.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css" type="text/css">
+    <%- include('./base/google-adsense') %>
     <%- include('./base/google-tag') %>
 </head>
 <body>
@@ -50,6 +51,7 @@
 
             <div class="player-extend-display"></div>
             <div id="main-content">
+
                 <!--Begin: watch-block-->
                 <div id="watch-block" class="">
                     <video id="player" class="video-js vjs-theme-fantasy">
@@ -140,7 +142,8 @@
                         <div class="anime-detail">
                             <div class="anime-poster">
                                 <div class="film-poster">
-                                    <img loading="lazy" src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= anime.image %>"
+                                    <img loading="lazy"
+                                         src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= anime.image %>"
                                          class="film-poster-img" alt="<%= anime.title %>">
                                 </div>
                             </div>
@@ -244,8 +247,68 @@
                 <div class="clearfix"></div>
             </div>
 
+
             <!--Start: main-sidebar-->
-            <%- include('./base/top-views-sidebar') %>
+            <div id="main-sidebar">
+                <% if(anime.relatedAnimeList && anime.relatedAnimeList.length > 0) { %>
+                    <section class="block_area block_area_sidebar block_area-realtime">
+                        <div class="block_area-header">
+                            <div class="float-left bah-heading mr-4">
+                                <h2 class="cat-heading">Related Anime</h2>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="block_area-content">
+                            <div class="cbox cbox-list cbox-realtime cbox-collapse">
+                                <div class="cbox-content">
+                                    <div class="anime-block-ul">
+                                        <ul class="ulclear">
+                                            <% anime.relatedAnimeList.forEach(function (relatedAnime) { %>
+                                                <li>
+                                                    <div class="film-poster item-qtip">
+                                                        <img class="film-poster-img" alt="<%= relatedAnime.title %>"
+                                                             src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= relatedAnime.image %>"
+                                                             loading="lazy">
+                                                    </div>
+                                                    <div class="film-detail">
+                                                        <h3 class="film-name">
+                                                            <a href="/watch/<%= relatedAnime.slug %>"
+                                                               title="<%= relatedAnime.title %>"
+                                                               class="dynamic-name">
+                                                                <%= relatedAnime.title %>
+                                                            </a>
+                                                        </h3>
+                                                        <div class="fd-infor">
+                                                            <span class="fdi-item">
+                                                                <%= relatedAnime.releaseYear %>
+                                                            </span>
+                                                            <span class="dot"></span>
+                                                            <span class="fdi-item fdi-duration">
+                                                                <% if(relatedAnime.status === 'Ongoing') { %>
+                                                                    <%= relatedAnime.episodeCount %>/??
+                                                                <% } else if(relatedAnime.status === 'Finished') { %>
+                                                                    <%= relatedAnime.episodeCount %>
+                                                                    /<%= relatedAnime.episodeCount %>
+                                                                <% } %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </li>
+                                            <% }) %>
+                                            %>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                <% } %>
+                <%- include('./base/top-views-sidebar') %>
+            </div>
             <!--/End: main-sidebar-->
             <div class="clearfix"></div>
         </div>
