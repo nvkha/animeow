@@ -42,8 +42,7 @@ exports.login = async (req, res, next) => {
             username: username,
         }).select('+password');
 
-        const correct = user.correctPassword(password, user.password);
-        if (!user || !correct) {
+        if (!user || !(await user.correctPassword(password, user.password))) {
             return next(new AppError("Invalid username or password!", 401));
         }
 
