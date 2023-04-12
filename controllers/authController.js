@@ -1,5 +1,7 @@
 const User = require('./../models/userModel');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
 const AppError = require('../utils/appError');
 
 exports.signup = async (req, res, next) => {
@@ -42,7 +44,7 @@ exports.login = async (req, res, next) => {
             username: username,
         }).select('+password');
 
-        if (!user || !(await user.correctPassword(password, user.password))) {
+        if (!user || !(await bcrypt.compare(password, user.password))) {
             return next(new AppError("Invalid username or password!", 401));
         }
 
