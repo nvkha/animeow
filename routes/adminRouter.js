@@ -12,6 +12,7 @@ const Parameter = require('./../models/parameterModel');
 
 AdminJS.registerAdapter(AdminJSMongoose);
 const admin = new AdminJS({
+    rootPath: "/animeow/admin",
     resources: [{
         resource: Anime, options: {
             listProperties: ['_id', 'title', 'transTeam', 'releaseYear', 'active']

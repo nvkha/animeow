@@ -43,7 +43,7 @@ app.use(xss());
 app.use(morgan('dev'));
 
 app.use('/', viewRouter);
-app.use('/admin', adminRouter);
+app.use('/animeow/admin', adminRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/animes', animeRouter);
 app.use('/api/v1/genres', genreRouter);

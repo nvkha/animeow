@@ -23,8 +23,8 @@ exports.signup = async (req, res, next) => {
             expires: new Date(
                 Date.now() + 24 * 60 * 60 * 1000
             ),
-            //httpOnly: true,
-            //secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
+            httpOnly: true,
+            secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
         });
 
         res.status(201).json({
@@ -64,8 +64,8 @@ exports.login = async (req, res, next) => {
             expires: new Date(
                 Date.now() + 24 * 60 * 60 * 1000
             ),
-            //httpOnly: true,
-            //secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
+            httpOnly: true,
+            secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
         });
 
         // Remove password from output
