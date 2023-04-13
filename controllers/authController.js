@@ -19,6 +19,14 @@ exports.signup = async (req, res, next) => {
             expiresIn: process.env.JWT_EXPIRES_IN
         });
 
+        res.cookie('jwt', token, {
+            expires: new Date(
+                Date.now() + 24 * 60 * 60 * 1000
+            ),
+            httpOnly: true,
+            secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
+        });
+
         res.status(201).json({
             status: 'success',
             token,
@@ -52,7 +60,15 @@ exports.login = async (req, res, next) => {
             expiresIn: process.env.JWT_EXPIRES_IN
         });
 
-         // Remove password from output
+        res.cookie('jwt', token, {
+            expires: new Date(
+                Date.now() + 24 * 60 * 60 * 1000
+            ),
+            httpOnly: true,
+            secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
+        });
+
+        // Remove password from output
         user.password = undefined;
 
         res.status(201).json({
@@ -72,6 +88,8 @@ exports.protect = async (req, res, next) => {
         let token;
         if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
             token = req.headers.authorization.split(' ')[1];
+        } else if (req.cookies.jwt) {
+            token = req.cookies.jwt;
         }
 
         if (!token) {

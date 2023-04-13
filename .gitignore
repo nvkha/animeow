@@ -1,5 +1,6 @@
 /.fleet
 /.idea
+/.adminjs
 credentials.json
 
 # Logs

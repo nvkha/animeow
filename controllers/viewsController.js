@@ -396,6 +396,27 @@ exports.getMovie = async (req, res, next) => {
     }
 }
 
+exports.login = async (req, res, next) => {
+    try {
+        const genres = await getGenres();
+
+        const meta = {
+            url: req.protocol + '://' + req.hostname + req.originalUrl,
+            description: 'Xem phim anime vietsub online xem trên điện thoại di động và máy tính. Là một website xem phim anime vietsub miễn phí.',
+            keywords: 'animeow, ani meow, animeowpro, anime, anime vietsub, anime viet sub, xem anime, xem anime online, anime miễn phí, anime hay, online anime, xem anime',
+            image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
+        }
+
+        res.status(200).render('login', {
+            title: 'Login',
+            meta,
+            genres
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
 
 const getGenres = async () => {
     const cacheResults = await cache.get('genres');
