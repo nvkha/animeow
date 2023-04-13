@@ -21,23 +21,26 @@ mongoose.connect(process.env.DATABASE_URL, {
     useFindAndModify: false
 }).then(() => console.log('MongoDB connected...'));
 
-schedule.scheduleJob('*/30 * * * *', async function () {
-    try {
-        console.log(`Start update top most views job`);
-        await googleAnalyticsUtils.getTopMostViews();
-    } catch (err) {
-        logger.error(err);
-    }
-});
 
-schedule.scheduleJob('0 0 * * *', async function () {
-    try {
-        console.log(`Start update sitemap job`);
-        await sitemapGenerator.createAnimeSitemap();
-    } catch (err) {
-        logger.error(err);
-    }
-});
+if (process.env.NODE_APP_INSTANCE === '0') {
+    schedule.scheduleJob('*/30 * * * *', async function () {
+        try {
+            console.log(`Start update top most views job`);
+            await googleAnalyticsUtils.getTopMostViews();
+        } catch (err) {
+            logger.error(err);
+        }
+    });
+
+    schedule.scheduleJob('0 0 * * *', async function () {
+        try {
+            console.log(`Start update sitemap job`);
+            await sitemapGenerator.createAnimeSitemap();
+        } catch (err) {
+            logger.error(err);
+        }
+    });
+}
 
 const port = process.env.PORT || 3000;
 
