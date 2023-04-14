@@ -7,7 +7,6 @@ const logger = require('../utils/logger');
 const animeSchema = mongoose.Schema({
     title: {
         type: String,
-        lowercase: true,
         required: [true, 'Anime must have a title!'],
         unique: true,
         trim: true
@@ -51,12 +50,12 @@ const animeSchema = mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['TV Series', 'OVA', 'Movie', 'ONA', 'Special', 'N/A'],
+        enum: ['tv', 'movie', 'n/a'],
         required: [true, 'Anime must have a type!']
     },
     status: {
         type: String,
-        enum: ['Finished', 'Ongoing', 'Upcoming', 'N/A'],
+        enum: ['finished', 'ongoing', 'upcoming', 'n/a'],
         required: [true, 'Anime must have a status!'],
     },
     episodeCount: {
@@ -65,7 +64,7 @@ const animeSchema = mongoose.Schema({
     },
     season: {
         type: String,
-        enum: ['Xuân', 'Hạ', 'Thu', 'Đông', 'N/A'],
+        enum: ['spring', 'summer', 'fall', 'winter', 'n/a'],
         required: [true, 'Anime must have a season!'],
     },
     quality: {

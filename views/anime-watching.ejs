@@ -162,7 +162,13 @@
                                         <div class="item">
                                             <div class="item-title">Type:</div>
                                             <div class="item-content">
-                                                <%= anime.type %>
+                                                <% if(anime.type === 'tv') { %>
+                                                    TV Series
+                                                <% } else if(anime.type === 'movie') { %>
+                                                    Movie
+                                                <% } else { %>
+                                                    N/A
+                                                <% } %>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -198,7 +204,15 @@
                                             <div class="item">
                                                 <div class="item-title">Season:</div>
                                                 <div class="item-content">
-                                                    <span>Mùa <%= anime.season %> Năm <%= anime.releaseYear %></span>
+                                                    <% if(anime.season === 'spring') { %>
+                                                        <span>Mùa Xuân Năm <%= anime.releaseYear %></span>
+                                                    <% } else if(anime.season === 'summer') { %>
+                                                        <span>Mùa Hạ Năm <%= anime.releaseYear %></span>
+                                                    <% } else if(anime.season === 'fall') { %>
+                                                        <span>Mùa Thu Năm <%= anime.releaseYear %></span>
+                                                    <% } else { %>
+                                                        <span>Mùa Đông Năm <%= anime.releaseYear %></span>
+                                                    <% } %>
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
@@ -284,9 +298,9 @@
                                                             </span>
                                                             <span class="dot"></span>
                                                             <span class="fdi-item fdi-duration">
-                                                                <% if(relatedAnime.status === 'Ongoing') { %>
+                                                                <% if(relatedAnime.status === 'ongoing') { %>
                                                                     <%= relatedAnime.episodeCount %>/??
-                                                                <% } else if(relatedAnime.status === 'Finished') { %>
+                                                                <% } else if(relatedAnime.status === 'finished') { %>
                                                                     <%= relatedAnime.episodeCount %>
                                                                     /<%= relatedAnime.episodeCount %>
                                                                 <% } %>

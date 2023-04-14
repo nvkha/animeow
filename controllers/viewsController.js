@@ -124,11 +124,11 @@ exports.getAnime = async (req, res, next) => {
         }
         const genreList = anime.genres;
 
-        const title = `${anime.title.replace(/(?:^|\s|[-"'([{.])+\S/g, (c) => c.toUpperCase())} - Tập ${episodeNum}`;
+        const title = anime.title;
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
             description: anime.otherTitle,
-            keywords: `${anime.title},${anime.title} tap ${episodeNum}`,
+            keywords: `${anime.title.},${anime.title} tap ${episodeNum}`,
             image: 'https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/' + anime.image
         }
 
@@ -246,12 +246,7 @@ exports.filter = async (req, res, next) => {
         }
 
         if (req.query.season) {
-            const seasonList = req.query.season.split(',').map(season => {
-                if (season === 'spring') return 'Xuân';
-                else if (season === 'summer') return 'Hạ';
-                else if (season === 'fall') return 'Thu';
-                else if (season === 'winter') return 'Đông';
-            });
+            const seasonList = req.query.season.split(',');
             filterOptions.season = {$in: seasonList}
         }
 
@@ -261,17 +256,12 @@ exports.filter = async (req, res, next) => {
         }
 
         if (req.query.type) {
-            const typeList = req.query.type.split(',').map(type => {
-                if (type === 'movie') return 'Movie';
-                else if (type === 'tv') return 'TV Series';
-            });
+            const typeList = req.query.type.split(',');
             filterOptions.type = {$in: typeList}
         }
 
         if (req.query.status) {
-            if (req.query.status === 'finished') filterOptions.status = 'Finished';
-            else if (req.query.status === 'ongoing') filterOptions.status = 'Ongoing';
-            else if (req.query.status === 'upcoming') filterOptions.status = 'Upcoming';
+            filterOptions.status = req.query.status;
         }
 
         if (req.query.episodes) {
@@ -368,7 +358,7 @@ exports.getMovie = async (req, res, next) => {
         }
 
         const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
-        const result = await getAnimePagination({type: 'Movie'}, {releaseYear: -1, updatedAt: -1}, page, 15);
+        const result = await getAnimePagination({type: 'movie'}, {releaseYear: -1, updatedAt: -1}, page, 15);
         const animeList = result.docs;
 
         const meta = {
