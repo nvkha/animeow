@@ -210,8 +210,10 @@
                                                         <span>Mùa Hạ Năm <%= anime.releaseYear %></span>
                                                     <% } else if(anime.season === 'fall') { %>
                                                         <span>Mùa Thu Năm <%= anime.releaseYear %></span>
-                                                    <% } else { %>
+                                                    <% } else if(anime.season === 'winter') { %>
                                                         <span>Mùa Đông Năm <%= anime.releaseYear %></span>
+                                                    <% } else { %>
+                                                        <span>N/A</span>
                                                     <% } %>
                                                 </div>
                                                 <div class="clearfix"></div>

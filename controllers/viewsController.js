@@ -128,7 +128,7 @@ exports.getAnime = async (req, res, next) => {
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
             description: anime.otherTitle,
-            keywords: `${anime.title.},${anime.title} tap ${episodeNum}`,
+            keywords: `${anime.title},${anime.title} tap ${episodeNum}`,
             image: 'https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/' + anime.image
         }
 
