@@ -27,7 +27,7 @@
                     </div>
                     <div class="film-detail">
                         <h3 class="film-name">
-                            <a title="<%= anime.title %>"
+                            <a title="<%= anime.title.replace(/(?:^|\s|[-"'([{.])+\S/g, (c) => c.toUpperCase()) %>"
                                href="/watch/<%= anime.slug %>">
                                 <%= anime.title %>
                             </a>
