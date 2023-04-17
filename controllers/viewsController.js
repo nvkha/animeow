@@ -55,7 +55,7 @@ exports.getAnime = async (req, res, next) => {
 
         let anime;
         const genresPromise = getGenres();
-        const animeCacheResultPromise = cache.getcache.get('anime:' + req.params.slug);
+        const animeCacheResultPromise = cache.get('anime:' + req.params.slug);
 
         const [genres, animeCacheResult] = await Promise.all([genresPromise, animeCacheResultPromise]);
         if (animeCacheResult) {
