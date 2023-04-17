@@ -54,84 +54,108 @@
 
                 <!--Begin: watch-block-->
                 <div id="watch-block" class="">
-                    <video id="player" class="video-js vjs-theme-fantasy">
-                        <source src="<%= episode.tempVideoUrl %>" type="video/mp4"/>
-                    </video>
-                    <div class="player-controls">
-                        <div id="prevEp" class="pc-item" data-current-episode="<%= episode.episodeNum %>"
-                             data-episodes="<%= anime.episodeCount %>">
-                            <div class="toggle-basic">
-                                <span class="tb-name"><i class="fas fa-backward"></i> Tập trước</span>
+                    <% if(anime.trailer && anime.episodeCount <= 0) { %>
+                        <div class="player-wrap">
+                            <div class="wb_-playerarea">
+                                <iframe src="<%= anime.trailer %>"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowfullscreen></iframe>
                             </div>
                         </div>
-                        <div id="nextEp" class="pc-item" data-current-episode="<%= episode.episodeNum %>"
-                             data-episodes="<%= anime.episodeCount %>">
-                            <div class="toggle-basic">
-                                <span class="tb-name"><i class="fas fa-forward"></i> Tập tiếp</span>
+                    <% } else { %>
+                        <video id="player" class="video-js vjs-theme-fantasy" oncontextmenu="return false;">
+                            <source src="<%= episode.tempVideoUrl %>" type="video/mp4"/>
+                        </video>
+
+                        <div class="player-controls">
+                            <div id="prevEp" class="pc-item" data-current-episode="<%= episode.episodeNum %>"
+                                 data-episodes="<%= anime.episodeCount %>">
+                                <div class="toggle-basic">
+                                    <span class="tb-name"><i class="fas fa-backward"></i> Tập trước</span>
+                                </div>
                             </div>
-                        </div>
-                        <div id="comment" class="pc-item">
-                            <div class="toggle-basic">
-                                <span class="tb-name"><i class="fas fa-comment"></i> Bình luận</span>
+                            <div id="nextEp" class="pc-item" data-current-episode="<%= episode.episodeNum %>"
+                                 data-episodes="<%= anime.episodeCount %>">
+                                <div class="toggle-basic">
+                                    <span class="tb-name"><i class="fas fa-forward"></i> Tập tiếp</span>
+                                </div>
                             </div>
-                        </div>
-                        <div id="capture" class="pc-item">
-                            <div class="toggle-basic">
-                                <span class="tb-name"><i class="fas fa-camera"></i> Chụp ảnh</span>
+                            <div id="comment" class="pc-item">
+                                <div class="toggle-basic">
+                                    <span class="tb-name"><i class="fas fa-comment"></i> Bình luận</span>
+                                </div>
                             </div>
+                            <div id="capture" class="pc-item">
+                                <div class="toggle-basic">
+                                    <span class="tb-name"><i class="fas fa-camera"></i> Chụp ảnh</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
+                    <% } %>
                 </div>
 
                 <div class="player-servers">
                     <div id="servers-content">
                         <div class="ps_-status">
                             <div class="content">
-                                <div class="server-notice"><strong>Bạn đang xem
-                                        <b>Tập <%= episode.episodeNum %></b>.</strong> Nếu
-                                    server hiện tại gặp vấn đề hãy chọn server khác nhé <3
-                                </div>
+                                <% if(anime.trailer && anime.episodeCount <= 0) { %>
+                                    <div class="server-notice"><strong>Bạn đang xem trailer của
+                                            <b><%= anime.title %></b>.</strong> Phim sắp chiếu hoặc admin đang cập
+                                        nhật tập mới, bạn vui lòng chờ nhé <3
+                                    </div>
+                                <% } else if(anime.episodeCount > 0) { %>
+                                    <div class="server-notice"><strong>Bạn đang xem
+                                            <b>Tập <%= episode.episodeNum %></b>.</strong> Nếu
+                                        server hiện tại gặp vấn đề hãy chọn server khác nhé <3
+                                    </div>
+                                <% } %>
                             </div>
                         </div>
 
-                        <div class="ps_-block ps_-block-sub servers-sub">
-                            <div class="ps__-title"><i class="fas fa-server mr-2"></i>SERVER:</div>
-                            <div class="ps__-list">
-                                <div class="item server-item">
-                                    <a href="/watch/<%= anime.slug %>/tap-<%= episode.episodeNum %>" class="btn active">#1</a>
+                        <% if(anime.episodeCount > 0) { %>
+                            <div class="ps_-block ps_-block-sub servers-sub">
+                                <div class="ps__-title"><i class="fas fa-server mr-2"></i>SERVER:</div>
+                                <div class="ps__-list">
+                                    <div class="item server-item">
+                                        <a href="/watch/<%= anime.slug %>/tap-<%= episode.episodeNum %>"
+                                           class="btn active">#1</a>
+                                    </div>
                                 </div>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="clearfix"></div>
-                        </div>
+                        <% } %>
                     </div>
                 </div>
 
-                <!--Begin: Section eps-list-->
-                <section class="block_area block_area-episodes">
-                    <div class="block_area-content">
-                        <div class="episodes-ul">
-                            <% for(let i = 0; i < anime.episodeCount; i++) { %>
-                                <% if(i + 1 != episode.episodeNum) { %>
-                                    <a href="/watch/<%= anime.slug %>/tap-<%= i + 1 %>"
-                                       title="Tập <%= i + 1 %>"
-                                       class="item ep-item">
-                                        <div class="order"><%= i + 1 %></div>
-                                    </a>
-                                <% } else { %>
-                                    <a href="/watch/<%= anime.slug %>/tap-<%= i + 1 %>"
-                                       title="Tập <%= i + 1 %>"
-                                       class="item ep-item active">
-                                        <div class="order"><%= i + 1 %></div>
-                                    </a>
+                <% if(anime.episodeCount > 0) { %>
+                    <!--Begin: Section eps-list-->
+                    <section class="block_area block_area-episodes">
+                        <div class="block_area-content">
+                            <div class="episodes-ul">
+                                <% for(let i = 0; i < anime.episodeCount; i++) { %>
+                                    <% if(i + 1 != episode.episodeNum) { %>
+                                        <a href="/watch/<%= anime.slug %>/tap-<%= i + 1 %>"
+                                           title="Tập <%= i + 1 %>"
+                                           class="item ep-item">
+                                            <div class="order"><%= i + 1 %></div>
+                                        </a>
+                                    <% } else { %>
+                                        <a href="/watch/<%= anime.slug %>/tap-<%= i + 1 %>"
+                                           title="Tập <%= i + 1 %>"
+                                           class="item ep-item active">
+                                            <div class="order"><%= i + 1 %></div>
+                                        </a>
+                                    <% } %>
                                 <% } %>
-                            <% } %>
-                            <div class="clearfix"></div>
-                        </div>
+                                <div class="clearfix"></div>
+                            </div>
 
-                    </div>
-                </section>
-                <!--/End: Section eps-list-->
+                        </div>
+                    </section>
+                    <!--/End: Section eps-list-->
+                <% } %>
 
                 <!--Begin: Placeholder Ad-->
                 <!--End: Placeholder Ad-->
@@ -227,6 +251,7 @@
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
+
                                         <% if(anime.releaseYear) { %>
                                             <div class="item">
                                                 <div class="item-title">Năm:</div>

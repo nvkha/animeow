@@ -69,8 +69,10 @@ const animeSchema = mongoose.Schema({
     },
     quality: {
         type: String,
-        enum: ['SD', 'HD', 'FullHD', 'N/A']
+        enum: ['SD', 'HD', 'FullHD', 'N/A'],
+        required: [true, 'Anime must have a quality!'],
     },
+    trailer: String,
     relatedAnimeList: [{
         type: mongoose.Types.ObjectId,
         ref: 'Anime',

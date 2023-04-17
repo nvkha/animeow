@@ -12,14 +12,18 @@ const episodeSchema = mongoose.Schema({
         type: Number,
         required: [true, 'Episode must have a episode number!'],
     },
-    videoUrl: {
-        type: String,
-        trim: true
-    },
-    videoUrlBackup: {
-        type: String,
-        trim: true
-    },
+    sources: [{
+        videoUrl: {
+            type: String,
+            trim: true
+        },
+        quality: {
+            type: String,
+            enum: ['360p', '480p', '720p', '1080p'],
+            default: '720p',
+            required: [true, 'Episode must have a quality!']
+        }
+    }],
     anime: {
         type: mongoose.Types.ObjectId,
         ref: 'Anime',

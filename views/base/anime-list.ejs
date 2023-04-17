@@ -4,20 +4,26 @@
             <% animeList.forEach(function (anime) { %>
                 <div class="flw-item item-qtip">
                     <div class="film-poster">
-                        <div class="tick-item tick-quality"><%= anime.quality %></div>
+                        <% if(anime.quality) { %>
+                            <div class="tick-item tick-quality"><%= anime.quality %></div>
+                        <% } else { %>
+                            <div class="tick-item tick-quality">N/A</div>
+                        <% } %>
                         <div class="tick ltr">
                             <div class="tick-item tick-sub">SUB</div>
                         </div>
 
-                        <div class="tick rtl">
-                            <div class="tick-item tick-eps">
-                                <% if(anime.status === 'ongoing') { %>
-                                    <%= anime.episodeCount %>/??
-                                <% } else if(anime.status === 'finished') { %>
-                                    <%= anime.episodeCount %>/<%= anime.episodeCount %>
-                                <% } %>
+                        <% if(anime.episodeCount > 0) { %>
+                            <div class="tick rtl">
+                                <div class="tick-item tick-eps">
+                                    <% if(anime.status === 'ongoing') { %>
+                                        <%= anime.episodeCount %>/??
+                                    <% } else if(anime.status === 'finished') { %>
+                                        <%= anime.episodeCount %>/<%= anime.episodeCount %>
+                                    <% } %>
+                                </div>
                             </div>
-                        </div>
+                        <% } %>
 
                         <img loading="lazy"
                              src="https://ik.imagekit.io/3q7pewvsl/imgur/tr:w-300,h-425/<%= anime.image %>"

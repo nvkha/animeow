@@ -75,18 +75,48 @@ exports.getAnime = async (req, res, next) => {
             await cache.set(req.params.slug, JSON.stringify(anime));
         }
 
+        if (!anime.trailer && anime.episodeCount <= 0) {
+            return next(new AppError("Oops, sorry we can't find that page!", 404));
+        }
+
         let episode;
-        const episodeKey = `${anime._id}/${episodeNum}`;
-        const episodeCacheResult = await cache.get(episodeKey);
-        if (episodeCacheResult) {
-            logger.info(`Cache hit with key: ${episodeKey}`);
-            episode = JSON.parse(episodeCacheResult);
-            if (episode.oe <= Date.now()) {
-                logger.info(`Episode video url expired with timestamp: ${episode.oe}, current timestamp ${Date.now()}`);
+        if (anime.episodeCount > 0) {
+            const episodeKey = `${anime._id}/${episodeNum}`;
+            const episodeCacheResult = await cache.get(episodeKey);
+            if (episodeCacheResult) {
+                logger.info(`Cache hit with key: ${episodeKey}`);
+                episode = JSON.parse(episodeCacheResult);
+                if (episode.oe <= Date.now()) {
+                    logger.info(`Episode video url expired with timestamp: ${episode.oe}, current timestamp ${Date.now()}`);
+                    try {
+                        episode.tempVideoUrl = await getVideoSource(episode.sources[0].videoUrl);
+                        episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
+                        logger.info('Set key into redis');
+                        await cache.set(episodeKey, JSON.stringify(episode));
+                    } catch (err) {
+                        logger.error({
+                            message: err.message,
+                            _anime_id: anime._id,
+                            _episodeNum: episodeNum,
+                            reponse: err.response.data
+                        });
+                    }
+                }
+            } else {
+                logger.info(`Cache miss with key: ${episodeKey}`);
+                episode = await Episode.findOne({
+                    anime: anime._id,
+                    episodeNum: episodeNum
+                }).select('id title sources episodeNum').lean();
+
+                if (!episode) {
+                    return next(new AppError("Oops, sorry we can't find that page!", 404));
+                }
+
                 try {
-                    episode.tempVideoUrl = await getVideoSource(episode.videoUrl);
+                    episode.tempVideoUrl = await getVideoSource(episode.sources[0].videoUrl);
                     episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
-                    logger.info('Set key into redis');
+                    logger.info(`Set key into redis`);
                     await cache.set(episodeKey, JSON.stringify(episode));
                 } catch (err) {
                     logger.error({
@@ -96,30 +126,6 @@ exports.getAnime = async (req, res, next) => {
                         reponse: err.response.data
                     });
                 }
-            }
-        } else {
-            logger.info(`Cache miss with key: ${episodeKey}`);
-            episode = await Episode.findOne({
-                anime: anime._id,
-                episodeNum: episodeNum
-            }).select('id title videoUrl videoUrlBackup episodeNum').lean();
-
-            if (!episode) {
-                return next(new AppError("Oops, sorry we can't find that page!", 404));
-            }
-
-            try {
-                episode.tempVideoUrl = await getVideoSource(episode.videoUrl);
-                episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
-                logger.info(`Set key into redis`);
-                await cache.set(episodeKey, JSON.stringify(episode));
-            } catch (err) {
-                logger.error({
-                    message: err.message,
-                    _anime_id: anime._id,
-                    _episodeNum: episodeNum,
-                    reponse: err.response.data
-                });
             }
         }
         const genreList = anime.genres;
