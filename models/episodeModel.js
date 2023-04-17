@@ -44,7 +44,7 @@ episodeSchema.post('save', async function (doc, next) {
 
 episodeSchema.post('findOneAndUpdate', async function (doc, next) {
     if (doc) {
-        const epsiodeKey = `${doc.anime}/${doc.episodeNum}`;
+        const epsiodeKey = `episode:${doc.anime}/${doc.episodeNum}`;
 
         const cacheEpisodeResult = await cache.get(epsiodeKey);
         if (cacheEpisodeResult) {
@@ -63,7 +63,7 @@ episodeSchema.post('findOneAndDelete', async function (doc, next) {
             {$inc: {episodeCount: -1}},
             {new: true, runValidators: true}).lean();
 
-        const epsiodeKey = `${doc.anime}/${doc.episodeNum}`;
+        const epsiodeKey = `episode:${doc.anime}/${doc.episodeNum}`;
         const cacheEpisodeResult = await cache.get(epsiodeKey);
         if (cacheEpisodeResult) {
             logger.info(`[Post delete] [Episode] Delete cache with key: ${epsiodeKey}`);

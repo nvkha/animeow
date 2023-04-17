@@ -107,10 +107,10 @@ animeSchema.pre('findOneAndUpdate', function (next) {
 
 animeSchema.post('findOneAndUpdate', async function (doc, next) {
     if (doc) {
-        const cacheAnimeResult = await cache.get(doc.slug);
+        const cacheAnimeResult = await cache.get('anime:' + doc.slug);
         if (cacheAnimeResult) {
-            logger.info(`[Post update] [Anime] Delete cache with key: ${doc.slug}`);
-            await cache.del(doc.slug);
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:${doc.slug}`);
+            await cache.del('anime:' + doc.slug);
         }
     }
     next();
@@ -125,12 +125,12 @@ animeSchema.pre('findOneAndDelete', async function (next) {
 
 animeSchema.post('findOneAndDelete', async function (doc, next) {
     if (doc) {
-        const cacheAnimeResult = await cache.get(doc.slug);
+        const cacheAnimeResult = await cache.get('anime:' + doc.slug);
         if (cacheAnimeResult) {
-            logger.info(`[Post delete] [Anime] Delete cache with key: ${doc.slug}`);
-            await cache.del(doc.slug);
+            logger.info(`[Post delete] [Anime] Delete cache with key: anime:${doc.slug}`);
+            await cache.del('anime:' + doc.slug);
         } else {
-            logger.info(`[Post delete] [Anime] No cache with key: ${doc.slug}`);
+            logger.info(`[Post delete] [Anime] No cache with key: anime:${doc.slug}`);
         }
     }
     next();

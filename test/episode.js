@@ -35,8 +35,8 @@ describe('Episodes', function () {
             assert.equal(res._body.status, 'success');
             assert.equal(res._body.data.title, 'Yui Hatano');
             assert.equal(res._body.data.episodeNum, 1);
-            assert.equal(res._body.data.videoUrl, 'Yua Mikami');
-            assert.equal(res._body.data.videoUrlBackup, 'Shion Utsunomiya');
+            assert.equal(res._body.data.sources[0].videoUrl, 'Yua Mikami');
+            assert.equal(res._body.data.sources[0].quality, '720p');
         });
 
         it('it not should POST a episode without a anime id', async function () {
@@ -62,7 +62,7 @@ describe('Episodes', function () {
             let episodeData = JSON.parse(JSON.stringify(testData.episode));
             episodeData.anime = anime._id;
             await request(app).post('/api/v1/episodes').send(episodeData);
-            const cacheResult = await cache.get(`${anime.slug}`);
+            const cacheResult = await cache.get(`anime:${anime.slug}`);
             assert.equal(cacheResult, null);
         });
     });
@@ -80,8 +80,8 @@ describe('Episodes', function () {
             assert.equal(res._body.status, 'success');
             assert.equal(res._body.data.title, 'Yui Hatano');
             assert.equal(res._body.data.episodeNum, 1);
-            assert.equal(res._body.data.videoUrl, 'Yua Mikami');
-            assert.equal(res._body.data.videoUrlBackup, 'Shion Utsunomiya');
+            assert.equal(res._body.data.sources[0].videoUrl, 'Yua Mikami');
+            assert.equal(res._body.data.sources[0].quality, '720p');
         });
     });
     /*
@@ -98,8 +98,8 @@ describe('Episodes', function () {
             assert.equal(res._body.status, 'success');
             assert.equal(res._body.data.title, 'Saori Hara');
             assert.equal(res._body.data.episodeNum, 1);
-            assert.equal(res._body.data.videoUrl, 'Yua Mikami');
-            assert.equal(res._body.data.videoUrlBackup, 'Shion Utsunomiya');
+            assert.equal(res._body.data.sources[0].videoUrl, 'Yua Mikami');
+            assert.equal(res._body.data.sources[0].quality, '720p');
         });
 
         it('it should DELETE redis cache when UPDATE episode', async function () {
@@ -111,7 +111,7 @@ describe('Episodes', function () {
             await cache.set(episodeKey, JSON.stringify(episode));
             const res = await request(app).patch(`/api/v1/episodes/${episode._id}`).send({title: "Saori Hara"});
             assert.equal(res.statusCode, 200);
-            const cacheResult = await cache.get(episodeKey);
+            const cacheResult = await cache.get('episode:' + episodeKey);
             assert.equal(cacheResult, null);
         });
     });
@@ -145,7 +145,7 @@ describe('Episodes', function () {
             const result = await Episode.find({_id: episode._id});
             assert.equal(result.length, 0);
 
-            const cacheResult = await cache.get(episodeKey);
+            const cacheResult = await cache.get('episode:' + episodeKey);
             assert.equal(cacheResult, null);
         });
     });

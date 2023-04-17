@@ -55,11 +55,11 @@ exports.getAnime = async (req, res, next) => {
 
         let anime;
         const genresPromise = getGenres();
-        const animeCacheResultPromise = cache.get(req.params.slug);
+        const animeCacheResultPromise = cache.getcache.get('anime:' + req.params.slug);
 
         const [genres, animeCacheResult] = await Promise.all([genresPromise, animeCacheResultPromise]);
         if (animeCacheResult) {
-            logger.info(`Cache hit with key: ${req.params.slug}`);
+            logger.info(`Cache hit with key: 'anime:' + ${req.params.slug}`);
             anime = JSON.parse(animeCacheResult);
         } else {
             logger.info(`Cache miss with key: ${req.params.slug}`);
@@ -72,7 +72,7 @@ exports.getAnime = async (req, res, next) => {
                 return next(new AppError("Oops, sorry we can't find that page!", 404));
             }
             logger.info(`Set key into redis`);
-            await cache.set(req.params.slug, JSON.stringify(anime));
+            await cache.set('anime:' + req.params.slug, JSON.stringify(anime));
         }
 
         if (!anime.trailer && anime.episodeCount <= 0) {
@@ -81,7 +81,7 @@ exports.getAnime = async (req, res, next) => {
 
         let episode;
         if (anime.episodeCount > 0) {
-            const episodeKey = `${anime._id}/${episodeNum}`;
+            const episodeKey = `episode:${anime._id}/${episodeNum}`;
             const episodeCacheResult = await cache.get(episodeKey);
             if (episodeCacheResult) {
                 logger.info(`Cache hit with key: ${episodeKey}`);

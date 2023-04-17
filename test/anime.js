@@ -41,9 +41,9 @@ describe('Animes', function () {
             const res = await request(app).post('/api/v1/animes').send(testData.anime);
             assert.equal(res.statusCode, 201);
             assert.equal(res._body.status, 'success');
-            assert.equal(res._body.data.title, 'diabolik lovers');
+            assert.equal(res._body.data.title, 'Diabolik lovers');
             assert.equal(res._body.data.slug, 'diabolik-lovers');
-            assert.equal(res._body.data.type, 'TV Series');
+            assert.equal(res._body.data.type, 'tv');
             assert.equal(res._body.data.episodeCount, 0);
             assert.equal(res._body.data.quality, 'SD');
             assert.equal(res._body.data.active, true);
@@ -69,9 +69,9 @@ describe('Animes', function () {
             const res = await request(app).get(`/api/v1/animes/${doc._id}`);
             assert.equal(res.statusCode, 200);
             assert.equal(res._body.status, 'success');
-            assert.equal(res._body.data.title, 'diabolik lovers');
+            assert.equal(res._body.data.title, 'Diabolik lovers');
             assert.equal(res._body.data.slug, 'diabolik-lovers');
-            assert.equal(res._body.data.type, 'TV Series');
+            assert.equal(res._body.data.type, 'tv');
             assert.equal(res._body.data.episodeCount, 0);
             assert.equal(res._body.data.quality, 'SD');
             assert.equal(res._body.data.active, true);
@@ -92,9 +92,9 @@ describe('Animes', function () {
             const res = await request(app).patch(`/api/v1/animes/${doc._id}`).send({title: "Yua Mikami"});
             assert.equal(res.statusCode, 200);
             assert.equal(res._body.status, 'success');
-            assert.equal(res._body.data.title, 'yua mikami');
+            assert.equal(res._body.data.title, 'Yua Mikami');
             assert.equal(res._body.data.slug, 'yua-mikami');
-            assert.equal(res._body.data.type, 'TV Series');
+            assert.equal(res._body.data.type, 'tv');
             assert.equal(res._body.data.episodeCount, 0);
             assert.equal(res._body.data.quality, 'SD');
             assert.equal(res._body.data.active, true);
@@ -110,7 +110,7 @@ describe('Animes', function () {
             const doc = await Anime.create(testData.anime);
             await cache.set(doc.slug, JSON.stringify(doc.toObject()));
             await request(app).patch(`/api/v1/animes/${doc._id}`).send({otherTitle: "Yua Mikami", description: 'I love Yua Mikami'});
-            const cacheResult = await cache.get(doc.slug);
+            const cacheResult = await cache.get('anime:' + doc.slug);
             assert.equal(cacheResult, null);
         });
     });
@@ -139,7 +139,7 @@ describe('Animes', function () {
             const res = await request(app).delete(`/api/v1/animes/${doc._id}`);
             assert.equal(res.statusCode, 204);
 
-            const cacheResult = await cache.get(doc.slug);
+            const cacheResult = await cache.get('anime:' + doc.slug);
             assert.equal(cacheResult, null);
         });
     });

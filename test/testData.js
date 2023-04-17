@@ -3,11 +3,11 @@ module.exports.anime = {
     "otherTitle": "Diabolik lovers",
     "description": "Test",
     "runningTime": "12/12",
-    "season": "Thu",
+    "season": "spring",
     "releaseYear": 2013,
-    "type": "TV Series",
+    "type": "tv",
     "quality": "SD",
-    "status": "Ongoing",
+    "status": "ongoing",
     "image": "dbUtIKc.jpg",
     "display": true,
     "genres": [
@@ -20,19 +20,21 @@ module.exports.anime = {
 module.exports.episode = {
     "title": "Yui Hatano",
     "episodeNum": 1,
-    "videoUrl": "Yua Mikami",
-    "videoUrlBackup": "Shion Utsunomiya"
+    "sources": [{
+        "videoUrl": "Yua Mikami",
+        "quality": "720p"
+    }]
 }
 
 module.exports.animeWithoutTitle = {
     "otherTitle": "Diabolik lovers",
     "description": "Test",
     "runningTime": "12/12",
-    "status": "Ongoing",
+    "status": "ongoing",
     "quality": "SD",
-    "season": "Thu",
+    "season": "spring",
     "releaseYear": 2013,
-    "type": "TV Series",
+    "type": "tv",
     "image": "dbUtIKc.jpg",
     "display": true,
     "genres": [
@@ -45,8 +47,10 @@ module.exports.animeWithoutTitle = {
 module.exports.episodeWithoutAnimeId = {
     "title": "Yui Hatano",
     "episodeNum": 1,
-    "videoUrl": "Yua Mikami",
-    "videoUrlBackup": "Shion Utsunomiya"
+    "sources": [{
+        "videoUrl": "Yua Mikami",
+        "quality": "720p"
+    }]
 }
 
 module.exports.genre = {
