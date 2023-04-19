@@ -4,13 +4,15 @@
             <% animeList.forEach(function (anime) { %>
                 <div class="flw-item item-qtip">
                     <div class="film-poster">
-                        <% if(anime.quality) { %>
+                        <% if(anime.status != 'upcoming') { %>
                             <div class="tick-item tick-quality"><%= anime.quality %></div>
                         <% } else { %>
-                            <div class="tick-item tick-quality">N/A</div>
+                            <div class="tick-item tick-quality">Trailer</div>
                         <% } %>
                         <div class="tick ltr">
-                            <div class="tick-item tick-sub">SUB</div>
+                            <% if(anime.status != 'upcoming') { %>
+                                <div class="tick-item tick-sub">SUB</div>
+                            <% } %>
                         </div>
 
                         <% if(anime.episodeCount > 0) { %>
