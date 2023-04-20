@@ -483,7 +483,7 @@ const getAnimeListRecentlyAdded = async () => {
     const animeListRecentlyAdded = await Anime
         .find({status: {$in: ['finished', 'ongoing']}})
         .select('title slug image episodeCount status createdAt releaseYear')
-        .sort({createdAt: 1})
+        .sort({createdAt: -1})
         .limit(10)
         .lean();
     if (animeListRecentlyAdded) {
