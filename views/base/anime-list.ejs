@@ -1,50 +1,48 @@
-<section class="block_area block_area-anime none-bg">
-    <div class="block_area-content block_area-list film_list film_list-grid">
-        <div class="film_list-wrap">
-            <% animeList.forEach(function (anime) { %>
-                <div class="flw-item item-qtip">
-                    <div class="film-poster">
+<div class="block_area-content block_area-list film_list film_list-grid">
+    <div class="film_list-wrap">
+        <% animeList.forEach(function (anime) { %>
+            <div class="flw-item item-qtip">
+                <div class="film-poster">
+                    <% if(anime.status != 'upcoming') { %>
+                        <div class="tick-item tick-quality"><%= anime.quality %></div>
+                    <% } else { %>
+                        <div class="tick-item tick-quality">Trailer</div>
+                    <% } %>
+                    <div class="tick ltr">
                         <% if(anime.status != 'upcoming') { %>
-                            <div class="tick-item tick-quality"><%= anime.quality %></div>
-                        <% } else { %>
-                            <div class="tick-item tick-quality">Trailer</div>
+                            <div class="tick-item tick-sub">SUB</div>
                         <% } %>
-                        <div class="tick ltr">
-                            <% if(anime.status != 'upcoming') { %>
-                                <div class="tick-item tick-sub">SUB</div>
-                            <% } %>
-                        </div>
+                    </div>
 
-                        <% if(anime.episodeCount > 0) { %>
-                            <div class="tick rtl">
-                                <div class="tick-item tick-eps">
-                                    <% if(anime.status === 'ongoing') { %>
-                                        <%= anime.episodeCount %>/??
-                                    <% } else if(anime.status === 'finished') { %>
-                                        <%= anime.episodeCount %>/<%= anime.episodeCount %>
-                                    <% } %>
-                                </div>
+                    <% if(anime.episodeCount > 0) { %>
+                        <div class="tick rtl">
+                            <div class="tick-item tick-eps">
+                                <% if(anime.status === 'ongoing') { %>
+                                    <%= anime.episodeCount %>/??
+                                <% } else if(anime.status === 'finished') { %>
+                                    <%= anime.episodeCount %>/<%= anime.episodeCount %>
+                                <% } %>
                             </div>
-                        <% } %>
+                        </div>
+                    <% } %>
 
-                        <img loading="lazy"
-                             src="https://img.animeow.pro/imgur/<%= anime.image %>"
-                             class="film-poster-img"
-                             alt="<%= anime.title %>">
-                        <a href="/watch/<%= anime.slug %>" class="film-poster-ahref"><i class="fas fa-play"></i></a>
-                    </div>
-                    <div class="film-detail">
-                        <h3 class="film-name">
-                            <a title="<%= anime.title.replace(/(?:^|\s|[-"'([{.])+\S/g, (c) => c.toUpperCase()) %>"
-                               href="/watch/<%= anime.slug %>">
-                                <%= anime.title %>
-                            </a>
-                        </h3>
-                    </div>
-                    <div class="clearfix"></div>
+                    <img loading="lazy"
+                         src="https://img.animeow.pro/imgur/<%= anime.image %>"
+                         class="film-poster-img"
+                         alt="<%= anime.title %>">
+                    <a href="/watch/<%= anime.slug %>" class="film-poster-ahref"><i class="fas fa-play"></i></a>
                 </div>
-            <% }) %>
-        </div>
-        <div class="clearfix"></div>
+                <div class="film-detail">
+                    <h3 class="film-name">
+                        <a title="<%= anime.title.replace(/(?:^|\s|[-"'([{.])+\S/g, (c) => c.toUpperCase()) %>"
+                           href="/watch/<%= anime.slug %>">
+                            <%= anime.title %>
+                        </a>
+                    </h3>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        <% }) %>
     </div>
-</section>
+    <div class="clearfix"></div>
+</div>

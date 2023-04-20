@@ -109,9 +109,15 @@ describe('Animes', function () {
         it('it should DELETE redis cache when UPDATE an anime', async function () {
             const doc = await Anime.create(testData.anime);
             await cache.set(doc.slug, JSON.stringify(doc.toObject()));
+            await cache.set('anime:anime-list', JSON.stringify(doc.toObject()));
+            await cache.set('anime:anime-list-upcoming', JSON.stringify(doc.toObject()));
             await request(app).patch(`/api/v1/animes/${doc._id}`).send({otherTitle: "Yua Mikami", description: 'I love Yua Mikami'});
             const cacheResult = await cache.get('anime:' + doc.slug);
+            const cacheAnimeListResult = await cache.get('anime:anime-list');
+            const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
             assert.equal(cacheResult, null);
+            assert.equal(cacheAnimeListResult, null);
+            assert.equal(cacheAnimeListUpcomingResult, null);
         });
     });
     /*
@@ -136,11 +142,17 @@ describe('Animes', function () {
         it('it should DELETE redis cache when anime removed', async function () {
             const doc = await Anime.create(testData.anime);
             await cache.set(doc.slug, JSON.stringify(doc));
+            await cache.set('anime:anime-list', JSON.stringify(doc));
+            await cache.set('anime:anime-list-upcoming', JSON.stringify(doc));
             const res = await request(app).delete(`/api/v1/animes/${doc._id}`);
             assert.equal(res.statusCode, 204);
 
             const cacheResult = await cache.get('anime:' + doc.slug);
+            const cacheAnimeListResult = await cache.get('anime:anime-list');
+            const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
             assert.equal(cacheResult, null);
+            assert.equal(cacheAnimeListResult, null);
+            assert.equal(cacheAnimeListUpcomingResult, null);
         });
     });
 });

@@ -38,6 +38,17 @@ episodeSchema.post('save', async function (doc, next) {
             {_id: doc.anime},
             {$inc: {episodeCount: 1}, $set: {updatedAt: Date.now()}},
             {new: true, runValidators: true});
+
+        const cacheAnimeListResult = await cache.get('anime:anime-list');
+        if (cacheAnimeListResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list`);
+            await cache.del('anime:anime-list');
+        }
+        const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
+        if (cacheAnimeListUpcomingResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-upcoming`);
+            await cache.del('anime:anime-list-upcoming');
+        }
     }
     next();
 });
@@ -68,6 +79,17 @@ episodeSchema.post('findOneAndDelete', async function (doc, next) {
         if (cacheEpisodeResult) {
             logger.info(`[Post delete] [Episode] Delete cache with key: ${epsiodeKey}`);
             await cache.del(epsiodeKey);
+        }
+
+        const cacheAnimeListResult = await cache.get('anime:anime-list');
+        if (cacheAnimeListResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list`);
+            await cache.del('anime:anime-list');
+        }
+        const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
+        if (cacheAnimeListUpcomingResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-upcoming`);
+            await cache.del('anime:anime-list-upcoming');
         }
     }
     next();

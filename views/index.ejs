@@ -68,13 +68,26 @@
                     </div>
                 <% } %>
 
-                <div class="section-title">
-                    <h4>Mới Cập Nhật</h4>
-                </div>
+                <section class="block_area block_area-anime none-bg">
+                    <div class="block_area-header block_area-header-tabs">
+                        <div class="float-left bah-heading mr-4">
+                            <h2 class="cat-heading">Mới Cập Nhật</h2>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!--Begin: Section film list-->
+                    <%- include('./base/anime-list') %>
+                    <!--End: Section film list-->
 
-                <!--Begin: Section film list-->
-                <%- include('./base/anime-list') %>
-                <!--End: Section film list-->
+                    <div class="block_area-header block_area-header-tabs">
+                        <div class="float-left bah-heading mr-4">
+                            <h2 class="cat-heading">Sắp Chiếu</h2>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <%- include('./base/anime-list-upcoming') %>
+                </section>
+
                 <div class="clearfix"></div>
             </div>
             <!--/End: main-content-->

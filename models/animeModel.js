@@ -112,6 +112,16 @@ animeSchema.post('findOneAndUpdate', async function (doc, next) {
             logger.info(`[Post update] [Anime] Delete cache with key: anime:${doc.slug}`);
             await cache.del('anime:' + doc.slug);
         }
+        const cacheAnimeListResult = await cache.get('anime:anime-list');
+        if (cacheAnimeListResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list`);
+            await cache.del('anime:anime-list');
+        }
+        const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
+        if (cacheAnimeListUpcomingResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-upcoming`);
+            await cache.del('anime:anime-list-upcoming');
+        }
     }
     next();
 });
@@ -129,8 +139,16 @@ animeSchema.post('findOneAndDelete', async function (doc, next) {
         if (cacheAnimeResult) {
             logger.info(`[Post delete] [Anime] Delete cache with key: anime:${doc.slug}`);
             await cache.del('anime:' + doc.slug);
-        } else {
-            logger.info(`[Post delete] [Anime] No cache with key: anime:${doc.slug}`);
+        }
+        const cacheAnimeListResult = await cache.get('anime:anime-list');
+        if (cacheAnimeListResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list`);
+            await cache.del('anime:anime-list');
+        }
+        const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
+        if (cacheAnimeListUpcomingResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-upcoming`);
+            await cache.del('anime:anime-list-upcoming');
         }
     }
     next();
@@ -141,6 +159,7 @@ animeSchema.plugin(mongoosePaginate);
 
 animeSchema.index({title: 'text', otherTitle: 'text'})
 animeSchema.index({active: 1});
+animeSchema.index({status: 1});
 animeSchema.index({genres: 1});
 animeSchema.index({slug: 1});
 animeSchema.index({type: 1});

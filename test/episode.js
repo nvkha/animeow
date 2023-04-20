@@ -59,11 +59,17 @@ describe('Episodes', function () {
             const anime = await Anime.create(testData.anime);
             assert.equal(anime.episodeCount, 0);
             await cache.set(anime.slug, JSON.stringify(anime));
+            await cache.set('anime:anime-list', JSON.stringify(anime));
+            await cache.set('anime:anime-list-upcoming', JSON.stringify(anime));
             let episodeData = JSON.parse(JSON.stringify(testData.episode));
             episodeData.anime = anime._id;
             await request(app).post('/api/v1/episodes').send(episodeData);
             const cacheResult = await cache.get(`anime:${anime.slug}`);
+            const cacheAnimeListResult = await cache.get('anime:anime-list');
+            const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
             assert.equal(cacheResult, null);
+            assert.equal(cacheAnimeListResult, null);
+            assert.equal(cacheAnimeListUpcomingResult, null);
         });
     });
     /*
@@ -139,6 +145,8 @@ describe('Episodes', function () {
             const episode = await Episode.create(episodeData);
             const episodeKey = `${episode.anime}/${episode.episodeNum}`;
             await cache.set(episodeKey, JSON.stringify(episode));
+            await cache.set('anime:anime-list', JSON.stringify(episode));
+            await cache.set('anime:anime-list-upcoming', JSON.stringify(episode));
             const res = await request(app).delete(`/api/v1/episodes/${episode._id}`);
             assert.equal(res.statusCode, 204);
 
@@ -146,7 +154,11 @@ describe('Episodes', function () {
             assert.equal(result.length, 0);
 
             const cacheResult = await cache.get('episode:' + episodeKey);
+            const cacheAnimeListResult = await cache.get('anime:anime-list');
+            const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
             assert.equal(cacheResult, null);
+            assert.equal(cacheAnimeListResult, null);
+            assert.equal(cacheAnimeListUpcomingResult, null);
         });
     });
 });
