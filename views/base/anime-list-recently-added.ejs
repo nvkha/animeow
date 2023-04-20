@@ -1,0 +1,47 @@
+<section class="block_area block_area_sidebar block_area-realtime">
+    <div class="block_area-header">
+        <div class="float-left bah-heading mr-4">
+            <h2 class="cat-heading">Mới Thêm</h2>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="block_area-content">
+        <div class="cbox cbox-list cbox-realtime">
+            <div class="cbox-content">
+                <div class="anime-block-ul">
+                    <ul class="ulclear">
+                        <% animeListRecentlyAdded.forEach(function (anime) { %>
+                            <li>
+                                <div class="film-poster item-qtip">
+                                    <img loading="lazy"
+                                         src="https://img.animeow.pro/imgur/<%= anime.image %>"
+                                         class="film-poster-img"
+                                         alt="<%= anime.title %>">
+                                </div>
+                                <div class="film-detail">
+                                    <h3 class="film-name"><a href="/watch/<%= anime.slug %>" title="<%= anime.title %>"
+                                                             class="dynamic-name"><%= anime.title %></a>
+                                    </h3>
+                                    <div class="fd-infor">
+                                        <span class="fdi-item"><%= anime.releaseYear %></span>
+                                        <span class="dot"></span>
+                                        <span class="fdi-item fdi-duration">
+                                            <% if(anime.status === 'ongoing') { %>
+                                                <%= anime.episodeCount %>/??
+                                            <% } else if(anime.status === 'finished') { %>
+                                                <%= anime.episodeCount %>/<%= anime.episodeCount %>
+                                            <% } %>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        <% }) %>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</section>

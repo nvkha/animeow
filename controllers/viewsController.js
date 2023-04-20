@@ -17,8 +17,11 @@ exports.getIndex = async (req, res, next) => {
         const genresPromise = getGenres();
         const animeListPromise = getAnimeList();
         const animeListUpcomingPromise = getAnimeListUpcoming();
+        const animeListRecentlyAddedPromise = getAnimeListRecentlyAdded();
 
-        const [alert, slideList, genres, animeList, animeListUpcoming] = await Promise.all([alertPromise, slideListPromise, genresPromise, animeListPromise, animeListUpcomingPromise]);
+        const [alert, slideList, genres, animeList, animeListUpcoming, animeListRecentlyAdded] = await Promise.all([
+            alertPromise, slideListPromise, genresPromise, animeListPromise, animeListUpcomingPromise, animeListRecentlyAddedPromise
+        ]);
 
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
@@ -29,7 +32,7 @@ exports.getIndex = async (req, res, next) => {
 
         res.status(200).render('index', {
             title: 'AniMeow - Anime Vietsub Online',
-            meta, alert, slideList, genres, animeList,
+            meta, alert, slideList, genres, animeList, animeListRecentlyAdded,
             animeListUpcoming, topMostViewsDay, topMostViewsWeek, topMostViewsMonth
         });
     } catch (err) {
@@ -437,7 +440,7 @@ const getAnimeList = async () => {
     logger.info('Cache miss with key: anime:anime-list');
     const animeList = await Anime
         .find({status: {$in: ['finished', 'ongoing']}})
-        .select('title slug image episodeCount status updatedAt quality releaseYear')
+        .select('title slug image episodeCount status updatedAt quality releaseYear type')
         .sort({releaseYear: -1, updatedAt: -1})
         .limit(15)
         .lean();
@@ -458,7 +461,7 @@ const getAnimeListUpcoming = async () => {
     logger.info('Cache miss with key: anime:anime-list-upcoming');
     const animeListUpcoming = await Anime
         .find({status: 'upcoming'})
-        .select('title slug image episodeCount status updatedAt quality releaseYear')
+        .select('title slug image episodeCount status updatedAt quality releaseYear type')
         .sort({releaseYear: -1, updatedAt: -1})
         .limit(15)
         .lean();
@@ -467,6 +470,27 @@ const getAnimeListUpcoming = async () => {
         await cache.set('anime:anime-list-upcoming', JSON.stringify(animeListUpcoming));
     }
     return animeListUpcoming;
+}
+
+const getAnimeListRecentlyAdded = async () => {
+    const cacheResults = await cache.get('anime:anime-list-recently-added');
+    if (cacheResults) {
+        logger.info('Cache hit with key: anime:anime-list-recently-added');
+        return JSON.parse(cacheResults);
+    }
+
+    logger.info('Cache miss with key: anime:anime-list-recently-added');
+    const animeListRecentlyAdded = await Anime
+        .find({status: {$in: ['finished', 'ongoing']}})
+        .select('title slug image episodeCount status createdAt releaseYear')
+        .sort({createdAt: 1})
+        .limit(10)
+        .lean();
+    if (animeListRecentlyAdded) {
+        logger.info(`Set key into redis`);
+        await cache.set('anime:anime-list-recently-added', JSON.stringify(animeListRecentlyAdded));
+    }
+    return animeListRecentlyAdded;
 }
 
 const getVideoSource = async (videoUrl) => {

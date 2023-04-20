@@ -111,13 +111,16 @@ describe('Animes', function () {
             await cache.set(doc.slug, JSON.stringify(doc.toObject()));
             await cache.set('anime:anime-list', JSON.stringify(doc.toObject()));
             await cache.set('anime:anime-list-upcoming', JSON.stringify(doc.toObject()));
+            await cache.set('anime:anime-list-recently-added', JSON.stringify(doc.toObject()));
             await request(app).patch(`/api/v1/animes/${doc._id}`).send({otherTitle: "Yua Mikami", description: 'I love Yua Mikami'});
             const cacheResult = await cache.get('anime:' + doc.slug);
             const cacheAnimeListResult = await cache.get('anime:anime-list');
             const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
+            const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
             assert.equal(cacheResult, null);
             assert.equal(cacheAnimeListResult, null);
             assert.equal(cacheAnimeListUpcomingResult, null);
+            assert.equal(cacheAnimeListRecentlyAddedResult, null);
         });
     });
     /*
@@ -144,15 +147,18 @@ describe('Animes', function () {
             await cache.set(doc.slug, JSON.stringify(doc));
             await cache.set('anime:anime-list', JSON.stringify(doc));
             await cache.set('anime:anime-list-upcoming', JSON.stringify(doc));
+            await cache.set('anime:anime-list-recently-added', JSON.stringify(doc));
             const res = await request(app).delete(`/api/v1/animes/${doc._id}`);
             assert.equal(res.statusCode, 204);
 
             const cacheResult = await cache.get('anime:' + doc.slug);
             const cacheAnimeListResult = await cache.get('anime:anime-list');
             const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
+            const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
             assert.equal(cacheResult, null);
             assert.equal(cacheAnimeListResult, null);
             assert.equal(cacheAnimeListUpcomingResult, null);
+            assert.equal(cacheAnimeListRecentlyAddedResult, null);
         });
     });
 });

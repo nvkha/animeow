@@ -122,6 +122,11 @@ animeSchema.post('findOneAndUpdate', async function (doc, next) {
             logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-upcoming`);
             await cache.del('anime:anime-list-upcoming');
         }
+        const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
+        if (cacheAnimeListRecentlyAddedResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-recently-added`);
+            await cache.del('anime:anime-list-recently-added');
+        }
     }
     next();
 });
@@ -150,6 +155,11 @@ animeSchema.post('findOneAndDelete', async function (doc, next) {
             logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-upcoming`);
             await cache.del('anime:anime-list-upcoming');
         }
+        const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
+        if (cacheAnimeListRecentlyAddedResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-recently-added`);
+            await cache.del('anime:anime-list-recently-added');
+        }
     }
     next();
 });
@@ -164,6 +174,7 @@ animeSchema.index({genres: 1});
 animeSchema.index({slug: 1});
 animeSchema.index({type: 1});
 animeSchema.index({updatedAt: -1});
+animeSchema.index({createdAt: 1});
 animeSchema.index({releaseYear: -1});
 animeSchema.index({releaseYear: -1, updatedAt: -1});
 

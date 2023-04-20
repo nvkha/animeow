@@ -49,6 +49,11 @@ episodeSchema.post('save', async function (doc, next) {
             logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-upcoming`);
             await cache.del('anime:anime-list-upcoming');
         }
+        const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
+        if (cacheAnimeListRecentlyAddedResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-recently-added`);
+            await cache.del('anime:anime-list-recently-added');
+        }
     }
     next();
 });
@@ -90,6 +95,11 @@ episodeSchema.post('findOneAndDelete', async function (doc, next) {
         if (cacheAnimeListUpcomingResult) {
             logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-upcoming`);
             await cache.del('anime:anime-list-upcoming');
+        }
+        const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
+        if (cacheAnimeListRecentlyAddedResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-recently-added`);
+            await cache.del('anime:anime-list-recently-added');
         }
     }
     next();
