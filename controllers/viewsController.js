@@ -8,6 +8,25 @@ const logger = require('../utils/logger');
 const axios = require('axios');
 const cache = require('../utils/cache');
 
+exports.getPrivacyPolicy = async (req, res, next) => {
+    try {
+        const genres = await getGenres();
+        const meta = {
+            url: req.protocol + '://' + req.hostname + req.originalUrl,
+            description: 'Xem phim anime vietsub online xem trên điện thoại di động và máy tính. Là một website xem phim anime vietsub miễn phí.',
+            keywords: 'animeow, ani meow, animeowpro, anime, anime vietsub, anime viet sub, xem anime, xem anime online, anime miễn phí, anime hay, online anime, xem anime',
+            image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
+        }
+
+        res.status(200).render('privacy-policy', {
+            title: 'Privacy Policy', meta, genres
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+
 exports.getIndex = async (req, res, next) => {
     try {
         const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();

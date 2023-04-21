@@ -23,5 +23,6 @@ router.route('/the-loai/:genre').get(viewsController.getGenre);
 router.route('/watch/:slug/:ep').get(viewsController.getAnime);
 router.route('/watch/:slug').get(viewsController.getAnime);
 
+router.route('/privacy-policy').get(viewsController.getPrivacyPolicy);
 
 module.exports = router;
