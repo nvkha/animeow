@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="remark42"></div>
+
+
+<script>
+    var remark_config = {
+        host: 'https://remark42.animeow.pro',
+        site_id: 'remark42.animeow.pro',
+        components: ['embed', 'last-comments'],
+        max_shown_comments: 100,
+        theme: 'dark',
+        page_title: 'My custom title for a page',
+        locale: 'vi',
+        show_email_subscription: false,
+        simple_view: true,
+        show_rss_subscription: false,
+        no_footer: true
+    }
+    !function (e, n) {
+        for (var o = 0; o < e.length; o++) {
+            var r = n.createElement("script"), c = ".js", d = n.head || n.body;
+            "noModule" in r ? (r.type = "module", c = ".mjs") : r.async = !0, r.defer = !0, r.src = remark_config.host + "/web/" + e[o] + c, d.appendChild(r)
+        }
+    }(remark_config.components || ["embed"], document);
+</script>
+</body>
+</html>
