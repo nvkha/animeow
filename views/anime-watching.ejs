@@ -2,6 +2,19 @@
 <html lang="vi-VN">
 <head>
     <title><%= title %></title>
+    <%- include('./base/meta-data') %>
+    <!-- Css Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video-js.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@videojs/themes@1.0.1/dist/fantasy/index.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+    <%- include('./base/google-adsense') %>
+    <%- include('./base/google-tag') %>
 </head>
 <body>
 <div id="fb-root"></div>
@@ -52,6 +65,9 @@
                             </div>
                         </div>
                     <% } else { %>
+                        <video id="player" class="video-js vjs-theme-fantasy" oncontextmenu="return false;">
+                            <source src="<%= episode.tempVideoUrl %>" type="video/mp4"/>
+                        </video>
 
                         <div class="player-controls">
                             <div id="prevEp" class="pc-item" data-current-episode="<%= episode.episodeNum %>"
@@ -345,6 +361,18 @@
     <!--End: Footer-->
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video.min.js"></script>
+<script type="text/javascript" src="/js/player.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZQ8M67"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
 <!-- End Google Tag Manager (noscript) -->
 <script> var remark_config={host:"https://remark42.animeow.pro",site_id:"remark42.animeow",components:["embed"],max_shown_comments:10,theme:"dark",url:window.location.origin+"/watch/<%= anime.slug %>",page_title:"<%= anime.tittle %>",locale:"vi",show_email_subscription:!1,simple_view:!0,show_rss_subscription:!1,no_footer:!0};!function(e,o){for(var r=0;r<e.length;r++){var n=o.createElement("script"),i=".js",t=o.head||o.body;"noModule"in n?(n.type="module",i=".mjs"):n.async=!0,n.defer=!0,n.src=remark_config.host+"/web/"+e[r]+i,t.appendChild(n)}}(remark_config.components||["embed"],document);</script>
 </body>
