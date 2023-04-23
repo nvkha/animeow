@@ -26,6 +26,11 @@ exports.getPrivacyPolicy = async (req, res, next) => {
     }
 }
 
+exports.test = async (req, res, next) => {
+    res.status(200).render('test', {
+        title: 'AniMeow - Anime Vietsub Online'
+    });
+}
 
 exports.getIndex = async (req, res, next) => {
     try {

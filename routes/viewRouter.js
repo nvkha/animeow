@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.route('/').get(viewsController.getIndex);
 
+router.route('/test').get(viewsController.test);
+
 router.route('/login').get(viewsController.login);
 
 router.route('/filter').get(viewsController.filter);
