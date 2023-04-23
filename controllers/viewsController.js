@@ -149,7 +149,7 @@ exports.getAnime = async (req, res, next) => {
         }
         const genreList = anime.genres;
 
-        const title = anime.title;
+        const title = `${anime.title} - Tập ${episodeNum}`;
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
             description: anime.otherTitle,
