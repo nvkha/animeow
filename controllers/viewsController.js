@@ -41,11 +41,9 @@ exports.getIndex = async (req, res, next) => {
         const genresPromise = getGenres();
         const animeListPromise = getAnimeList();
         const animeListUpcomingPromise = getAnimeListUpcoming();
-        const animeListRecentlyAddedPromise = getAnimeListRecentlyAdded();
 
-        const [alert, slideList, genres, animeList, animeListUpcoming, animeListRecentlyAdded] = await Promise.all([
-            alertPromise, slideListPromise, genresPromise, animeListPromise, animeListUpcomingPromise, animeListRecentlyAddedPromise
-        ]);
+        const [alert, slideList, genres, animeList, animeListUpcoming] = await Promise.all([
+            alertPromise, slideListPromise, genresPromise, animeListPromise, animeListUpcomingPromise]);
 
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
@@ -56,7 +54,7 @@ exports.getIndex = async (req, res, next) => {
 
         res.status(200).render('index', {
             title: 'AniMeow - Anime Vietsub Online',
-            meta, alert, slideList, genres, animeList, animeListRecentlyAdded,
+            meta, alert, slideList, genres, animeList,
             animeListUpcoming, topMostViewsDay, topMostViewsWeek, topMostViewsMonth
         });
     } catch (err) {
