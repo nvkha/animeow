@@ -65,7 +65,7 @@
                             </div>
                         </div>
                     <% } else { %>
-                        <video id="player" class="video-js vjs-theme-fantasy" oncontextmenu="return false;">
+                        <video id="player" class="video-js vjs-theme-fantasy" preload="metadata" oncontextmenu="return false;">
                             <source src="<%= episode.tempVideoUrl %>" type="video/mp4"/>
                         </video>
 
