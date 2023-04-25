@@ -65,7 +65,7 @@
                             </div>
                         </div>
                     <% } else { %>
-                        <video id="player" class="video-js vjs-theme-fantasy" preload="metadata" oncontextmenu="return false;">
+                        <video id="player" class="video-js vjs-theme-fantasy" playsinline preload="metadata" oncontextmenu="return false;">
                             <source src="<%= episode.tempVideoUrl %>" type="video/mp4"/>
                         </video>
 
@@ -281,7 +281,23 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="block_area-content">
-                        <div id="remark42"></div>
+                        <script src="https://giscus.app/client.js"
+                                data-repo="animeoww/animeow"
+                                data-repo-id="R_kgDOJbKmGA"
+                                data-category="General"
+                                data-category-id="DIC_kwDOJbKmGM4CWClr"
+                                data-mapping="specific"
+                                data-term="<%= anime.title.split('-')[0] %>"
+                                data-strict="0"
+                                data-reactions-enabled="1"
+                                data-emit-metadata="0"
+                                data-input-position="top"
+                                data-theme="dark_protanopia"
+                                data-lang="vi"
+                                data-loading="lazy"
+                                crossorigin="anonymous"
+                                async>
+                        </script>
                     </div>
                 </section>
                 <!--/End: Section comment-->
