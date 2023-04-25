@@ -152,6 +152,7 @@ exports.getAnime = async (req, res, next) => {
         }
         const genreList = anime.genres;
 
+        const titleWithoutEpNum = anime.title;
         const title = `${anime.title} - Tập ${episodeNum}`;
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
@@ -162,7 +163,7 @@ exports.getAnime = async (req, res, next) => {
 
         res.status(200).render('anime-watching', {
             title: title, meta, genres, episode, anime, genreList,
-            topMostViewsDay, topMostViewsWeek, topMostViewsMonth
+            titleWithoutEpNum, topMostViewsDay, topMostViewsWeek, topMostViewsMonth
         });
     } catch (err) {
         next(err);
