@@ -111,11 +111,22 @@ exports.getAnime = async (req, res, next) => {
                 if (episode.oe <= Date.now()) {
                     logger.info(`Episode video url expired with timestamp: ${episode.oe}, current timestamp ${Date.now()}`);
                     try {
-                        episode.tempVideoUrl = await getVideoSource(episode.sources[0].videoUrl);
-                        episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
-                        logger.info('Set key into redis');
-                        await cache.set(episodeKey, JSON.stringify(episode));
+                        if (episode.status != 'deleted') {
+                            episode.tempVideoUrl = await getVideoSource(episode.sources[0].videoUrl);
+                            episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
+                            logger.info('Set key into redis');
+                            await cache.set(episodeKey, JSON.stringify(episode));
+                        }
                     } catch (err) {
+                        if (err.response && err.response.data) {
+                            if (err.response.data.error.code === 100) {
+                                episode.status = 'deleted';
+                                episode.tempVideoUrl = null;
+                                logger.info(`Set status deleted into redis`);
+                                await cache.set(episodeKey, JSON.stringify(episode));
+                            }
+                        }
+
                         logger.error({
                             message: err.message,
                             _anime_id: anime._id,
@@ -136,11 +147,20 @@ exports.getAnime = async (req, res, next) => {
                 }
 
                 try {
-                    episode.tempVideoUrl = await getVideoSource(episode.sources[0].videoUrl);
-                    episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
-                    logger.info(`Set key into redis`);
-                    await cache.set(episodeKey, JSON.stringify(episode));
+                    if (episode.status != 'deleted') {
+                        episode.tempVideoUrl = await getVideoSource(episode.sources[0].videoUrl);
+                        episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
+                        logger.info(`Set key into redis`);
+                        await cache.set(episodeKey, JSON.stringify(episode));
+                    }
                 } catch (err) {
+                    if (err.response && err.response.data) {
+                        if (err.response.data.error.code === 100) {
+                            episode.status = 'deleted';
+                            logger.info(`Set status deleted into redis`);
+                            await cache.set(episodeKey, JSON.stringify(episode));
+                        }
+                    }
                     logger.error({
                         message: err.message,
                         _anime_id: anime._id,
