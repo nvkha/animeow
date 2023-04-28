@@ -18,6 +18,7 @@
 </head>
 <body>
 <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v16.0&appId=1412392379533830&autoLogAppEvents=1" nonce="xK6zkTMh"></script>
 <div id="wrapper">
     <!--Begin: Header-->
     <%- include('./base/header') %>
@@ -274,30 +275,8 @@
 
                 <!--Begin: Section comment-->
                 <section class="block_area block_area-comment">
-                    <div class="block_area-header block_area-header-tabs">
-                        <div class="float-left bah-heading mr-4">
-                            <h2 class="cat-heading">Bình Luận</h2>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
                     <div class="block_area-content">
-                        <script src="https://giscus.app/client.js"
-                                data-repo="animeoww/animeow"
-                                data-repo-id="R_kgDOJbKmGA"
-                                data-category="General"
-                                data-category-id="DIC_kwDOJbKmGM4CWClr"
-                                data-mapping="specific"
-                                data-term="<%= titleWithoutEpNum %>"
-                                data-strict="0"
-                                data-reactions-enabled="1"
-                                data-emit-metadata="0"
-                                data-input-position="top"
-                                data-theme="dark_protanopia"
-                                data-lang="vi"
-                                data-loading="lazy"
-                                crossorigin="anonymous"
-                                async>
-                        </script>
+                        <div class="fb-comments" data-href="https://animeow.pro/watch/<%= anime.slug %>" data-width="100%" data-numposts="5" data-order-by="reverse_time"></div>
                     </div>
                 </section>
                 <!--/End: Section comment-->
