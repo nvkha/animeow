@@ -484,7 +484,7 @@ const getAnimeList = async () => {
     const animeList = await Anime
         .find({status: {$in: ['finished', 'ongoing']}})
         .select('title slug image episodeCount status updatedAt quality releaseYear type')
-        .sort({updatedAt: -1})
+        .sort({releaseYear: -1, updatedAt: -1})
         .limit(15)
         .lean();
     if (animeList) {
