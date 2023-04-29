@@ -13,7 +13,7 @@ exports.getPrivacyPolicy = async (req, res, next) => {
         const genres = await getGenres();
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
-            description: 'Xem phim anime vietsub online xem trên điện thoại di động và máy tính. Là một website xem phim anime vietsub miễn phí.',
+            description: 'Xem phim anime vietsub online xem trên điện thoại di động và máy tính nhanh nhất. Là một website xem phim anime vietsub miễn phí. Liên tục cập nhật các bộ anime vietsub từ các fansub Việt Nam.',
             keywords: 'animeow, ani meow, animeowpro, anime, anime vietsub, anime viet sub, xem anime, xem anime online, anime miễn phí, anime hay, online anime, xem anime',
             image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
         }
@@ -47,7 +47,7 @@ exports.getIndex = async (req, res, next) => {
 
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
-            description: 'Xem phim anime vietsub online xem trên điện thoại di động và máy tính. Là một website xem phim anime vietsub miễn phí.',
+            description: 'Xem phim anime vietsub online xem trên điện thoại di động và máy tính nhanh nhất. Là một website xem phim anime vietsub miễn phí. Liên tục cập nhật các bộ anime vietsub từ các fansub Việt Nam.',
             keywords: 'animeow, ani meow, animeowpro, anime, anime vietsub, anime viet sub, xem anime, xem anime online, anime miễn phí, anime hay, online anime, xem anime',
             image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
         }
@@ -441,7 +441,7 @@ exports.login = async (req, res, next) => {
 
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
-            description: 'Xem phim anime vietsub online xem trên điện thoại di động và máy tính. Là một website xem phim anime vietsub miễn phí.',
+            description: 'Xem phim anime vietsub online xem trên điện thoại di động và máy tính nhanh nhất. Là một website xem phim anime vietsub miễn phí. Liên tục cập nhật các bộ anime vietsub từ các fansub Việt Nam.',
             keywords: 'animeow, ani meow, animeowpro, anime, anime vietsub, anime viet sub, xem anime, xem anime online, anime miễn phí, anime hay, online anime, xem anime',
             image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
         }
