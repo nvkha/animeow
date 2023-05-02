@@ -3,29 +3,24 @@
         <% animeList.forEach(function (anime) { %>
             <div class="flw-item item-qtip">
                 <div class="film-poster">
+                    <% if(anime.type === 'tv' && anime.episodeCount > 0) { %>
+                        <span class="mli-eps">
+                            <% if(anime.status === 'finished') { %>
+                                HOÀN<i>TẤT</i>
+                            <% } else if (anime.status === 'ongoing') { %>
+                                TẬP<i>
+                                    <% if(anime.episodeCount < 10) { %>
+                                        0<%= anime.episodeCount %>
+                                    <% } else { %><%= anime.episodeCount %>
+                                    <% } %>
+                                </i>
+                            <% } %>
+                        </span>
+                    <% } %>
                     <% if(anime.status != 'upcoming') { %>
                         <div class="tick-item tick-quality"><%= anime.quality %></div>
                     <% } else { %>
                         <div class="tick-item tick-quality">Trailer</div>
-                    <% } %>
-                    <div class="tick ltr">
-                        <% if(anime.type) { %>
-                            <div class="tick-item tick-sub">
-                                <%= anime.type === 'tv' ? 'TV Series' : anime.type.charAt(0).toUpperCase() + anime.type.slice(1) %>
-                            </div>
-                        <% } %>
-                    </div>
-
-                    <% if(anime.episodeCount > 0) { %>
-                        <div class="tick rtl">
-                            <div class="tick-item tick-eps">
-                                <% if(anime.status === 'ongoing') { %>
-                                    <%= anime.episodeCount %>/??
-                                <% } else if(anime.status === 'finished') { %>
-                                    <%= anime.episodeCount %>/<%= anime.episodeCount %>
-                                <% } %>
-                            </div>
-                        </div>
                     <% } %>
 
                     <img loading="lazy"
