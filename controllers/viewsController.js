@@ -244,7 +244,7 @@ exports.search = async (req, res, next) => {
 
         const animeListPromise = Anime
             .find({$or: [{$text: {$search: keyword}}, {title: {$regex: keyword}}]})
-            .select('title quality slug image episodeCount status releaseYear updatedAt')
+            .select('title quality slug image episodeCount status releaseYear updatedAt type')
             .sort({releaseYear: -1, updatedAt: -1})
             .limit(15)
             .lean();
