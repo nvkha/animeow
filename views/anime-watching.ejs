@@ -18,7 +18,9 @@
 </head>
 <body>
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v16.0&appId=1412392379533830&autoLogAppEvents=1" nonce="xK6zkTMh"></script>
+<script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v16.0&appId=1412392379533830&autoLogAppEvents=1"
+        nonce="xK6zkTMh"></script>
 <div id="wrapper">
     <!--Begin: Header-->
     <%- include('./base/header') %>
@@ -66,7 +68,8 @@
                             </div>
                         </div>
                     <% } else { %>
-                        <video id="player" class="video-js vjs-theme-fantasy" playsinline preload="metadata" oncontextmenu="return false;">
+                        <video id="player" class="video-js vjs-theme-fantasy" playsinline preload="metadata"
+                               oncontextmenu="return false;">
                             <source src="<%= episode.tempVideoUrl %>" type="video/mp4"/>
                         </video>
 
@@ -103,8 +106,8 @@
                         <div class="ps_-status">
                             <div class="content">
                                 <% if(anime.trailer && anime.episodeCount <= 0) { %>
-                                    <div class="server-notice"><strong>Bạn đang xem trailer của
-                                            <b><%= anime.title %></b>.</strong> Phim sắp chiếu hoặc admin đang cập
+                                    <div class="server-notice"><strong>Bạn đang xem
+                                            <b>Trailer</b>.</strong> Phim sắp chiếu hoặc admin đang cập
                                         nhật tập mới, bạn vui lòng chờ nhé <3
                                     </div>
                                 <% } else if(anime.episodeCount > 0) { %>
@@ -276,7 +279,8 @@
                 <!--Begin: Section comment-->
                 <section class="block_area block_area-comment">
                     <div class="block_area-content">
-                        <div class="fb-comments" data-href="https://animeow.pro/watch/<%= anime.slug %>" data-width="100%" data-numposts="5" data-order-by="reverse_time"></div>
+                        <div class="fb-comments" data-href="https://animeow.pro/watch/<%= anime.slug %>"
+                             data-width="100%" data-numposts="5" data-order-by="reverse_time"></div>
                     </div>
                 </section>
                 <!--/End: Section comment-->

@@ -93,7 +93,7 @@ animeSchema.pre('save', function (next) {
     next();
 });
 
-animeSchema.pre('findOneAndUpdate', function (next) {
+animeSchema.pre('findOneAndUpdate', async function (next) {
     if (this._update.title) {
         logger.info(`[Pre update] [Anime] Update slug with new title: ${this._update.title}`);
         this._update.slug = slugify(this._update.title.replace(/[^\p{L}0-9\- ]/gu, ''), {
@@ -102,6 +102,23 @@ animeSchema.pre('findOneAndUpdate', function (next) {
             locale: 'vi',
         });
     }
+
+    const cacheAnimeListResult = await cache.get('anime:anime-list');
+    if (cacheAnimeListResult) {
+        logger.info(`[Pre save] [Anime] Delete cache with key: anime:anime-list`);
+        await cache.del('anime:anime-list');
+    }
+    const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
+    if (cacheAnimeListUpcomingResult) {
+        logger.info(`[Pre save] [Anime] Delete cache with key: anime:anime-list-upcoming`);
+        await cache.del('anime:anime-list-upcoming');
+    }
+    const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
+    if (cacheAnimeListRecentlyAddedResult) {
+        logger.info(`[Pre save] [Anime] Delete cache with key: anime:anime-list-recently-added`);
+        await cache.del('anime:anime-list-recently-added');
+    }
+
     next();
 });
 

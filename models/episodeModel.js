@@ -13,15 +13,28 @@ const episodeSchema = mongoose.Schema({
         required: [true, 'Episode must have a episode number!'],
     },
     sources: [{
+        server: {
+            type: String,
+            enum: ['fb', 'abyss', 'lotus', 'streamtape'],
+            required: [true, 'Source must have a server!'],
+        },
+        file: {
+            type: String,
+            trim: true
+        },
         videoUrl: {
             type: String,
             trim: true
         },
-        quality: {
+        label: {
             type: String,
-            enum: ['360p', '480p', '720p', '1080p'],
-            default: '720p',
-            required: [true, 'Episode must have a quality!']
+            enum: ['360 P', '480 P', '720 P', '1080 P', 'hls P'],
+            required: [true, 'Source must have a label!'],
+        },
+        type: {
+            type: String,
+            enum: ['mp4', 'hls'],
+            required: [true, 'Source must have a type!'],
         }
     }],
     anime: {
