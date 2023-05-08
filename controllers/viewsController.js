@@ -112,10 +112,14 @@ exports.getAnime = async (req, res, next) => {
                     logger.info(`Episode video url expired with timestamp: ${episode.oe}, current timestamp ${Date.now()}`);
                     try {
                         if (episode.status != 'deleted') {
-                            episode.tempVideoUrl = await getVideoSource(episode.sources[0].videoUrl);
-                            episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
-                            logger.info('Set key into redis');
-                            await cache.set(episodeKey, JSON.stringify(episode));
+                            const idx = episode.sources.findIndex(source => source.server === 'fb');
+                            logger.info(`Found facebook source at index: ${idx}`);
+                            if (idx != -1) {
+                                episode.tempVideoUrl = await getVideoSource(episode.sources[idx].videoUrl);
+                                episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
+                                logger.info('Set key into redis');
+                                await cache.set(episodeKey, JSON.stringify(episode));
+                            }
                         }
                     } catch (err) {
                         if (err.response && err.response.data) {
@@ -148,10 +152,14 @@ exports.getAnime = async (req, res, next) => {
 
                 try {
                     if (episode.status != 'deleted') {
-                        episode.tempVideoUrl = await getVideoSource(episode.sources[0].videoUrl);
-                        episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
-                        logger.info(`Set key into redis`);
-                        await cache.set(episodeKey, JSON.stringify(episode));
+                        const idx = episode.sources.findIndex(source => source.server === 'fb');
+                        if (idx != -1) {
+                            logger.info(`Found facebook source at index: ${idx}`);
+                            episode.tempVideoUrl = await getVideoSource(episode.sources[idx].videoUrl);
+                            episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
+                            logger.info(`Set key into redis`);
+                            await cache.set(episodeKey, JSON.stringify(episode));
+                        }
                     }
                 } catch (err) {
                     if (err.response && err.response.data) {
