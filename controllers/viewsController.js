@@ -113,8 +113,8 @@ exports.getAnime = async (req, res, next) => {
                     try {
                         if (episode.status != 'deleted') {
                             const idx = episode.sources.findIndex(source => source.server === 'fb');
-                            logger.info(`Found facebook source at index: ${idx}`);
                             if (idx != -1) {
+                                logger.info(`Found facebook source at index: ${idx}`);
                                 episode.tempVideoUrl = await getVideoSource(episode.sources[idx].videoUrl);
                                 episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
                                 logger.info('Set key into redis');
