@@ -548,9 +548,13 @@ const getVideoSource = async (videoUrl) => {
     const videoId = videoUrl.split('/').pop();
     const pageId = videoUrl.split('/')[3];
 
-    let fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_MEOW_MEOW;
-    if (pageId != process.env.FB_PAGE_ID_MEOW_MEOW) {
-        fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_UPLOAD_PRO;
+    let fbAcessToken;
+    if (pageId === process.env.FB_PAGE_ID_MEOW_MEOW) {
+        fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_MEOW_MEOW;
+    } else if(pageId === process.env.FB_PAGE_ID_UPLOAD_PRO) {
+        fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_UPLOAD_PRO
+    } else if(pageId === process.env.FB_PAGE_ACCESS_TOKEN_MEOWW) {
+        fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_MEOWW
     }
 
     logger.info(`Start get video source with id: ${videoId}, page id: ${pageId}`);
