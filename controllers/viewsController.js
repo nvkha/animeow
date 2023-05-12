@@ -553,7 +553,7 @@ const getVideoSource = async (videoUrl) => {
         fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_MEOW_MEOW;
     } else if(pageId === process.env.FB_PAGE_ID_UPLOAD_PRO) {
         fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_UPLOAD_PRO
-    } else if(pageId === process.env.FB_PAGE_ACCESS_TOKEN_MEOWW) {
+    } else if(pageId === process.env.FB_PAGE_ID_MEOWW) {
         fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_MEOWW
     }
 
