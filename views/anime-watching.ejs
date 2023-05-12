@@ -155,7 +155,8 @@
 
                 <% if(anime.episodeCount > 0) { %>
                     <!--Begin: Section eps-list-->
-                    <section class="block_area block_area-episodes" style="<% if(anime.episodeCount > 99) { %>height: 300px<% } %>">
+                    <section class="block_area block_area-episodes"
+                             style="<% if(anime.episodeCount > 99) { %>height: 300px<% } %>">
                         <div class="block_area-content">
                             <div class="episodes-ul">
                                 <% for(let i = 0; i < anime.episodeCount; i++) { %>
@@ -385,17 +386,19 @@
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video.min.js"></script>
 <script>
-    videojs("player", {
-        fluid: !0,
-        controls: !0,
-        autoplay: !1,
-        notSupportedMessage: "Tập phim trên server n\xe0y đ\xe3 bị lỗi! Bạn vui l\xf2ng th\xf4ng b\xe1o cho Admin hoặc chọn server khác(nếu có) nh\xe9! Thank you <3"
-    });
-    var video = videojs("player");
-    <% const idxFb = episode.sources.findIndex(source => source.server === 'fb') %>
-    <% const idxLotus = episode.sources.findIndex(source => source.server === 'lotus') %>
-    <% if(idxFb === -1 && idxLotus != -1) { %>
-        video.src({type:"application/x-mpegURL", src: '<%= episode.sources[idxLotus].file %>'})
+    <% if(anime.episodeCount > 0) { %>
+        videojs("player", {
+            fluid: !0,
+            controls: !0,
+            autoplay: !1,
+            notSupportedMessage: "Tập phim trên server n\xe0y đ\xe3 bị lỗi! Bạn vui l\xf2ng th\xf4ng b\xe1o cho Admin hoặc chọn server khác(nếu có) nh\xe9! Thank you <3"
+        });
+        var video = videojs("player");
+        <% const idxFb = episode.sources.findIndex(source => source.server === 'fb') %>
+        <% const idxLotus = episode.sources.findIndex(source => source.server === 'lotus') %>
+        <% if(idxFb === -1 && idxLotus != -1) { %>
+        video.src({type: "application/x-mpegURL", src: '<%= episode.sources[idxLotus].file %>'})
+        <% } %>
     <% } %>
 </script>
 <script type="text/javascript" src="/js/main.js"></script>
