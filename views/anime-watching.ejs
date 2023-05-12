@@ -77,8 +77,6 @@
                             <% const idxLotus = episode.sources.findIndex(source => source.server === 'lotus') %>
                             <% if(idxFb != -1) { %>
                                 <source src="<%= episode.tempVideoUrl %>" type="video/mp4">
-                            <% } else if(idxLotus != -1) { %>
-                                <source src="<%= episode.sources[idxLotus].file %>" type="application/x-mpegURL">
                             <% } %>
                         </video>
 
@@ -393,6 +391,12 @@
         autoplay: !1,
         notSupportedMessage: "Tập phim trên server n\xe0y đ\xe3 bị lỗi! Bạn vui l\xf2ng th\xf4ng b\xe1o cho Admin hoặc chọn server khác(nếu có) nh\xe9! Thank you <3"
     });
+    var video = videojs("player");
+    <% const idxFb = episode.sources.findIndex(source => source.server === 'fb') %>
+    <% const idxLotus = episode.sources.findIndex(source => source.server === 'lotus') %>
+    <% if(idxFb === -1 && idxLotus != -1) { %>
+        video.src({type:"application/x-mpegURL", src: '<%= episode.sources[idxLotus].file %>'})
+    <% } %>
 </script>
 <script type="text/javascript" src="/js/main.js"></script>
 <!-- Google Tag Manager (noscript) -->
