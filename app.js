@@ -15,7 +15,8 @@ const userRouter = require('./routes/userRouters');
 const genreRouter = require('./routes/genreRouters');
 const episodeRouter = require('./routes/episodeRouters');
 const parameterRouter = require('./routes/parameterRouters');
-const adminRouter = require('./routes/adminRouter');
+const adminRouter = require('./routes/adminRouters');
+const playerRouter = require('./routes/playerRouters');
 const viewRouter = require('./routes/viewRouter');
 
 const app = express();
@@ -43,6 +44,7 @@ app.use(xss());
 app.use(morgan('dev'));
 
 app.use('/', viewRouter);
+app.use('/ajax', playerRouter);
 app.use('/animeow/admin', adminRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/animes', animeRouter);

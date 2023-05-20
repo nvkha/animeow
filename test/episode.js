@@ -35,8 +35,8 @@ describe('Episodes', function () {
             assert.equal(res._body.status, 'success');
             assert.equal(res._body.data.title, 'Yui Hatano');
             assert.equal(res._body.data.episodeNum, 1);
-            assert.equal(res._body.data.sources[0].videoUrl, 'Yua Mikami');
-            assert.equal(res._body.data.sources[0].quality, '720p');
+            assert.equal(res._body.data.sources[0].src, 'Yua Mikami');
+            assert.equal(res._body.data.sources[0].label, '720 P');
         });
 
         it('it not should POST a episode without a anime id', async function () {
@@ -59,6 +59,7 @@ describe('Episodes', function () {
             const anime = await Anime.create(testData.anime);
             assert.equal(anime.episodeCount, 0);
             await cache.set(anime.slug, JSON.stringify(anime));
+            await cache.set(`episode:${anime.slug}`, JSON.stringify(anime));
             await cache.set('anime:anime-list', JSON.stringify(anime));
             await cache.set('anime:anime-list-upcoming', JSON.stringify(anime));
             await cache.set('anime:anime-list-recently-added', JSON.stringify(anime));
@@ -69,10 +70,12 @@ describe('Episodes', function () {
             const cacheAnimeListResult = await cache.get('anime:anime-list');
             const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
             const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
+            const cacheEpisodeListResult = await cache.get(`episode:${anime.slug}`);
             assert.equal(cacheResult, null);
             assert.equal(cacheAnimeListResult, null);
             assert.equal(cacheAnimeListUpcomingResult, null);
             assert.equal(cacheAnimeListRecentlyAddedResult, null);
+            assert.equal(cacheEpisodeListResult, null);
         });
     });
     /*
@@ -89,8 +92,8 @@ describe('Episodes', function () {
             assert.equal(res._body.status, 'success');
             assert.equal(res._body.data.title, 'Yui Hatano');
             assert.equal(res._body.data.episodeNum, 1);
-            assert.equal(res._body.data.sources[0].videoUrl, 'Yua Mikami');
-            assert.equal(res._body.data.sources[0].quality, '720p');
+            assert.equal(res._body.data.sources[0].src, 'Yua Mikami');
+            assert.equal(res._body.data.sources[0].label, '720 P');
         });
     });
     /*
@@ -107,8 +110,8 @@ describe('Episodes', function () {
             assert.equal(res._body.status, 'success');
             assert.equal(res._body.data.title, 'Saori Hara');
             assert.equal(res._body.data.episodeNum, 1);
-            assert.equal(res._body.data.sources[0].videoUrl, 'Yua Mikami');
-            assert.equal(res._body.data.sources[0].quality, '720p');
+            assert.equal(res._body.data.sources[0].src, 'Yua Mikami');
+            assert.equal(res._body.data.sources[0].label, '720 P');
         });
 
         it('it should DELETE redis cache when UPDATE episode', async function () {
@@ -116,11 +119,11 @@ describe('Episodes', function () {
             let episodeData = JSON.parse(JSON.stringify(testData.episode));
             episodeData.anime = anime._id;
             const episode = await Episode.create(episodeData);
-            const episodeKey = `${episode.anime}/${episode.episodeNum}`;
+            const episodeKey = `episode:${episode._id}`;
             await cache.set(episodeKey, JSON.stringify(episode));
             const res = await request(app).patch(`/api/v1/episodes/${episode._id}`).send({title: "Saori Hara"});
             assert.equal(res.statusCode, 200);
-            const cacheResult = await cache.get('episode:' + episodeKey);
+            const cacheResult = await cache.get(episodeKey);
             assert.equal(cacheResult, null);
         });
     });
@@ -146,8 +149,9 @@ describe('Episodes', function () {
             let episodeData = JSON.parse(JSON.stringify(testData.episode));
             episodeData.anime = anime._id;
             const episode = await Episode.create(episodeData);
-            const episodeKey = `${episode.anime}/${episode.episodeNum}`;
+            const episodeKey = `episode:${episode._id}`;
             await cache.set(episodeKey, JSON.stringify(episode));
+            await cache.set(`episode:${anime.slug}`, JSON.stringify(anime));
             await cache.set('anime:anime-list', JSON.stringify(episode));
             await cache.set('anime:anime-list-upcoming', JSON.stringify(episode));
             await cache.set('anime:anime-list-recently-added', JSON.stringify(episode));
@@ -157,14 +161,16 @@ describe('Episodes', function () {
             const result = await Episode.find({_id: episode._id});
             assert.equal(result.length, 0);
 
-            const cacheResult = await cache.get('episode:' + episodeKey);
+            const cacheResult = await cache.get(episodeKey);
             const cacheAnimeListResult = await cache.get('anime:anime-list');
             const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
             const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
+            const cacheEpisodeListResult = await cache.get(`episode:${anime.slug}`);
             assert.equal(cacheResult, null);
             assert.equal(cacheAnimeListResult, null);
             assert.equal(cacheAnimeListUpcomingResult, null);
             assert.equal(cacheAnimeListRecentlyAddedResult, null);
+            assert.equal(cacheEpisodeListResult, null);
         });
     });
 });

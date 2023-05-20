@@ -15,16 +15,13 @@ const episodeSchema = mongoose.Schema({
     sources: [{
         server: {
             type: String,
-            enum: ['fb', 'abyss', 'lotus', 'streamtape'],
-            required: [true, 'Source must have a server!'],
+            enum: ['fb', 'abyss', 'lotus', 'streamtape', 'anime47'],
+            required: [true, 'Server must have a src!'],
         },
-        file: {
+        src: {
             type: String,
-            trim: true
-        },
-        videoUrl: {
-            type: String,
-            trim: true
+            trim: true,
+            required: [true, 'Episode must have a src!'],
         },
         label: {
             type: String,
@@ -47,10 +44,16 @@ const episodeSchema = mongoose.Schema({
 episodeSchema.post('save', async function (doc, next) {
     if (doc) {
         logger.info('[Post save] [Episode] Increment episode count by 1');
-        await mongoose.model('Anime').findOneAndUpdate(
+        const animeUpdated = await mongoose.model('Anime').findOneAndUpdate(
             {_id: doc.anime},
             {$inc: {episodeCount: 1}, $set: {updatedAt: Date.now()}},
             {new: true, runValidators: true});
+
+        const cacheEpisodeListResult = await cache.get(`episode:${animeUpdated.slug}`);
+        if (cacheEpisodeListResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: episode:${animeUpdated.slug}`);
+            await cache.del(`episode:${animeUpdated.slug}`);
+        }
 
         const cacheAnimeListResult = await cache.get('anime:anime-list');
         if (cacheAnimeListResult) {
@@ -73,7 +76,7 @@ episodeSchema.post('save', async function (doc, next) {
 
 episodeSchema.post('findOneAndUpdate', async function (doc, next) {
     if (doc) {
-        const epsiodeKey = `episode:${doc.anime}/${doc.episodeNum}`;
+        const epsiodeKey = `episode:${doc._id}`;
 
         const cacheEpisodeResult = await cache.get(epsiodeKey);
         if (cacheEpisodeResult) {
@@ -87,16 +90,22 @@ episodeSchema.post('findOneAndUpdate', async function (doc, next) {
 episodeSchema.post('findOneAndDelete', async function (doc, next) {
     if (doc) {
         logger.info('[Post delete] [Episode] Decrement episode count by 1');
-        await mongoose.model('Anime').findOneAndUpdate(
+        const deletedAnime = await mongoose.model('Anime').findOneAndUpdate(
             {_id: doc.anime},
             {$inc: {episodeCount: -1}},
             {new: true, runValidators: true}).lean();
 
-        const epsiodeKey = `episode:${doc.anime}/${doc.episodeNum}`;
+        const epsiodeKey = `episode:${doc._id}`;
         const cacheEpisodeResult = await cache.get(epsiodeKey);
         if (cacheEpisodeResult) {
             logger.info(`[Post delete] [Episode] Delete cache with key: ${epsiodeKey}`);
             await cache.del(epsiodeKey);
+        }
+
+        const cacheEpisodeListResult = await cache.get(`episode:${deletedAnime.slug}`);
+        if (cacheEpisodeListResult) {
+            logger.info(`[Post update] [Anime] Delete cache with key: episode:${deletedAnime.slug}`);
+            await cache.del(`episode:${deletedAnime.slug}`);
         }
 
         const cacheAnimeListResult = await cache.get('anime:anime-list');
@@ -119,6 +128,8 @@ episodeSchema.post('findOneAndDelete', async function (doc, next) {
 });
 
 episodeSchema.index({anime: 1, episodeNum: 1});
+episodeSchema.index({anime: 1});
+episodeSchema.index({episodeNum: 1});
 
 const Episode = mongoose.model('Episode', episodeSchema);
 

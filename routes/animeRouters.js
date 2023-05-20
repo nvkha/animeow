@@ -9,7 +9,6 @@ if (process.env.NODE_ENV === 'production') {
     router.use(authController.restrictTo('admin'));
 }
 
-
 router.route('/').get(animeController.getAllAnime).post(animeController.createAnime);
 router.route('/:id').get(animeController.getAnime).patch(animeController.updateAnime).delete(animeController.deleteAnime);
 

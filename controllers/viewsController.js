@@ -26,12 +26,6 @@ exports.getPrivacyPolicy = async (req, res, next) => {
     }
 }
 
-exports.test = async (req, res, next) => {
-    res.status(200).render('test', {
-        title: 'AniMeow - Anime Vietsub Online'
-    });
-}
-
 exports.getIndex = async (req, res, next) => {
     try {
         const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
@@ -72,16 +66,18 @@ exports.getAnime = async (req, res, next) => {
         } else if (!/^tap-[1-9]+/.test(req.params.ep)) {
             return next(new AppError("Oops, sorry we can't find that page!", 404));
         } else {
-            episodeNum = req.params.ep.split('-')[1];
+            episodeNum = Number(req.params.ep.split('-')[1]);
         }
 
         let anime;
         const genresPromise = getGenres();
         const animeCacheResultPromise = cache.get('anime:' + req.params.slug);
+        const episodesCacheResultPromise = cache.get(`episode:${req.params.slug}`);
 
-        const [genres, animeCacheResult] = await Promise.all([genresPromise, animeCacheResultPromise]);
+        const [genres, animeCacheResult, episodesCacheResult] = await Promise.all([genresPromise, animeCacheResultPromise, episodesCacheResultPromise]);
+
         if (animeCacheResult) {
-            logger.info(`Cache hit with key: 'anime:' + ${req.params.slug}`);
+            logger.info(`Cache hit with key: anime:${req.params.slug}`);
             anime = JSON.parse(animeCacheResult);
         } else {
             logger.info(`Cache miss with key: ${req.params.slug}`);
@@ -101,83 +97,21 @@ exports.getAnime = async (req, res, next) => {
             return next(new AppError("Oops, sorry we can't find that page!", 404));
         }
 
-        let episode;
-        if (anime.episodeCount > 0) {
-            const episodeKey = `episode:${anime._id}/${episodeNum}`;
-            const episodeCacheResult = await cache.get(episodeKey);
-            if (episodeCacheResult) {
-                logger.info(`Cache hit with key: ${episodeKey}`);
-                episode = JSON.parse(episodeCacheResult);
-                if (episode.oe <= Date.now()) {
-                    logger.info(`Episode video url expired with timestamp: ${episode.oe}, current timestamp ${Date.now()}`);
-                    try {
-                        if (episode.status != 'deleted') {
-                            const idx = episode.sources.findIndex(source => source.server === 'fb');
-                            if (idx != -1) {
-                                logger.info(`Found facebook source at index: ${idx}`);
-                                episode.tempVideoUrl = await getVideoSource(episode.sources[idx].videoUrl);
-                                episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
-                                logger.info('Set key into redis');
-                                await cache.set(episodeKey, JSON.stringify(episode));
-                            }
-                        }
-                    } catch (err) {
-                        if (err.response && err.response.data) {
-                            if (err.response.data.error.code === 100) {
-                                episode.status = 'deleted';
-                                episode.tempVideoUrl = null;
-                                logger.info(`Set status deleted into redis`);
-                                await cache.set(episodeKey, JSON.stringify(episode));
-                            }
-                        }
-
-                        logger.error({
-                            message: err.message,
-                            _anime_id: anime._id,
-                            _episodeNum: episodeNum,
-                            reponse: err.response.data
-                        });
-                    }
-                }
-            } else {
-                logger.info(`Cache miss with key: ${episodeKey}`);
-                episode = await Episode.findOne({
-                    anime: anime._id,
-                    episodeNum: episodeNum
-                }).select('id title sources episodeNum').lean();
-
-                if (!episode) {
-                    return next(new AppError("Oops, sorry we can't find that page!", 404));
-                }
-
-                try {
-                    if (episode.status != 'deleted') {
-                        const idx = episode.sources.findIndex(source => source.server === 'fb');
-                        if (idx != -1) {
-                            logger.info(`Found facebook source at index: ${idx}`);
-                            episode.tempVideoUrl = await getVideoSource(episode.sources[idx].videoUrl);
-                            episode.oe = parseInt(new URL(episode.tempVideoUrl).searchParams.get('oe'), 16) * 1000;
-                            logger.info(`Set key into redis`);
-                            await cache.set(episodeKey, JSON.stringify(episode));
-                        }
-                    }
-                } catch (err) {
-                    if (err.response && err.response.data) {
-                        if (err.response.data.error.code === 100) {
-                            episode.status = 'deleted';
-                            logger.info(`Set status deleted into redis`);
-                            await cache.set(episodeKey, JSON.stringify(episode));
-                        }
-                    }
-                    logger.error({
-                        message: err.message,
-                        _anime_id: anime._id,
-                        _episodeNum: episodeNum,
-                        reponse: err.response.data
-                    });
-                }
-            }
+        let episodes;
+        if (episodesCacheResult) {
+            logger.info(`Cache hit with key: episode:${req.params.slug}`);
+            episodes = JSON.parse(episodesCacheResult);
+        } else {
+            logger.info(`Cache miss with key: episode:${req.params.slug}`);
+            episodes = await Episode
+                .find({anime: anime._id})
+                .select('_id title episodeNum')
+                .sort({episodeNum: 1})
+                .lean();
+            logger.info(`Set key into redis`);
+            await cache.set(`episode:${req.params.slug}`, JSON.stringify(episodes));
         }
+
         const genreList = anime.genres;
 
         const titleWithoutEpNum = anime.title;
@@ -190,7 +124,7 @@ exports.getAnime = async (req, res, next) => {
         }
 
         res.status(200).render('anime-watching', {
-            title: title, meta, genres, episode, anime, genreList,
+            title: title, meta, genres, episodeNum, anime, genreList, episodes,
             titleWithoutEpNum, topMostViewsDay, topMostViewsWeek, topMostViewsMonth
         });
     } catch (err) {
@@ -405,6 +339,7 @@ exports.getAllAnime = async (req, res, next) => {
     }
 }
 
+
 exports.getMovie = async (req, res, next) => {
     try {
         const genres = await getGenres();
@@ -542,29 +477,6 @@ const getAnimeListRecentlyAdded = async () => {
         await cache.set('anime:anime-list-recently-added', JSON.stringify(animeListRecentlyAdded));
     }
     return animeListRecentlyAdded;
-}
-
-const getVideoSource = async (videoUrl) => {
-    const videoId = videoUrl.split('/').pop();
-    const pageId = videoUrl.split('/')[3];
-
-    let fbAcessToken;
-    if (pageId === process.env.FB_PAGE_ID_MEOW_MEOW) {
-        fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_MEOW_MEOW;
-    } else if(pageId === process.env.FB_PAGE_ID_UPLOAD_PRO) {
-        fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_UPLOAD_PRO
-    } else if(pageId === process.env.FB_PAGE_ID_MEOWW) {
-        fbAcessToken = process.env.FB_PAGE_ACCESS_TOKEN_MEOWW
-    }
-
-    logger.info(`Start get video source with id: ${videoId}, page id: ${pageId}`);
-    const response = await axios.get(`${process.env.FB_API_HOST}/${videoId}`, {
-        params: {
-            fields: 'source',
-            access_token: fbAcessToken
-        }
-    });
-    return response.data.source;
 }
 
 const getAnimePagination = async (filterOptions, sortOptions, page, limit) => {

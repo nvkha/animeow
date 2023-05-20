@@ -71,23 +71,20 @@
                             </div>
                         </div>
                     <% } else { %>
-                        <video id="player" class="video-js vjs-theme-fantasy" playsinline preload="metadata"
-                               oncontextmenu="return false;">
-                            <% const idxFb = episode.sources.findIndex(source => source.server === 'fb') %>
-                            <% const idxLotus = episode.sources.findIndex(source => source.server === 'lotus') %>
-                            <% if(idxFb != -1) { %>
-                                <source src="<%= episode.tempVideoUrl %>" type="video/mp4">
-                            <% } %>
-                        </video>
+                        <div class="player-wrap">
+                            <div class="wb_-playerarea">
+                                Đang tải phim, vui lòng đợi trong giây lát..
+                            </div>
+                        </div>
 
                         <div class="player-controls">
-                            <div id="prevEp" class="pc-item" data-current-episode="<%= episode.episodeNum %>"
+                            <div id="prevEp" class="pc-item" data-current-episode="<%= episodeNum %>"
                                  data-episodes="<%= anime.episodeCount %>">
                                 <div class="toggle-basic">
                                     <span class="tb-name"><i class="fas fa-backward"></i> Tập trước</span>
                                 </div>
                             </div>
-                            <div id="nextEp" class="pc-item" data-current-episode="<%= episode.episodeNum %>"
+                            <div id="nextEp" class="pc-item" data-current-episode="<%= episodeNum %>"
                                  data-episodes="<%= anime.episodeCount %>">
                                 <div class="toggle-basic">
                                     <span class="tb-name"><i class="fas fa-forward"></i> Tập tiếp</span>
@@ -119,37 +116,15 @@
                                     </div>
                                 <% } else if(anime.episodeCount > 0) { %>
                                     <div class="server-notice"><strong>Bạn đang xem
-                                            <b>Tập <%= episode.episodeNum %></b>.</strong> Nếu
+                                            <b>Tập <%= episodeNum %></b>.</strong> Nếu
                                         server hiện tại gặp vấn đề hãy chọn server khác nhé <3
                                     </div>
                                 <% } %>
                             </div>
                         </div>
 
-                        <% if(anime.episodeCount > 0) { %>
-                            <div class="ps_-block ps_-block-sub servers-sub">
-                                <div class="ps__-title"><i class="fas fa-server mr-2"></i>SERVER:</div>
-                                <div class="ps__-list">
-                                    <% const idxFb = episode.sources.findIndex(source => source.server === 'fb') %>
-                                    <% const idxLotus = episode.sources.findIndex(source => source.server === 'lotus') %>
-                                    <% if(idxFb != -1) { %>
-                                        <div class="item server-item" data-server-id="1"
-                                             data-url="<%= episode.tempVideoUrl %>">
-                                            <a href="/watch/<%= anime.slug %>/tap-<%= episode.episodeNum %>"
-                                               class="btn active">#1</a>
-                                        </div>
-                                    <% }
-                                    if (idxLotus != -1) { %>
-                                        <div class="item server-item" data-server-id="2"
-                                             data-file="<%= episode.sources[idxLotus].file %>">
-                                            <a href="/watch/<%= anime.slug %>/tap-<%= episode.episodeNum %>"
-                                               class="btn <% if(idxFb === -1) { %>active<% } %>">#2</a>
-                                        </div>
-                                    <% } %>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        <% } %>
+                        <div class="ps_-block ps_-block-sub servers-sub">
+                        </div>
                     </div>
                 </div>
 
@@ -159,20 +134,12 @@
                              style="<% if(anime.episodeCount > 99) { %>height: 300px<% } %>">
                         <div class="block_area-content">
                             <div class="episodes-ul">
-                                <% for(let i = 0; i < anime.episodeCount; i++) { %>
-                                    <% if(i + 1 != episode.episodeNum) { %>
-                                        <a href="/watch/<%= anime.slug %>/tap-<%= i + 1 %>"
-                                           title="Tập <%= i + 1 %>"
-                                           class="item ep-item">
-                                            <div class="order"><%= i + 1 %></div>
-                                        </a>
-                                    <% } else { %>
-                                        <a href="/watch/<%= anime.slug %>/tap-<%= i + 1 %>"
-                                           title="Tập <%= i + 1 %>"
-                                           class="item ep-item active">
-                                            <div class="order"><%= i + 1 %></div>
-                                        </a>
-                                    <% } %>
+                                <% for(let i = 0; i < episodes.length; i++) { %>
+                                    <a href="/watch/<%= anime.slug %>/tap-<%= episodes[i].episodeNum %>"
+                                       data-id="<%= episodes[i]._id %>"
+                                       class="item ep-item <% if(episodeNum === episodes[i].episodeNum) { %>active<% } %>">
+                                        <div class="order"><%= episodes[i].title %></div>
+                                    </a>
                                 <% } %>
                                 <div class="clearfix"></div>
                             </div>
@@ -385,22 +352,70 @@
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/video.js@8.0.4/dist/video.min.js"></script>
+<% if(anime.episodeCount > 0) { %>
 <script>
-    <% if(anime.episodeCount > 0) { %>
-        videojs("player", {
-            fluid: !0,
-            controls: !0,
-            autoplay: !1,
-            notSupportedMessage: "Tập phim trên server n\xe0y đ\xe3 bị lỗi! Bạn vui l\xf2ng th\xf4ng b\xe1o cho Admin hoặc chọn server khác(nếu có) nh\xe9! Thank you <3"
+    (function ($) {
+        function get_link_backup(a) {
+            $.ajax({
+                url: "https://animeow.pro/ajax/player",
+                type: "post",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    a: a,
+                }),
+                success: function (res) {
+                    $(".servers-sub").html(res);
+                    var b = $(".server-item")[0].getAttribute("data-server-id");
+                    $(".server-item a")[0].classList.add("active");
+                    get_player(a, b);
+                },
+                error: function (err) {
+                    console.log("Ajax error!");
+                }
+            })
+        }
+
+        function get_player(a, b) {
+            $.ajax({
+                url: "https://animeow.pro/ajax/player",
+                type: "post",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    a: a,
+                    b: b
+                }),
+                success: function (res) {
+                    $(".wb_-playerarea").html(res);
+                },
+                error: function (err) {
+                    console.log("Ajax error!");
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            var a = $(".episodes-ul a.item.ep-item.active").attr("data-id");
+            get_link_backup(a);
+
+            $(document).on("click", ".server-item", function (e) {
+                e.preventDefault()
+                $(".server-item a").each(e => {
+                    $(".server-item a").get(e).classList.remove("active")
+                })
+                $(this).find("a")[0].classList.add("active");
+
+                var player = videojs('player');
+                player.dispose();
+                $(".wb_-playerarea").empty();
+                $(".wb_-playerarea").html('Đang tải phim, vui lòng đợi trong giây lát..');
+                var b = $(this).attr("data-server-id");
+                get_player(a, b);
+            });
+
         });
-        var video = videojs("player");
-        <% const idxFb = episode.sources.findIndex(source => source.server === 'fb') %>
-        <% const idxLotus = episode.sources.findIndex(source => source.server === 'lotus') %>
-        <% if(idxFb === -1 && idxLotus != -1) { %>
-        video.src({type: "application/x-mpegURL", src: '<%= episode.sources[idxLotus].file %>'})
-        <% } %>
-    <% } %>
+    })(jQuery);
 </script>
+<% } %>
 <script type="text/javascript" src="/js/main.js"></script>
 <!-- Google Tag Manager (noscript) -->
 <noscript>
