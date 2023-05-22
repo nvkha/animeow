@@ -120,7 +120,7 @@ exports.getAnime = async (req, res, next) => {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
             description: anime.otherTitle,
             keywords: `${anime.title},${anime.title} tap ${episodeNum}`,
-            image: 'https://img.animeow.pro/imgur/' + anime.image
+            image: 'https://statics.animeow.pro/imgur/' + anime.image
         }
 
         res.status(200).render('anime-watching', {
