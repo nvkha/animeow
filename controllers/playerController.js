@@ -185,10 +185,10 @@ const getEpisode = async (episodeId) => {
 }
 
 const buildVideoSrc = (src, type) => {
-    return '<video style="position: absolute" id=player class="video-js vjs-theme-fantasy" playsinline oncontextmenu=return!1>\n' +
+    return '<video style="position: absolute" id=player class="video-js vjs-16-9 vjs-theme-fantasy" playsinline oncontextmenu=return!1>\n' +
         `<source src="${src}" type="${type}">\n` +
         '</video>\n' +
-        '<script>videojs("player",{preload:"auto",fluid:!0,controls:!0,autoplay:!1,notSupportedMessage:"Tập phim trên server này đã bị lỗi! Bạn vui lòng thông báo cho Admin hoặc chọn server khác(nếu có) nhé! Thank you <3"})</script>'
+        '<script>videojs("player",{preload:"auto",controls:!0,autoplay:!1,notSupportedMessage:"Tập phim trên server này đã bị lỗi! Bạn vui lòng thông báo cho Admin hoặc chọn server khác(nếu có) nhé! Thank you <3"})</script>'
 }
 
 const getAnimeVuiGheVideoSource = async () => {

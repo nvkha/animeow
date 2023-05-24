@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi-VN">
+<head>
+    <title><%= title %></title>
+    <%- include('./base/meta-data') %>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <%- include('./base/common-css') %>
+    <%- include('./base/google') %>
+</head>
+<body>
+<div id="wrapper">
+    <!--Begin: Header-->
+    <%- include('./base/header') %>
+    <!--End: Header-->
+
+    <div class="prebreadcrumb">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" title="Home">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Sắp Chiếu</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!--Begin: Main-->
+    <div id="main-wrapper">
+        <div class="container">
+            <!--Begin: main-content-->
+            <div id="main-content">
+                <!--Begin: Section filter-->
+                <%- include('./base/filter') %>
+                <!--End: Section filter-->
+
+                <section class="block_area block_area-anime none-bg">
+                    <!--Begin: Section film list-->
+                    <%- include('./base/anime-list') %>
+                    <!--End: Section film list-->
+                </section>
+
+                <% if(totalPages > 1) { %>
+                    <!--Begin: Pagination-->
+                    <div class="anime-pagination">
+                        <div class="ap_-nav">
+                            <div class="ap__-btn ap__-btn-prev">
+                                <a href="/sap-chieu/trang-<%= prevPage %>"
+                                   class="btn btn-sm btn-focus more-padding <% if(!prevPage) { %>disabled<% } %>">
+                                    <i class="fas fa-angle-left"></i>
+                                    Previous
+                                </a>
+                            </div>
+                            <div class="ap__-input">
+                                <div class="btn btn-sm btn-blank">page</div>
+                                <input class="form-control form-control-dark input-page" value="<%= currentPage %>"
+                                       data-url="/genre/action?page=">
+                                <button type="button" class="btn btn-sm btn-focus btn-go-page">go</button>
+                                <div class="btn btn-sm btn-blank">of <%= totalPages %></div>
+                            </div>
+                            <div class="ap__-btn ap__-btn-next">
+                                <a href="/sap-chieu/trang-<%= nextPage %>"
+                                   class="btn btn-sm btn-focus more-padding <% if(!nextPage) { %>disabled<% } %>">
+                                    Next <i class="fas fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End: Pagination-->
+                <% } %>
+                <div class="clearfix"></div>
+            </div>
+            <!--/End: main-content-->
+
+            <!--Start: main-sidebar-->
+            <div id="main-sidebar">
+                <%- include('./base/top-views-sidebar') %>
+            </div>
+            <!--/End: main-sidebar-->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!--End: Main-->
+
+    <!--Start: Footer-->
+    <%- include('./base/footer') %>
+    <!--End: Footer-->
+</div>
+
+<%- include('./base/common-js') %>
+</body>
+</html>

@@ -34,10 +34,9 @@ exports.getIndex = async (req, res, next) => {
         const slideListPromise = Parameter.findOne({name: 'slides'}).lean();
         const genresPromise = getGenres();
         const animeListPromise = getAnimeList();
-        const animeListUpcomingPromise = getAnimeListUpcoming();
 
-        const [alert, slideList, genres, animeList, animeListUpcoming] = await Promise.all([
-            alertPromise, slideListPromise, genresPromise, animeListPromise, animeListUpcomingPromise]);
+        const [alert, slideList, genres, animeList] = await Promise.all([
+            alertPromise, slideListPromise, genresPromise, animeListPromise]);
 
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
@@ -49,7 +48,7 @@ exports.getIndex = async (req, res, next) => {
         res.status(200).render('index', {
             title: 'AniMeow - Anime Vietsub Online',
             meta, alert, slideList, genres, animeList,
-            animeListUpcoming, topMostViewsDay, topMostViewsWeek, topMostViewsMonth
+            topMostViewsDay, topMostViewsWeek, topMostViewsMonth
         });
     } catch (err) {
         next(err);
@@ -153,7 +152,7 @@ exports.getGenre = async (req, res, next) => {
 
 
         const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
-        const result = await getAnimePagination({genres: genre._id}, {releaseYear: -1, updatedAt: -1}, page, 15);
+        const result = await getAnimePagination({genres: genre._id, status: {$in: ['finished', 'ongoing']}}, {releaseYear: -1, updatedAt: -1}, page, 30);
         const animeList = result.docs;
 
         const meta = {
@@ -187,8 +186,8 @@ exports.search = async (req, res, next) => {
         const animeListPromise = Anime
             .find({$or: [{$text: {$search: keyword}}, {title: {$regex: keyword}}]})
             .select('title quality slug image episodeCount status releaseYear updatedAt type')
-            .sort({releaseYear: -1, updatedAt: -1})
-            .limit(15)
+            .sort({score: {'$meta': 'textScore'}})
+            .limit(30)
             .lean();
 
         const [genres, animeList] = await Promise.all([genresPromise, animeListPromise]);
@@ -269,7 +268,7 @@ exports.filter = async (req, res, next) => {
         }
 
         const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
-        const result = await getAnimePagination(filterOptions, sortOptions, page, 15);
+        const result = await getAnimePagination(filterOptions, sortOptions, page, 30);
         const animeList = result.docs;
 
         const meta = {
@@ -311,7 +310,7 @@ exports.getAllAnime = async (req, res, next) => {
         }
 
         const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
-        const result = await getAnimePagination({}, {releaseYear: -1, updatedAt: -1}, page, 15);
+        const result = await getAnimePagination({status: {$in: ['finished', 'ongoing']}}, {releaseYear: -1, updatedAt: -1}, page, 30);
         const animeList = result.docs;
 
         const meta = {
@@ -350,7 +349,7 @@ exports.getMovie = async (req, res, next) => {
         }
 
         const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
-        const result = await getAnimePagination({type: 'movie'}, {releaseYear: -1, updatedAt: -1}, page, 15);
+        const result = await getAnimePagination({type: 'movie', status: {$in: ['finished', 'ongoing']}}, {releaseYear: -1, updatedAt: -1}, page, 30);
         const animeList = result.docs;
 
         const meta = {
@@ -362,6 +361,44 @@ exports.getMovie = async (req, res, next) => {
 
         res.status(200).render('movie', {
             title: 'Danh sách movie Anime',
+            meta,
+            genres,
+            animeList,
+            prevPage: result.prevPage,
+            nextPage: result.nextPage,
+            totalPages: result.totalPages,
+            currentPage: page,
+            topMostViewsDay,
+            topMostViewsWeek,
+            topMostViewsMonth
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.getUpcoming = async (req, res, next) => {
+    try {
+        const genres = await getGenres();
+
+        const page = getPage(req.params.page);
+        if (!page) {
+            return next(new AppError("Oops, sorry we can't find that page!", 404));
+        }
+
+        const [topMostViewsDay, topMostViewsWeek, topMostViewsMonth] = await getTopMostViews();
+        const result = await getAnimePagination({status: 'upcoming'}, {releaseYear: -1, updatedAt: -1}, page, 30);
+        const animeList = result.docs;
+
+        const meta = {
+            url: req.protocol + '://' + req.hostname + req.originalUrl,
+            description: 'Danh sách movie Anime',
+            keywords: 'anime, danh sach movie anime, anime vietsub, animevietsub, movie anime',
+            image: 'https://ik.imagekit.io/3q7pewvsl/thumbnail/thumbnail.webp'
+        }
+
+        res.status(200).render('upcoming', {
+            title: 'Danh sách Anime Sắp Chiếu',
             meta,
             genres,
             animeList,
@@ -427,7 +464,7 @@ const getAnimeList = async () => {
     const animeList = await Anime
         .find({status: {$in: ['finished', 'ongoing']}})
         .select('title slug image episodeCount status updatedAt quality releaseYear type')
-        .sort({updatedAt: -1})
+        .sort({releaseYear: -1, updatedAt: -1})
         .limit(15)
         .lean();
     if (animeList) {
@@ -449,7 +486,7 @@ const getAnimeListUpcoming = async () => {
         .find({status: 'upcoming'})
         .select('title slug image episodeCount status updatedAt quality releaseYear type')
         .sort({releaseYear: -1, updatedAt: -1})
-        .limit(15)
+        .limit(30)
         .lean();
     if (animeListUpcoming) {
         logger.info(`Set key into redis`);

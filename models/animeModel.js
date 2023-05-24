@@ -50,7 +50,7 @@ const animeSchema = mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['tv', 'movie', 'n/a'],
+        enum: ['tv', 'movie', 'ova', 'ona', 'special', 'n/a'],
         required: [true, 'Anime must have a type!']
     },
     status: {
@@ -188,8 +188,10 @@ animeSchema.index({title: 'text', otherTitle: 'text'})
 animeSchema.index({active: 1});
 animeSchema.index({status: 1});
 animeSchema.index({genres: 1});
+animeSchema.index({genres: 1, status: 1});
 animeSchema.index({slug: 1});
 animeSchema.index({type: 1});
+animeSchema.index({type: 1, status: 1});
 animeSchema.index({updatedAt: -1});
 animeSchema.index({createdAt: -1});
 animeSchema.index({releaseYear: -1});

@@ -9,6 +9,9 @@ router.route('/login').get(viewsController.login);
 
 router.route('/filter').get(viewsController.filter);
 
+router.route('/sap-chieu/:page').get(viewsController.getUpcoming);
+router.route('/sap-chieu').get(viewsController.getUpcoming);
+
 router.route('/movie/:page').get(viewsController.getMovie);
 router.route('/movie').get(viewsController.getMovie);
 
