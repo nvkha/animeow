@@ -62,7 +62,7 @@ exports.getAnime = async (req, res, next) => {
         let episodeNum;
         if (!req.params.ep) {
             episodeNum = 1;
-        } else if (!/^tap-[1-9]+/.test(req.params.ep)) {
+        } else if (!/^tap-[0-9]+/.test(req.params.ep)) {
             return next(new AppError("Oops, sorry we can't find that page!", 404));
         } else {
             episodeNum = Number(req.params.ep.split('-')[1]);
@@ -465,7 +465,7 @@ const getAnimeList = async () => {
         .find({status: {$in: ['finished', 'ongoing']}})
         .select('title slug image episodeCount status updatedAt quality releaseYear type')
         .sort({releaseYear: -1, updatedAt: -1})
-        .limit(15)
+        .limit(30)
         .lean();
     if (animeList) {
         logger.info(`Set key into redis`);

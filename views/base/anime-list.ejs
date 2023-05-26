@@ -3,7 +3,7 @@
         <% animeList.forEach(function (anime) { %>
             <div class="flw-item item-qtip">
                 <div class="film-poster">
-                    <% if(anime.type === 'tv' && anime.episodeCount > 0) { %>
+                    <% if(anime.type != 'movie' && anime.episodeCount > 0) { %>
                         <span class="mli-eps">
                             <% if(anime.status === 'finished') { %>
                                 HOÀN<i>TẤT</i>

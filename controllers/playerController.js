@@ -18,6 +18,9 @@ exports.getPlayer = async (req, res, next) => {
         const episodeKey = `episode:${episodeId}`
 
         const episode = await getEpisode(episodeId);
+        if(!episode) {
+            return res.status(404).send();
+        }
 
         if (episodeId && !sv) {
             let result = '<div class="ps__-title"><i class="fas fa-server mr-2"></i>SERVER:</div>\n' +
