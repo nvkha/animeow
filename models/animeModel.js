@@ -108,10 +108,10 @@ animeSchema.pre('findOneAndUpdate', async function (next) {
         logger.info(`[Pre save] [Anime] Delete cache with key: anime:anime-list`);
         await cache.del('anime:anime-list');
     }
-    const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
+    const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-chinese');
     if (cacheAnimeListUpcomingResult) {
-        logger.info(`[Pre save] [Anime] Delete cache with key: anime:anime-list-upcoming`);
-        await cache.del('anime:anime-list-upcoming');
+        logger.info(`[Pre save] [Anime] Delete cache with key: anime:anime-list-chinese`);
+        await cache.del('anime:anime-list-chinese');
     }
     const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
     if (cacheAnimeListRecentlyAddedResult) {
@@ -134,10 +134,10 @@ animeSchema.post('findOneAndUpdate', async function (doc, next) {
             logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list`);
             await cache.del('anime:anime-list');
         }
-        const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
+        const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-chinese');
         if (cacheAnimeListUpcomingResult) {
-            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-upcoming`);
-            await cache.del('anime:anime-list-upcoming');
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-chinese`);
+            await cache.del('anime:anime-list-chinese');
         }
         const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
         if (cacheAnimeListRecentlyAddedResult) {
@@ -167,10 +167,10 @@ animeSchema.post('findOneAndDelete', async function (doc, next) {
             logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list`);
             await cache.del('anime:anime-list');
         }
-        const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
+        const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-chinese');
         if (cacheAnimeListUpcomingResult) {
-            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-upcoming`);
-            await cache.del('anime:anime-list-upcoming');
+            logger.info(`[Post update] [Anime] Delete cache with key: anime:anime-list-chinese`);
+            await cache.del('anime:anime-list-chinese');
         }
         const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
         if (cacheAnimeListRecentlyAddedResult) {
@@ -185,16 +185,11 @@ animeSchema.post('findOneAndDelete', async function (doc, next) {
 animeSchema.plugin(mongoosePaginate);
 
 animeSchema.index({title: 'text', otherTitle: 'text'})
-animeSchema.index({active: 1});
-animeSchema.index({status: 1});
-animeSchema.index({genres: 1});
-animeSchema.index({genres: 1, status: 1});
+animeSchema.index({status: 1, releaseYear: -1, updatedAt: -1});
+animeSchema.index({status: 1, genres: 1, updatedAt: -1});
+animeSchema.index({genres: 1, status: 1, releaseYear: -1, updatedAt: -1});
 animeSchema.index({slug: 1});
-animeSchema.index({type: 1});
-animeSchema.index({type: 1, status: 1});
-animeSchema.index({updatedAt: -1});
-animeSchema.index({createdAt: -1});
-animeSchema.index({releaseYear: -1});
+animeSchema.index({type: 1, status: 1, releaseYear: -1, updatedAt: -1});
 animeSchema.index({releaseYear: -1, updatedAt: -1});
 
 const Anime = mongoose.model('Anime', animeSchema);

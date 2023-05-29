@@ -34,9 +34,10 @@ exports.getIndex = async (req, res, next) => {
         const slideListPromise = Parameter.findOne({name: 'slides'}).lean();
         const genresPromise = getGenres();
         const animeListPromise = getAnimeList();
+        const animeListChinesePromise = getAnimeListChinese();
 
-        const [alert, slideList, genres, animeList] = await Promise.all([
-            alertPromise, slideListPromise, genresPromise, animeListPromise]);
+        const [alert, slideList, genres, animeList, animeListChinese] = await Promise.all([
+            alertPromise, slideListPromise, genresPromise, animeListPromise, animeListChinesePromise]);
 
         const meta = {
             url: req.protocol + '://' + req.hostname + req.originalUrl,
@@ -48,7 +49,7 @@ exports.getIndex = async (req, res, next) => {
         res.status(200).render('index', {
             title: 'AniMeow - Anime Vietsub Online',
             meta, alert, slideList, genres, animeList,
-            topMostViewsDay, topMostViewsWeek, topMostViewsMonth
+            animeListChinese, topMostViewsDay, topMostViewsWeek, topMostViewsMonth
         });
     } catch (err) {
         next(err);
@@ -462,10 +463,10 @@ const getAnimeList = async () => {
 
     logger.info('Cache miss with key: anime:anime-list');
     const animeList = await Anime
-        .find({status: {$in: ['finished', 'ongoing']}})
+        .find({status: {$in: ['finished', 'ongoing']}, genres: {$nin: ['63e2ddd8aad8b9231c98751b']}})
         .select('title slug image episodeCount status updatedAt quality releaseYear type')
         .sort({updatedAt: -1})
-        .limit(30)
+        .limit(15)
         .lean();
     if (animeList) {
         logger.info(`Set key into redis`);
@@ -474,25 +475,25 @@ const getAnimeList = async () => {
     return animeList;
 }
 
-const getAnimeListUpcoming = async () => {
-    const cacheResults = await cache.get('anime:anime-list-upcoming');
+const getAnimeListChinese = async () => {
+    const cacheResults = await cache.get('anime:anime-list-chinese');
     if (cacheResults) {
-        logger.info('Cache hit with key: anime:anime-list-upcoming');
+        logger.info('Cache hit with key: anime:anime-list-chinese');
         return JSON.parse(cacheResults);
     }
 
-    logger.info('Cache miss with key: anime:anime-list-upcoming');
-    const animeListUpcoming = await Anime
-        .find({status: 'upcoming'})
+    logger.info('Cache miss with key: anime:anime-list-chinese');
+    const animeListChinese = await Anime
+        .find({status: {$in: ['finished', 'ongoing']}, genres: '63e2ddd8aad8b9231c98751b'})
         .select('title slug image episodeCount status updatedAt quality releaseYear type')
-        .sort({releaseYear: -1, updatedAt: -1})
-        .limit(30)
+        .sort({updatedAt: -1})
+        .limit(15)
         .lean();
-    if (animeListUpcoming) {
+    if (animeListChinese) {
         logger.info(`Set key into redis`);
-        await cache.set('anime:anime-list-upcoming', JSON.stringify(animeListUpcoming));
+        await cache.set('anime:anime-list-chinese', JSON.stringify(animeListChinese));
     }
-    return animeListUpcoming;
+    return animeListChinese;
 }
 
 const getAnimeListRecentlyAdded = async () => {

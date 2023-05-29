@@ -1,0 +1,45 @@
+<div class="block_area-content block_area-list film_list film_list-grid">
+    <div class="film_list-wrap">
+        <% animeListChinese.forEach(function (anime) { %>
+            <div class="flw-item item-qtip">
+                <div class="film-poster">
+                    <% if(anime.type != 'movie' && anime.episodeCount > 0) { %>
+                        <span class="mli-eps">
+                            <% if(anime.status === 'finished') { %>
+                                HOÀN<i>TẤT</i>
+                            <% } else if (anime.status === 'ongoing') { %>
+                                TẬP<i>
+                                    <% if(anime.episodeCount < 10) { %>
+                                        0<%= anime.episodeCount %>
+                                    <% } else { %><%= anime.episodeCount %>
+                                    <% } %>
+                                </i>
+                            <% } %>
+                        </span>
+                    <% } %>
+                    <% if(anime.status != 'upcoming') { %>
+                        <div class="tick-item tick-quality"><%= anime.quality %></div>
+                    <% } else { %>
+                        <div class="tick-item tick-quality">Trailer</div>
+                    <% } %>
+
+                    <img loading="lazy"
+                         src="https://statics.animeow.pro/imgur/<%= anime.image %>"
+                         class="film-poster-img"
+                         alt="<%= anime.title %>">
+                    <a href="/watch/<%= anime.slug %>" class="film-poster-ahref"><i class="fas fa-play"></i></a>
+                </div>
+                <div class="film-detail">
+                    <h3 class="film-name">
+                        <a title="<%= anime.title.replace(/(?:^|\s|[-"'([{.])+\S/g, (c) => c.toUpperCase()) %>"
+                           href="/watch/<%= anime.slug %>">
+                            <%= anime.title %>
+                        </a>
+                    </h3>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        <% }) %>
+    </div>
+    <div class="clearfix"></div>
+</div>

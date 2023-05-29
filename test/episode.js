@@ -61,14 +61,14 @@ describe('Episodes', function () {
             await cache.set(anime.slug, JSON.stringify(anime));
             await cache.set(`episode:${anime.slug}`, JSON.stringify(anime));
             await cache.set('anime:anime-list', JSON.stringify(anime));
-            await cache.set('anime:anime-list-upcoming', JSON.stringify(anime));
+            await cache.set('anime:anime-list-chinese', JSON.stringify(anime));
             await cache.set('anime:anime-list-recently-added', JSON.stringify(anime));
             let episodeData = JSON.parse(JSON.stringify(testData.episode));
             episodeData.anime = anime._id;
             await request(app).post('/api/v1/episodes').send(episodeData);
             const cacheResult = await cache.get(`anime:${anime.slug}`);
             const cacheAnimeListResult = await cache.get('anime:anime-list');
-            const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
+            const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-chinese');
             const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
             const cacheEpisodeListResult = await cache.get(`episode:${anime.slug}`);
             assert.equal(cacheResult, null);
@@ -153,7 +153,7 @@ describe('Episodes', function () {
             await cache.set(episodeKey, JSON.stringify(episode));
             await cache.set(`episode:${anime.slug}`, JSON.stringify(anime));
             await cache.set('anime:anime-list', JSON.stringify(episode));
-            await cache.set('anime:anime-list-upcoming', JSON.stringify(episode));
+            await cache.set('anime:anime-list-chinese', JSON.stringify(episode));
             await cache.set('anime:anime-list-recently-added', JSON.stringify(episode));
             const res = await request(app).delete(`/api/v1/episodes/${episode._id}`);
             assert.equal(res.statusCode, 204);
@@ -163,7 +163,7 @@ describe('Episodes', function () {
 
             const cacheResult = await cache.get(episodeKey);
             const cacheAnimeListResult = await cache.get('anime:anime-list');
-            const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-upcoming');
+            const cacheAnimeListUpcomingResult = await cache.get('anime:anime-list-chinese');
             const cacheAnimeListRecentlyAddedResult = await cache.get('anime:anime-list-recently-added');
             const cacheEpisodeListResult = await cache.get(`episode:${anime.slug}`);
             assert.equal(cacheResult, null);
