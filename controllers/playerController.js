@@ -44,6 +44,12 @@ exports.getPlayer = async (req, res, next) => {
                     '<a href="#" class="btn">#3</a>\n' +
                     '</div>\n';
             }
+            const idxAbyss = episode.sources.findIndex(source => source.server === 'abyss');
+            if (idxAbyss != -1) {
+                result += '<div class="item server-item" data-server-id="4">\n' +
+                    '<a href="#" class="btn">#4</a>\n' +
+                    '</div>\n';
+            }
             result += '</div>\n' +
                 '<div class="clearfix"></div>'
 
@@ -162,6 +168,12 @@ exports.getPlayer = async (req, res, next) => {
                     }
                     const src = episode.sources[idxAnime47].tempVideoUrl === undefined ? '' : episode.sources[idxAnime47].tempVideoUrl;
                     return res.status(200).send(buildVideoSrc(src, 'video/mp4'));
+                }
+            } else if (sv === 4) {
+                const idxAbyss = episode.sources.findIndex(source => source.server === 'abyss');
+                if (idxAbyss != -1) {
+                    const src = episode.sources[idxAbyss].src === undefined ? '' : episode.sources[idxAbyss].src;
+                    return res.status(200).send(`<iframe id="iframe-embed" src='${src}' frameborder="0" scrolling="no" allow="autoplay; fullscreen" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" style="display: block;"></iframe>`);
                 }
             }
         }
