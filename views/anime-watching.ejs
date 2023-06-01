@@ -58,6 +58,27 @@
                 </div>
             </div>
 
+            <!-- Modal -->
+            <div class="modal fade" id="modal-error-report" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-exclamation-circle"></i> Báo lỗi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="p-3">Bạn chắc chắn muốn gửi báo lỗi cho tập phim này ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button id="btn-error-report" type="button" class="btn btn-primary">Gửi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="player-extend-display"></div>
             <div id="main-content">
 
@@ -100,6 +121,11 @@
                             <div id="capture" class="pc-item">
                                 <div class="toggle-basic">
                                     <span class="tb-name"><i class="fas fa-camera"></i> Chụp ảnh</span>
+                                </div>
+                            </div>
+                            <div id="error-report" class="pc-item">
+                                <div class="toggle-basic">
+                                    <span class="tb-name"><i class="fa fa-exclamation-circle"></i> Báo lỗi</span>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -416,7 +442,7 @@
     })(jQuery);
 </script>
 <% } %>
-<script type="text/javascript" src="https://statics.animeow.pro/js/main.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
 <!-- Google Tag Manager (noscript) -->
 <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZQ8M67"

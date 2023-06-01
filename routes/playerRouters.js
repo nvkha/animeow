@@ -3,6 +3,6 @@ const playerController = require('./../controllers/playerController');
 
 const router = express.Router();
 
-router.route("/player").post(playerController.getPlayer);
+router.route("/").post(playerController.getPlayer);
 
 module.exports = router;
