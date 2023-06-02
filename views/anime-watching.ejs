@@ -433,7 +433,7 @@
                 var player = videojs('player');
                 player.dispose();
                 $(".wb_-playerarea").empty();
-                $(".wb_-playerarea").html('Đang tải phim, vui lòng đợi trong giây lát..');
+                $(".wb_-playerarea").text('Đang tải phim, vui lòng đợi trong giây lát..');
                 var b = $(this).attr("data-server-id");
                 get_player(a, b);
             });
