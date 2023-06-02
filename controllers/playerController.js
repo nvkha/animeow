@@ -173,7 +173,7 @@ exports.getPlayer = async (req, res, next) => {
                 const idxAbyss = episode.sources.findIndex(source => source.server === 'abyss');
                 if (idxAbyss != -1) {
                     const src = episode.sources[idxAbyss].src === undefined ? '' : episode.sources[idxAbyss].src;
-                    return res.status(200).send(`<iframe id="iframe-embed" src='${src}' frameborder="0" scrolling="no" allowfullscreen style="position: absolute;"></iframe>`);
+                    return res.status(200).send(`<iframe id="iframe-embed" src='${src}' frameborder="0" scrolling="no" allowfullscreen style="display: block;"></iframe>`);
                 }
             }
         }
