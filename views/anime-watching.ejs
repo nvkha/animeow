@@ -15,11 +15,12 @@
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="https://statics.animeow.pro/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css" integrity="sha512-KulI0psuJQK8UMpOeiMLDXJtGOZEBm8RZNTyBBHIWqoXoPMFcw+L5AEo0YMpsW8BfiuWrdD1rH6GWGgQBF59Lg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css"
+          integrity="sha512-KulI0psuJQK8UMpOeiMLDXJtGOZEBm8RZNTyBBHIWqoXoPMFcw+L5AEo0YMpsW8BfiuWrdD1rH6GWGgQBF59Lg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="https://statics.animeow.pro/css/video-js.min.css" rel="stylesheet" type="text/css">
     <link href="https://statics.animeow.pro/css/fantasy.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://statics.animeow.pro/css/styles.css" type="text/css">
-    <%- include('./base/google') %>
 </head>
 <body>
 <div id="fb-root"></div>
@@ -59,11 +60,13 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="modal-error-report" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal fade" id="modal-error-report" tabindex="-1" aria-labelledby="modalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-exclamation-circle"></i> Báo lỗi</h5>
+                            <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-exclamation-circle"></i> Báo
+                                lỗi</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -177,8 +180,21 @@
                     <!--/End: Section eps-list-->
                 <% } %>
 
-                <!--Begin: Placeholder Ad-->
-                <!--End: Placeholder Ad-->
+                <!--Begin: Ads -->
+                <script async
+                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1409844988184491"
+                        crossorigin="anonymous"></script>
+                <!-- Ad Horizontal -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1409844988184491"
+                     data-ad-slot="1130360017"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+                <!--End: Ads -->
 
                 <!--Begin: Section detail-->
                 <section class="block_area block_area-detail">
@@ -291,6 +307,22 @@
                 </section>
                 <!--/End: Section detail-->
 
+                <!--Begin: Ads -->
+                <script async
+                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1409844988184491"
+                        crossorigin="anonymous"></script>
+                <!-- Ad Horizontal -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1409844988184491"
+                     data-ad-slot="1130360017"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+                <!--End: Ads -->
+
                 <!--Begin: Section comment-->
                 <section class="block_area block_area-comment">
                     <div class="block_area-content">
@@ -302,6 +334,20 @@
 
                 <div class="clearfix"></div>
             </div>
+
+            <!--Begin: Ads -->
+            <script async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1409844988184491"
+                    crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-format="autorelaxed"
+                 data-ad-client="ca-pub-1409844988184491"
+                 data-ad-slot="7114350219"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <!--End: Ads -->
 
 
             <!--Start: main-sidebar-->
@@ -379,70 +425,70 @@
 <script type="text/javascript" src="https://statics.animeow.pro/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://statics.animeow.pro/js/video.min.js"></script>
 <% if(anime.episodeCount > 0) { %>
-<script>
-    (function ($) {
-        function get_link_backup(a) {
-            $.ajax({
-                url: "https://animeow.pro/ajax/player",
-                type: "post",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({
-                    a: a,
-                }),
-                success: function (res) {
-                    $(".servers-sub").html(res);
-                    var b = $(".server-item")[0].getAttribute("data-server-id");
-                    $(".server-item a")[0].classList.add("active");
-                    get_player(a, b);
-                },
-                error: function (err) {
-                    console.log("Ajax error!");
-                }
-            })
-        }
-
-        function get_player(a, b) {
-            $.ajax({
-                url: "https://animeow.pro/ajax/player",
-                type: "post",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({
-                    a: a,
-                    b: b
-                }),
-                success: function (res) {
-                    $(".wb_-playerarea").html(res);
-                },
-                error: function (err) {
-                    console.log("Ajax error!");
-                }
-            })
-        }
-
-        $(document).ready(function () {
-            var a = $(".episodes-ul a.item.ep-item.active").attr("data-id");
-            get_link_backup(a);
-
-            $(document).on("click", ".server-item", function (e) {
-                e.preventDefault()
-                $(".server-item a").each(e => {
-                    $(".server-item a").get(e).classList.remove("active")
+    <script>
+        (function ($) {
+            function get_link_backup(a) {
+                $.ajax({
+                    url: "https://animeow.pro/ajax/player",
+                    type: "post",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        a: a,
+                    }),
+                    success: function (res) {
+                        $(".servers-sub").html(res);
+                        var b = $(".server-item")[0].getAttribute("data-server-id");
+                        $(".server-item a")[0].classList.add("active");
+                        get_player(a, b);
+                    },
+                    error: function (err) {
+                        console.log("Ajax error!");
+                    }
                 })
-                $(this).find("a")[0].classList.add("active");
+            }
 
-                var player = videojs('player');
-                player.dispose();
-                $(".wb_-playerarea").empty();
-                $(".wb_-playerarea").text('Đang tải phim, vui lòng đợi trong giây lát..');
-                var b = $(this).attr("data-server-id");
-                get_player(a, b);
+            function get_player(a, b) {
+                $.ajax({
+                    url: "https://animeow.pro/ajax/player",
+                    type: "post",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        a: a,
+                        b: b
+                    }),
+                    success: function (res) {
+                        $(".wb_-playerarea").html(res);
+                    },
+                    error: function (err) {
+                        console.log("Ajax error!");
+                    }
+                })
+            }
+
+            $(document).ready(function () {
+                var a = $(".episodes-ul a.item.ep-item.active").attr("data-id");
+                get_link_backup(a);
+
+                $(document).on("click", ".server-item", function (e) {
+                    e.preventDefault()
+                    $(".server-item a").each(e => {
+                        $(".server-item a").get(e).classList.remove("active")
+                    })
+                    $(this).find("a")[0].classList.add("active");
+
+                    var player = videojs('player');
+                    player.dispose();
+                    $(".wb_-playerarea").empty();
+                    $(".wb_-playerarea").text('Đang tải phim, vui lòng đợi trong giây lát..');
+                    var b = $(this).attr("data-server-id");
+                    get_player(a, b);
+                });
+
             });
-
-        });
-    })(jQuery);
-</script>
+        })(jQuery);
+    </script>
 <% } %>
-<script type="text/javascript" src="https://statics.animeow.pro/js/main.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
 <!-- Google Tag Manager (noscript) -->
 <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZQ8M67"
