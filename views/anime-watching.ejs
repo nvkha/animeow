@@ -180,21 +180,23 @@
                     <!--/End: Section eps-list-->
                 <% } %>
 
-                <!--Begin: Ads -->
-                <script async
-                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1409844988184491"
-                        crossorigin="anonymous"></script>
-                <!-- Ad Horizontal -->
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-1409844988184491"
-                     data-ad-slot="1130360017"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-                <!--End: Ads -->
+                <div class="mb-3">
+                    <!--Begin: Ads -->
+                    <script async
+                            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1409844988184491"
+                            crossorigin="anonymous"></script>
+                    <!-- Ad Horizontal -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-1409844988184491"
+                         data-ad-slot="1130360017"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    <!--End: Ads -->
+                </div>
 
                 <!--Begin: Section detail-->
                 <section class="block_area block_area-detail">
@@ -320,7 +322,8 @@
             </div>
 
             <!--Begin: Ads -->
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1409844988184491"
+            <script async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1409844988184491"
                     crossorigin="anonymous"></script>
             <!-- Ad Horizontal -->
             <ins class="adsbygoogle"
@@ -397,19 +400,6 @@
             </div>
             <!--/End: main-sidebar-->
 
-            <!--Begin: Ads -->
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1409844988184491"
-                    crossorigin="anonymous"></script>
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-format="autorelaxed"
-                 data-ad-client="ca-pub-1409844988184491"
-                 data-ad-slot="7114350219"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-            <!--End: Ads -->
-
             <div class="clearfix"></div>
         </div>
     </div>
@@ -427,7 +417,7 @@
         (function ($) {
             function get_link_backup(a) {
                 $.ajax({
-                    url: "https://animeow.pro/ajax/player",
+                    url: "http://localhost:3000/ajax/player",
                     type: "post",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
@@ -447,7 +437,7 @@
 
             function get_player(a, b) {
                 $.ajax({
-                    url: "https://animeow.pro/ajax/player",
+                    url: "http://localhost:3000/ajax/player",
                     type: "post",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
@@ -455,6 +445,7 @@
                         b: b
                     }),
                     success: function (res) {
+                        $(".wb_-playerarea").empty();
                         $(".wb_-playerarea").html(res);
                     },
                     error: function (err) {
