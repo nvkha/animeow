@@ -185,7 +185,7 @@ exports.search = async (req, res, next) => {
         const genresPromise = getGenres();
 
         const animeListPromise = Anime
-            .find({$or: [{$text: {$search: keyword}}, {title: {$regex: keyword}}]})
+            .find({$or: [{$text: {$search: keyword}}, {title: {$regex: keyword, $options: 'i'}}]})
             .select('title quality slug image episodeCount status releaseYear updatedAt type')
             .sort({score: {'$meta': 'textScore'}})
             .limit(30)
@@ -224,7 +224,7 @@ exports.filter = async (req, res, next) => {
         let page = 1;
 
         if (req.query.keyword) {
-            filterOptions.title = {$regex: `^${req.query.keyword}.*`}
+            filterOptions.title = {$regex: `${req.query.keyword}`, $options: 'i'}
         }
 
         if (req.query.genre) {
@@ -466,7 +466,7 @@ const getAnimeList = async () => {
         .find({status: {$in: ['finished', 'ongoing']}, genres: {$nin: ['63e2ddd8aad8b9231c98751b']}})
         .select('title slug image episodeCount status updatedAt quality releaseYear type')
         .sort({updatedAt: -1})
-        .limit(15)
+        .limit(10)
         .lean();
     if (animeList) {
         logger.info(`Set key into redis`);
@@ -487,7 +487,7 @@ const getAnimeListChinese = async () => {
         .find({status: {$in: ['finished', 'ongoing']}, genres: '63e2ddd8aad8b9231c98751b'})
         .select('title slug image episodeCount status updatedAt quality releaseYear type')
         .sort({updatedAt: -1})
-        .limit(15)
+        .limit(10)
         .lean();
     if (animeListChinese) {
         logger.info(`Set key into redis`);

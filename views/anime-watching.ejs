@@ -20,7 +20,14 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="https://statics.animeow.pro/css/video-js.min.css" rel="stylesheet" type="text/css">
     <link href="https://statics.animeow.pro/css/fantasy.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://statics.animeow.pro/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-NZQ8M67');</script>
+    <!-- End Google Tag Manager -->
 </head>
 <body>
 <div id="fb-root"></div>
@@ -444,10 +451,11 @@
                 get_link_backup(a);
 
                 $(document).on("click", ".server-item", function (e) {
+                    e.preventDefault()
+
                     $(".wb_-playerarea").empty();
                     $(".wb_-playerarea").text('Đang tải phim, vui lòng đợi trong giây lát..');
 
-                    e.preventDefault()
                     $(".server-item a").each(e => {
                         $(".server-item a").get(e).classList.remove("active")
                     })

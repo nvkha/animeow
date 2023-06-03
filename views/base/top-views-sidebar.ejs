@@ -2,7 +2,7 @@
     <section class="block_area block_area_sidebar block_area-filter">
         <div class="block_area-header">
             <div class="bah-heading">
-                <h2 class="cat-heading">Quick filter</h2>
+                <h2 class="cat-heading">Tìm kiếm nhanh</h2>
             </div>
         </div>
         <div class="block_area-content">
@@ -277,7 +277,7 @@
 
 <!--sidebar block-->
 <section class="block_area block_area_sidebar block_area-realtime">
-    <div class="block_area-header">
+    <div class="block_area-header mb-2">
         <div class="float-left bah-heading mr-2">
             <h2 class="cat-heading">Top Anime</h2>
         </div>
@@ -303,52 +303,26 @@
                         <ul class="ulclear">
                             <% if(topMostViewsDay) { %>
                                 <% for(let i = 0; i < topMostViewsDay.length; i++) { %>
-                                    <% if(i === 0) { %>
-                                        <li class="item-top">
-                                            <div class="film-number"><span><%= i + 1 %></span></div>
-                                            <div class="film-poster item-qtip">
-                                                <img src="https://statics.animeow.pro/imgur/<%= topMostViewsDay[i].image %>"
-                                                     class="film-poster-img"
-                                                     loading="lazy"
-                                                     alt="<%= topMostViewsDay[i].title %>">
-                                            </div>
-                                            <div class="film-detail">
-                                                <h3 class="film-name">
-                                                    <a href="/watch/<%= topMostViewsDay[i].slug %>"
-                                                       class="dynamic-name"><%= topMostViewsDay[i].title %></a>
-                                                </h3>
-                                                <div class="fd-infor">
-                                                    <span class="fdi-item mr-2">
-                                                        <i class="fas fa-eye mr-1"></i>
-                                                        <%= topMostViewsDay[i].views %>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </li>
-                                    <% } else { %>
-                                        <li class="">
-                                            <div class="film-number"><span><%= i + 1 %></span></div>
-                                            <div class="film-poster item-qtip">
-                                                <img src="https://statics.animeow.pro/imgur/<%= topMostViewsDay[i].image %>"
-                                                     class="film-poster-img"
-                                                     loading="lazy"
-                                                     alt="<%= topMostViewsDay[i].title %>">
-                                            </div>
-                                            <div class="film-detail">
-                                                <h3 class="film-name">
-                                                    <a href="/watch/<%= topMostViewsDay[i].slug %>"
-                                                       class="dynamic-name"><%= topMostViewsDay[i].title %></a>
-                                                </h3>
-                                                <div class="fd-infor">
+                                    <li class="">
+                                        <div class="film-poster item-qtip">
+                                            <img src="https://statics.animeow.pro/imgur/<%= topMostViewsDay[i].image %>"
+                                                 class="film-poster-img"
+                                                 loading="lazy"
+                                                 alt="<%= topMostViewsDay[i].title %>">
+                                        </div>
+                                        <div class="film-detail">
+                                            <h3 class="film-name">
+                                                <a href="/watch/<%= topMostViewsDay[i].slug %>"
+                                                   class="dynamic-name"><%= topMostViewsDay[i].title %></a>
+                                            </h3>
+                                            <div class="fd-infor">
                                                     <span class="fdi-item mr-2"><i
                                                                 class="fas fa-eye mr-1"></i><%= topMostViewsDay[i].views %></span>
-                                                    <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
-                                                </div>
+                                                <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
                                             </div>
-                                            <div class="clearfix"></div>
-                                        </li>
-                                    <% } %>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
                                 <% } %>
                             <% } %>
                         </ul>
@@ -357,52 +331,26 @@
                         <ul class="ulclear">
                             <% if(topMostViewsWeek) { %>
                                 <% for(let i = 0; i < topMostViewsWeek.length; i++) { %>
-                                    <% if(i === 0) { %>
-                                        <li class="item-top">
-                                            <div class="film-number"><span><%= i + 1 %></span></div>
-                                            <div class="film-poster item-qtip">
-                                                <img src="https://statics.animeow.pro/imgur/<%= topMostViewsWeek[i].image %>"
-                                                     class="film-poster-img"
-                                                     loading="lazy"
-                                                     alt="<%= topMostViewsWeek[i].title %>">
-                                            </div>
-                                            <div class="film-detail">
-                                                <h3 class="film-name">
-                                                    <a href="/watch/<%= topMostViewsWeek[i].slug %>"
-                                                       class="dynamic-name"><%= topMostViewsWeek[i].title %></a>
-                                                </h3>
-                                                <div class="fd-infor">
-                                                    <span class="fdi-item mr-2">
-                                                        <i class="fas fa-eye mr-1"></i>
-                                                        <%= topMostViewsWeek[i].views %>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </li>
-                                    <% } else { %>
-                                        <li class="">
-                                            <div class="film-number"><span><%= i + 1 %></span></div>
-                                            <div class="film-poster item-qtip">
-                                                <img src="https://statics.animeow.pro/imgur/<%= topMostViewsWeek[i].image %>"
-                                                     class="film-poster-img"
-                                                     loading="lazy"
-                                                     alt="<%= topMostViewsWeek[i].title %>">
-                                            </div>
-                                            <div class="film-detail">
-                                                <h3 class="film-name">
-                                                    <a href="/watch/<%= topMostViewsWeek[i].slug %>"
-                                                       class="dynamic-name"><%= topMostViewsWeek[i].title %></a>
-                                                </h3>
-                                                <div class="fd-infor">
+                                    <li class="">
+                                        <div class="film-poster item-qtip">
+                                            <img src="https://statics.animeow.pro/imgur/<%= topMostViewsWeek[i].image %>"
+                                                 class="film-poster-img"
+                                                 loading="lazy"
+                                                 alt="<%= topMostViewsWeek[i].title %>">
+                                        </div>
+                                        <div class="film-detail">
+                                            <h3 class="film-name">
+                                                <a href="/watch/<%= topMostViewsWeek[i].slug %>"
+                                                   class="dynamic-name"><%= topMostViewsWeek[i].title %></a>
+                                            </h3>
+                                            <div class="fd-infor">
                                                     <span class="fdi-item mr-2"><i
                                                                 class="fas fa-eye mr-1"></i><%= topMostViewsWeek[i].views %></span>
-                                                    <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
-                                                </div>
+                                                <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
                                             </div>
-                                            <div class="clearfix"></div>
-                                        </li>
-                                    <% } %>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
                                 <% } %>
                             <% } %>
                         </ul>
@@ -411,52 +359,26 @@
                         <ul class="ulclear">
                             <% if(topMostViewsMonth) { %>
                                 <% for(let i = 0; i < topMostViewsMonth.length; i++) { %>
-                                    <% if(i === 0) { %>
-                                        <li class="item-top">
-                                            <div class="film-number"><span><%= i + 1 %></span></div>
-                                            <div class="film-poster item-qtip">
-                                                <img src="https://statics.animeow.pro/imgur/<%= topMostViewsMonth[i].image %>"
-                                                     class="film-poster-img"
-                                                     loading="lazy"
-                                                     alt="<%= topMostViewsMonth[i].title %>">
-                                            </div>
-                                            <div class="film-detail">
-                                                <h3 class="film-name">
-                                                    <a href="/watch/<%= topMostViewsMonth[i].slug %>"
-                                                       class="dynamic-name"><%= topMostViewsMonth[i].title %></a>
-                                                </h3>
-                                                <div class="fd-infor">
-                                                    <span class="fdi-item mr-2">
-                                                        <i class="fas fa-eye mr-1"></i>
-                                                        <%= topMostViewsMonth[i].views %>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </li>
-                                    <% } else { %>
-                                        <li class="">
-                                            <div class="film-number"><span><%= i + 1 %></span></div>
-                                            <div class="film-poster item-qtip">
-                                                <img src="https://statics.animeow.pro/imgur/<%= topMostViewsMonth[i].image %>"
-                                                     class="film-poster-img"
-                                                     loading="lazy"
-                                                     alt="<%= topMostViewsMonth[i].title %>">
-                                            </div>
-                                            <div class="film-detail">
-                                                <h3 class="film-name">
-                                                    <a href="/watch/<%= topMostViewsMonth[i].slug %>"
-                                                       class="dynamic-name"><%= topMostViewsMonth[i].title %></a>
-                                                </h3>
-                                                <div class="fd-infor">
+                                    <li class="">
+                                        <div class="film-poster item-qtip">
+                                            <img src="https://statics.animeow.pro/imgur/<%= topMostViewsMonth[i].image %>"
+                                                 class="film-poster-img"
+                                                 loading="lazy"
+                                                 alt="<%= topMostViewsMonth[i].title %>">
+                                        </div>
+                                        <div class="film-detail">
+                                            <h3 class="film-name">
+                                                <a href="/watch/<%= topMostViewsMonth[i].slug %>"
+                                                   class="dynamic-name"><%= topMostViewsMonth[i].title %></a>
+                                            </h3>
+                                            <div class="fd-infor">
                                                     <span class="fdi-item mr-2"><i
                                                                 class="fas fa-eye mr-1"></i><%= topMostViewsMonth[i].views %></span>
-                                                    <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
-                                                </div>
+                                                <!--            <span class="fdi-item"><i class="fas fa-heart mr-1"></i>50211</span>-->
                                             </div>
-                                            <div class="clearfix"></div>
-                                        </li>
-                                    <% } %>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
                                 <% } %>
                             <% } %>
                         </ul>
