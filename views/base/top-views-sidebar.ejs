@@ -2,7 +2,6 @@
     <section class="block_area block_area_sidebar block_area-filter">
         <div class="block_area-header">
             <div class="bah-heading">
-                <h2 class="cat-heading">Tìm kiếm nhanh</h2>
             </div>
         </div>
         <div class="block_area-content">
@@ -277,7 +276,7 @@
 
 <!--sidebar block-->
 <section class="block_area block_area_sidebar block_area-realtime">
-    <div class="block_area-header mb-2">
+    <div class="block_area-header">
         <div class="float-left bah-heading mr-2">
             <h2 class="cat-heading">Top Anime</h2>
         </div>
@@ -302,8 +301,10 @@
                     <div id="top-viewed-day" class="anime-block-ul anif-block-chart tab-pane active">
                         <ul class="ulclear">
                             <% if(topMostViewsDay) { %>
-                                <% for(let i = 0; i < topMostViewsDay.length; i++) { %>
-                                    <li class="">
+                                <% for(let i = 0; i < topMostViewsDay.length - 3; i++) { %>
+                                    <li class="<% if(i + 1 === 1) { %>item-top<% } %>">
+                                        <div class="film-number <% if(i + 1 <= 3) { %>pos<%= i + 1 %><% } %>">
+                                            <span><%= i + 1 %></span></div>
                                         <div class="film-poster item-qtip">
                                             <img src="https://statics.animeow.pro/imgur/<%= topMostViewsDay[i].image %>"
                                                  class="film-poster-img"
@@ -330,8 +331,10 @@
                     <div id="top-viewed-week" class="anime-block-ul anif-block-chart tab-pane">
                         <ul class="ulclear">
                             <% if(topMostViewsWeek) { %>
-                                <% for(let i = 0; i < topMostViewsWeek.length; i++) { %>
-                                    <li class="">
+                                <% for(let i = 0; i < topMostViewsWeek.length - 3; i++) { %>
+                                    <li class="<% if(i + 1 === 1) { %>item-top<% } %>">
+                                        <div class="film-number <% if(i + 1 <= 3) { %>pos<%= i + 1 %><% } %>">
+                                            <span><%= i + 1 %></span></div>
                                         <div class="film-poster item-qtip">
                                             <img src="https://statics.animeow.pro/imgur/<%= topMostViewsWeek[i].image %>"
                                                  class="film-poster-img"
@@ -358,8 +361,10 @@
                     <div id="top-viewed-month" class="anime-block-ul anif-block-chart tab-pane">
                         <ul class="ulclear">
                             <% if(topMostViewsMonth) { %>
-                                <% for(let i = 0; i < topMostViewsMonth.length; i++) { %>
-                                    <li class="">
+                                <% for(let i = 0; i < topMostViewsMonth.length - 3; i++) { %>
+                                    <li class="<% if(i + 1 === 1) { %>item-top<% } %>">
+                                        <div class="film-number <% if(i + 1 <= 3) { %>pos<%= i + 1 %><% } %>">
+                                            <span><%= i + 1 %></span></div>
                                         <div class="film-poster item-qtip">
                                             <img src="https://statics.animeow.pro/imgur/<%= topMostViewsMonth[i].image %>"
                                                  class="film-poster-img"
