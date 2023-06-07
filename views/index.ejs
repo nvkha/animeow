@@ -19,14 +19,47 @@
 
     <!--Begin: Main-->
     <div id="main-wrapper">
-        <div class="container">
+        <div style="width: 1200px" class="container">
             <!--Begin: main-content-->
             <div id="main-content">
-                <% if(alert && alert.value.length > 0) { %>
-                    <!--Begin: text home-->
-                    <div id="text-home">
-                        <div class="alert alert-info"><%= alert.value %></div>
-                        <!--/End: text home-->
+                <% if(slideList) { %>
+                    <div class="deslide-wrap">
+                        <div id="slider" class="swiper">
+                            <div class="swiper-wrapper">
+                                <% slideList.value.forEach(function(slide) { %>
+                                    <div class="swiper-slide">
+                                        <div class="deslide-item">
+                                            <div class="deslide-cover">
+                                                <div class="deslide-cover-img">
+                                                    <a href="/watch/<%= slide.slug %>">
+                                                        <img class="film-poster-img"
+                                                             src="https://ik.imagekit.io/3q7pewvsl/banner/tr:w-1000,h-400/<%= slide.image %>"
+                                                             alt="<%= slide.title %>"
+                                                             loading="lazy">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="deslide-item-content">
+                                                <div class="desi-head-title">
+                                                    <a href="/watch/<%= slide.slug %>"><%= slide.title %></a>
+                                                </div>
+                                                <div class="desi-description"><%= slide.description %></div>
+                                                <div class="desi-buttons">
+                                                    <a href="/watch/<%= slide.slug %>" class="btn">Xem Ngay</a>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                            <div class="swiper-navigation">
+                                <div class="swiper-button swiper-button-next"><i class="fas fa-chevron-right"></i></div>
+                                <div class="swiper-button swiper-button-prev"><i class="fas fa-chevron-left"></i></div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
                     </div>
                 <% } %>
 
