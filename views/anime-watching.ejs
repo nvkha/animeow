@@ -409,7 +409,7 @@
         (function ($) {
             function get_link_backup(a) {
                 $.ajax({
-                    url: "https://animeow.pro/ajax/player",
+                    url: "http://localhost:3000/ajax/player",
                     type: "post",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
@@ -429,7 +429,7 @@
 
             function get_player(a, b) {
                 $.ajax({
-                    url: "https://animeow.pro/ajax/player",
+                    url: "http://localhost:3000/ajax/player",
                     type: "post",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
@@ -461,9 +461,11 @@
                     })
                     $(this).find("a")[0].classList.add("active");
 
-                    if ($("#player").length > 0) {
+                    try{
                         var player = videojs('player');
                         player.dispose();
+                    } catch (err) {
+                        console.log("Not found player");
                     }
                     var b = $(this).attr("data-server-id");
                     get_player(a, b);
