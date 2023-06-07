@@ -301,7 +301,7 @@
                     <div id="top-viewed-day" class="anime-block-ul anif-block-chart tab-pane active">
                         <ul class="ulclear">
                             <% if(topMostViewsDay) { %>
-                                <% for(let i = 0; i < topMostViewsDay.length - 3; i++) { %>
+                                <% for(let i = 0; i < topMostViewsDay.length; i++) { %>
                                     <li class="<% if(i + 1 === 1) { %>item-top<% } %>">
                                         <div class="film-number <% if(i + 1 <= 3) { %>pos<%= i + 1 %><% } %>">
                                             <span><%= i + 1 %></span></div>
@@ -331,7 +331,7 @@
                     <div id="top-viewed-week" class="anime-block-ul anif-block-chart tab-pane">
                         <ul class="ulclear">
                             <% if(topMostViewsWeek) { %>
-                                <% for(let i = 0; i < topMostViewsWeek.length - 3; i++) { %>
+                                <% for(let i = 0; i < topMostViewsWeek.length; i++) { %>
                                     <li class="<% if(i + 1 === 1) { %>item-top<% } %>">
                                         <div class="film-number <% if(i + 1 <= 3) { %>pos<%= i + 1 %><% } %>">
                                             <span><%= i + 1 %></span></div>
@@ -361,7 +361,7 @@
                     <div id="top-viewed-month" class="anime-block-ul anif-block-chart tab-pane">
                         <ul class="ulclear">
                             <% if(topMostViewsMonth) { %>
-                                <% for(let i = 0; i < topMostViewsMonth.length - 3; i++) { %>
+                                <% for(let i = 0; i < topMostViewsMonth.length; i++) { %>
                                     <li class="<% if(i + 1 === 1) { %>item-top<% } %>">
                                         <div class="film-number <% if(i + 1 <= 3) { %>pos<%= i + 1 %><% } %>">
                                             <span><%= i + 1 %></span></div>

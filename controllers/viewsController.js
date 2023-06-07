@@ -466,7 +466,7 @@ const getAnimeList = async () => {
         .find({status: {$in: ['finished', 'ongoing']}, genres: {$nin: ['63e2ddd8aad8b9231c98751b']}})
         .select('title slug image episodeCount status updatedAt quality releaseYear type')
         .sort({updatedAt: -1})
-        .limit(10)
+        .limit(12)
         .lean();
     if (animeList) {
         logger.info(`Set key into redis`);
@@ -487,7 +487,7 @@ const getAnimeListChinese = async () => {
         .find({status: {$in: ['finished', 'ongoing']}, genres: '63e2ddd8aad8b9231c98751b'})
         .select('title slug image episodeCount status updatedAt quality releaseYear type')
         .sort({updatedAt: -1})
-        .limit(10)
+        .limit(12)
         .lean();
     if (animeListChinese) {
         logger.info(`Set key into redis`);

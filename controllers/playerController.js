@@ -225,7 +225,7 @@ const getAnime47VideoSource = async (episodeId) => {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }
-    })
+    });
     let src;
     const arr = /atob\("(.*)"\);var/m.exec(res.data);
     if (arr && arr.length > 0) {
