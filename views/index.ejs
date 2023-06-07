@@ -63,6 +63,14 @@
                     </div>
                 <% } %>
 
+                <% if(alert && alert.value.length > 0) { %>
+                    <!--Begin: text home-->
+                    <div id="text-home">
+                        <div class="alert alert-info"><%= alert.value %></div>
+                        <!--/End: text home-->
+                    </div>
+                <% } %>
+
                 <section class="block_area block_area-anime none-bg">
                     <div class="block_area-header block_area-header-tabs">
                         <div class="float-left bah-heading mr-4">
