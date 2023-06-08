@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const schedule = require('node-schedule');
 const logger = require('./utils/logger');
 
-const googleAnalyticsUtils = require('./utils/googleAnalyticsUtils');
+const analytics = require('./utils/analytics');
 const sitemapGenerator = require('./utils/sitemapGenerator');
 
 process.on('uncaughtException', err => {
@@ -26,7 +26,7 @@ if (process.env.NODE_APP_INSTANCE === '0') {
     schedule.scheduleJob('*/30 * * * *', async function () {
         try {
             console.log(`Start update top most views job`);
-            await googleAnalyticsUtils.getTopMostViews();
+            await analytics.getTopMostViews();
         } catch (err) {
             logger.error(err);
         }
