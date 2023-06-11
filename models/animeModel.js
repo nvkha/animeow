@@ -77,6 +77,7 @@ const animeSchema = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Anime',
     }],
+    schedule: String,
     active: {
         type: Boolean,
         default: true,
