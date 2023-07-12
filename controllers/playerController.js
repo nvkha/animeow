@@ -9,7 +9,7 @@ const CryptoJS = require("crypto-js");
 
 exports.getPlayer = async (req, res, next) => {
     try {
-        if(req.headers['x-requested-with'] != 'XMLHttpRequest') {
+        if (req.headers['x-requested-with'] != 'XMLHttpRequest') {
             return res.status(404).send();
         }
 
@@ -18,7 +18,7 @@ exports.getPlayer = async (req, res, next) => {
         const episodeKey = `episode:${episodeId}`
 
         const episode = await getEpisode(episodeId);
-        if(!episode) {
+        if (!episode) {
             return res.status(404).send();
         }
 
@@ -48,6 +48,12 @@ exports.getPlayer = async (req, res, next) => {
             if (idxAbyss != -1) {
                 result += '<div class="item server-item" data-server-id="4">\n' +
                     '<a href="#" class="btn">#4</a>\n' +
+                    '</div>\n';
+            }
+            const idxVuiGhe = episode.sources.findIndex(source => source.server === 'vuighe');
+            if (idxVuiGhe != -1) {
+                result += '<div class="item server-item" data-server-id="5">\n' +
+                    '<a href="#" class="btn">#5</a>\n' +
                     '</div>\n';
             }
             result += '</div>\n' +
@@ -175,6 +181,50 @@ exports.getPlayer = async (req, res, next) => {
                     const src = episode.sources[idxAbyss].src === undefined ? '' : episode.sources[idxAbyss].src;
                     return res.status(200).send(`<iframe id="iframe-embed" src='${src}' frameborder="0" scrolling="no" allowfullscreen></iframe>`);
                 }
+            } else if (sv === 5) {
+                const idxVuiGhe = episode.sources.findIndex(source => source.server === 'vuighe');
+                if (idxVuiGhe != -1) {
+                    logger.info(`Found vuighe source at index: ${idxVuiGhe}`);
+                    if (episode.sources[idxVuiGhe].tempVideoUrl) {
+                        if (episode.sources[idxVuiGhe].oe <= Date.now()) {
+                            logger.info(`Vuighe video url expired with timestamp: ${episode.sources[idxVuiGhe].oe}, current timestamp ${Date.now()}`);
+                            try {
+                                logger.info(`Found vuighe source at index: ${idxVuiGhe}`);
+                                const src = await getAnimeVuiGheVideoSource(episode.sources[idxVuiGhe].src);
+                                if (src != null && src != undefined) {
+                                    episode.sources[idxVuiGhe].tempVideoUrl = src;
+                                    episode.sources[idxVuiGhe].oe = parseInt(new URL(episode.sources[idxVuiGhe].tempVideoUrl).searchParams.get('oe'), 16) * 1000;
+                                    logger.info(`Set key into redis`);
+                                    await cache.set(episodeKey, JSON.stringify(episode));
+                                }
+                            } catch (err) {
+                                logger.error({
+                                    message: err.message,
+                                    _episodeId: episodeId,
+                                    _episodeNum: episode.episodeNum,
+                                });
+                            }
+                        }
+                    } else {
+                        try {
+                            const src = await getAnimeVuiGheVideoSource(episode.sources[idxVuiGhe].src);
+                            if (src != null && src != undefined) {
+                                episode.sources[idxVuiGhe].tempVideoUrl = src;
+                                episode.sources[idxVuiGhe].oe = parseInt(new URL(episode.sources[idxVuiGhe].tempVideoUrl).searchParams.get('oe'), 16) * 1000;
+                                logger.info(`Set key into redis`);
+                                await cache.set(episodeKey, JSON.stringify(episode));
+                            }
+                        } catch (err) {
+                            logger.error({
+                                message: err.message,
+                                _episodeId: episodeId,
+                                _episodeNum: episode.episodeNum,
+                            });
+                        }
+                    }
+                    const src = episode.sources[idxVuiGhe].tempVideoUrl === undefined ? '' : episode.sources[idxVuiGhe].tempVideoUrl;
+                    return res.status(200).send(buildVideoSrc(src, 'video/mp4'));
+                }
             }
         }
 
@@ -206,16 +256,40 @@ const buildVideoSrc = (src, type) => {
         '<script>videojs("player",{preload:"auto",controls:!0,autoplay:!1,notSupportedMessage:"Tập phim trên server này đã bị lỗi! Bạn vui lòng thông báo cho Admin hoặc chọn server khác(nếu có) nhé! Thank you <3"})</script>'
 }
 
-const getAnimeVuiGheVideoSource = async () => {
-    axios.get("https://vuigher.com/api/v2/films/6004/episodes/145528/true", {
+const getAnimeVuiGheVideoSource = async (path) => {
+    let src;
+    const url = process.env.VUIGHE_API + path;
+    const id = path.split('/').at(-2);
+    const res = await axios.get(url, {
         headers: {
             // "accept": "*/*",
             "x-requested-with": "XMLHttpRequest",
-            "Referer": "https://vuigher.com/kimi-wa-houkago-insomnia/tap-5-sao-canopus"
+            "Referer": "https://vuighe1.com/kimetsu-no-yaiba/tap-1-tan-ac"
         },
-    }).then(res => {
-        console.log(res)
-    }).catch((error) => console.log(error));
+    })
+    if (res.data.sources.fb.length > 0) {
+        src = encodeString(res.data.sources.fb[0].src, parseInt(id) % 100);
+        for (let i = 1; i < res.data.sources.fb.length; i++) {
+            if (res.data.sources.fb[i].quality === '720p') {
+                src = encodeString(res.data.sources.fb[i].src, parseInt(id) % 100);
+            }
+            if (res.data.sources.fb[i].quality === '1080p') {
+                src = encodeString(res.data.sources.fb[i].src, parseInt(id) % 100);
+            }
+        }
+    }
+
+    return src;
+}
+
+const encodeString = (e, t) => {
+    let result = "";
+    e.toString();
+    for (let i = 0; i < e.length; i++) {
+        let r = e.charCodeAt(i) ^ t;
+        result += String.fromCharCode(r)
+    }
+    return result;
 }
 
 const getAnime47VideoSource = async (episodeId) => {

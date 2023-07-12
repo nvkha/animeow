@@ -15,7 +15,7 @@ const episodeSchema = mongoose.Schema({
     sources: [{
         server: {
             type: String,
-            enum: ['fb', 'abyss', 'lotus', 'streamtape', 'anime47'],
+            enum: ['fb', 'abyss', 'lotus', 'streamtape', 'anime47', 'vuighe'],
             required: [true, 'Server must have a src!'],
         },
         src: {
