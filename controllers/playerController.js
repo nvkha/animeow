@@ -46,14 +46,14 @@ exports.getPlayer = async (req, res, next) => {
             }
             const idxAbyss = episode.sources.findIndex(source => source.server === 'abyss');
             if (idxAbyss != -1) {
-                result += '<div class="item server-item" data-server-id="4">\n' +
-                    '<a href="#" class="btn">#4</a>\n' +
+                result += '<div class="item server-item" data-server-id="5">\n' +
+                    '<a href="#" class="btn">#5</a>\n' +
                     '</div>\n';
             }
             const idxVuiGhe = episode.sources.findIndex(source => source.server === 'vuighe');
             if (idxVuiGhe != -1) {
-                result += '<div class="item server-item" data-server-id="5">\n' +
-                    '<a href="#" class="btn">#5</a>\n' +
+                result += '<div class="item server-item" data-server-id="4">\n' +
+                    '<a href="#" class="btn">#4</a>\n' +
                     '</div>\n';
             }
             result += '</div>\n' +
@@ -175,13 +175,13 @@ exports.getPlayer = async (req, res, next) => {
                     const src = episode.sources[idxAnime47].tempVideoUrl === undefined ? '' : episode.sources[idxAnime47].tempVideoUrl;
                     return res.status(200).send(buildVideoSrc(src, 'video/mp4'));
                 }
-            } else if (sv === 4) {
+            } else if (sv === 5) {
                 const idxAbyss = episode.sources.findIndex(source => source.server === 'abyss');
                 if (idxAbyss != -1) {
                     const src = episode.sources[idxAbyss].src === undefined ? '' : episode.sources[idxAbyss].src;
                     return res.status(200).send(`<iframe id="iframe-embed" src='${src}' frameborder="0" scrolling="no" allowfullscreen></iframe>`);
                 }
-            } else if (sv === 5) {
+            } else if (sv === 4) {
                 const idxVuiGhe = episode.sources.findIndex(source => source.server === 'vuighe');
                 if (idxVuiGhe != -1) {
                     logger.info(`Found vuighe source at index: ${idxVuiGhe}`);
@@ -190,7 +190,8 @@ exports.getPlayer = async (req, res, next) => {
                             logger.info(`Vuighe video url expired with timestamp: ${episode.sources[idxVuiGhe].oe}, current timestamp ${Date.now()}`);
                             try {
                                 logger.info(`Found vuighe source at index: ${idxVuiGhe}`);
-                                const src = await getAnimeVuiGheVideoSource(episode.sources[idxVuiGhe].src);
+                                const res = await getAnimeVuiGhe(episode.sources[idxVuiGhe].src);
+                                const src = await getAnimeVuiGheVideoSource(res, episode.sources[idxVuiGhe].src);
                                 if (src != null && src != undefined) {
                                     episode.sources[idxVuiGhe].tempVideoUrl = src;
                                     episode.sources[idxVuiGhe].oe = parseInt(new URL(episode.sources[idxVuiGhe].tempVideoUrl).searchParams.get('oe'), 16) * 1000;
@@ -207,8 +208,11 @@ exports.getPlayer = async (req, res, next) => {
                         }
                     } else {
                         try {
-                            const src = await getAnimeVuiGheVideoSource(episode.sources[idxVuiGhe].src);
+                            const res = await getAnimeVuiGhe(episode.sources[idxVuiGhe].src);
+                            const src = await getAnimeVuiGheVideoSource(res, episode.sources[idxVuiGhe].src);
+                            const sub = await getAnimeVuiGheVideoSub(res, episode.sources[idxVuiGhe].src);
                             if (src != null && src != undefined) {
+                                episode.sources[idxVuiGhe].sub = b64EncodeUnicode(sub);
                                 episode.sources[idxVuiGhe].tempVideoUrl = src;
                                 episode.sources[idxVuiGhe].oe = parseInt(new URL(episode.sources[idxVuiGhe].tempVideoUrl).searchParams.get('oe'), 16) * 1000;
                                 logger.info(`Set key into redis`);
@@ -223,6 +227,9 @@ exports.getPlayer = async (req, res, next) => {
                         }
                     }
                     const src = episode.sources[idxVuiGhe].tempVideoUrl === undefined ? '' : episode.sources[idxVuiGhe].tempVideoUrl;
+                    if (episode.sources[idxVuiGhe].sub != null && episode.sources[idxVuiGhe].sub != undefined) {
+                        return res.status(200).send(buildVideoSrcWithSub(src, 'video/mp4', episode.sources[idxVuiGhe].sub));
+                    }
                     return res.status(200).send(buildVideoSrc(src, 'video/mp4'));
                 }
             }
@@ -256,10 +263,27 @@ const buildVideoSrc = (src, type) => {
         '<script>videojs("player",{preload:"auto",controls:!0,autoplay:!1,notSupportedMessage:"Tập phim trên server này đã bị lỗi! Bạn vui lòng thông báo cho Admin hoặc chọn server khác(nếu có) nhé! Thank you <3"})</script>'
 }
 
-const getAnimeVuiGheVideoSource = async (path) => {
-    let src;
+
+function b64EncodeUnicode(str) {
+    // first we use encodeURIComponent to get percent-encoded Unicode,
+    // then we convert the percent encodings into raw bytes which
+    // can be fed into btoa.
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+            return String.fromCharCode('0x' + p1);
+        }));
+}
+
+const buildVideoSrcWithSub = (src, type, sub) => {
+    return '<video style="position: absolute" id=player class="video-js vjs-16-9 vjs-theme-fantasy" playsinline oncontextmenu=return!1>\n' +
+        `<source src="${src}" type="${type}">\n` +
+        `<track kind="subtitles" src="data:text/vtt;base64,${sub}" srclang="vi" default="true" mode="showing">\n` +
+        '</video>\n' +
+        '<script>videojs("player",{preload:"auto",controls:!0,autoplay:!1,notSupportedMessage:"Tập phim trên server này đã bị lỗi! Bạn vui lòng thông báo cho Admin hoặc chọn server khác(nếu có) nhé! Thank you <3"});</script>'
+}
+
+const getAnimeVuiGhe = async (path) => {
     const url = process.env.VUIGHE_API + path;
-    const id = path.split('/').at(-2);
     const res = await axios.get(url, {
         headers: {
             // "accept": "*/*",
@@ -267,6 +291,12 @@ const getAnimeVuiGheVideoSource = async (path) => {
             "Referer": "https://vuighe1.com/kimetsu-no-yaiba/tap-1-tan-ac"
         },
     })
+    return res;
+}
+
+const getAnimeVuiGheVideoSource = (res, path) => {
+    let src;
+    const id = path.split('/').at(-2);
     if (res.data.sources.fb.length > 0) {
         src = encodeString(res.data.sources.fb[0].src, parseInt(id) % 100);
         for (let i = 1; i < res.data.sources.fb.length; i++) {
@@ -280,6 +310,14 @@ const getAnimeVuiGheVideoSource = async (path) => {
     }
 
     return src;
+}
+
+const getAnimeVuiGheVideoSub = (res) => {
+    let sub;
+    if (res.data.cue) {
+        sub = res.data.cue.vi;
+    }
+    return sub;
 }
 
 const encodeString = (e, t) => {
