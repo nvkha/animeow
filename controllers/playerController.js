@@ -44,16 +44,16 @@ exports.getPlayer = async (req, res, next) => {
                     '<a href="#" class="btn">#3</a>\n' +
                     '</div>\n';
             }
-            const idxAbyss = episode.sources.findIndex(source => source.server === 'abyss');
-            if (idxAbyss != -1) {
-                result += '<div class="item server-item" data-server-id="5">\n' +
-                    '<a href="#" class="btn">#5</a>\n' +
-                    '</div>\n';
-            }
             const idxVuiGhe = episode.sources.findIndex(source => source.server === 'vuighe');
             if (idxVuiGhe != -1) {
                 result += '<div class="item server-item" data-server-id="4">\n' +
                     '<a href="#" class="btn">#4</a>\n' +
+                    '</div>\n';
+            }
+            const idxAbyss = episode.sources.findIndex(source => source.server === 'abyss');
+            if (idxAbyss != -1) {
+                result += '<div class="item server-item" data-server-id="5">\n' +
+                    '<a href="#" class="btn">#5</a>\n' +
                     '</div>\n';
             }
             result += '</div>\n' +
