@@ -18,6 +18,7 @@ const parameterRouter = require('./routes/parameterRouters');
 const adminRouter = require('./routes/adminRouters');
 const playerRouter = require('./routes/playerRouters');
 const errorReportRouter = require('./routes/errorReportRouters');
+const serviceNotAvailableRouter = require('./routes/serviceNotAvailableRouters');
 const viewRouter = require('./routes/viewRouter');
 
 const app = express();
@@ -46,6 +47,7 @@ app.use(xss());
 app.use(morgan('dev'));
 
 app.use('/', viewRouter);
+app.use('/verify', serviceNotAvailableRouter);
 app.use('/ajax/player', playerRouter);
 app.use('/ajax/error-report', errorReportRouter);
 app.use('/animeow/admin', adminRouter);
