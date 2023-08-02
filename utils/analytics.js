@@ -99,7 +99,7 @@ module.exports.getTopMostViews = async function () {
     const yyyy = today.getFullYear();
     today = yyyy + '-' + mm + '-' + dd;
 
-    const resDay = await runReportPiwik(today, today);
+    const resDay = await runReportGoogleAnalytics('yesterday', 'today');
     const resWeek = await runReportGoogleAnalytics('7daysAgo', 'today');
     const resMonth = await runReportGoogleAnalytics('30daysAgo', 'today');
 
